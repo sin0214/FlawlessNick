@@ -28,32 +28,32 @@ public class Nick extends CommandBase {
 
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) {
-		if(!Main.getMod().isInfo()) {
-			Main.getMod().sendMessage(Main.getMod().getPrefix() + Main.getMod().getInfoMessage());
+		if(!Main.getInstance().isInfo()) {
+			Main.getInstance().sendMessage(Main.getInstance().getPrefix() + Main.getInstance().getInfoMessage());
 			return;
 		}
 
 		if(args.length == 0) {
-			Main.getMod().sendMessage(Main.getMod().getPrefix() + "&cUsage: /nickk <nickname>");
+			Main.getInstance().sendMessage(Main.getInstance().getPrefix() + "&cUsage: /nickk <nickname>");
 			return;
 		}
 
-		for(String name : Main.getMod().getDisabledList()) {
+		for(String name : Main.getInstance().getDisabledList()) {
 			if(args[0].contains(name.toLowerCase())) {
-				Main.getMod().sendMessage(Main.getMod().getPrefix() + "&cThis name is not allowed!");
+				Main.getInstance().sendMessage(Main.getInstance().getPrefix() + "&cThis name is not allowed!");
 				return;
 			}
 		}
 
 		if(args[0].equalsIgnoreCase("reset") || args[0].equalsIgnoreCase("clear")) {
-			Main.getMod().getNickManager().setNick(false);
-			Main.getMod().sendMessage("&aYour nick has been reset!");
+			Main.getInstance().getNickManager().setNick(false);
+			Main.getInstance().sendMessage("&aYour nick has been reset!");
 			return;
 		}
 
-		Main.getMod().getNickManager().setNick(true);
-		Main.getMod().getNickManager().setNickname(args[0]);
-		Main.getMod().sendMessage("&aYou are now nicked as " + args[0] + "&a!");
+		Main.getInstance().getNickManager().setNick(true);
+		Main.getInstance().getNickManager().setNickname(args[0]);
+		Main.getInstance().sendMessage("&aYou are now nicked as " + args[0] + "&a!");
 	}
 
 }

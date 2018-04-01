@@ -7,7 +7,6 @@ import com.google.common.collect.ComparisonChain;
 import com.google.common.collect.Ordering;
 import com.mojang.authlib.GameProfile;
 
-import net.md_5.bungee.api.ChatColor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.Gui;
@@ -135,18 +134,18 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 				NetworkPlayerInfo networkPlayerInfo = (NetworkPlayerInfo) list.get(k4);
 				String s1 = this.getPlayerName(networkPlayerInfo);
 
-				if(Main.getMod().getNickManager().isNick()) {
+				if(Main.getInstance().getNickManager().isNick()) {
 					EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
 					s1 = s1.replaceAll("\u00a7", "&");
 
-					for(String prefix : Main.getMod().getRankList()) {
+					for(String prefix : Main.getInstance().getRankList()) {
 						if(s1.contains(prefix + " " + player.getName())) {
-							s1 = s1.replace(prefix + " " + player.getName(), Main.getMod().getNickManager().getPrefix() + " " + Main.getMod().getNickManager().getNickname());
+							s1 = s1.replace(prefix + " " + player.getName(), Main.getInstance().getNickManager().getPrefix() + " " + Main.getInstance().getNickManager().getNickname());
 						}
 					}
 
 					if(s1.contains(player.getName())) {
-						s1 = s1.replace(player.getName(), Main.getMod().getNickManager().getPrefix().substring(0, 2) + Main.getMod().getNickManager().getNickname());
+						s1 = s1.replace(player.getName(), Main.getInstance().getNickManager().getPrefix().substring(0, 2) + Main.getInstance().getNickManager().getNickname());
 					}
 				}
 				s1 = s1.replace("&", "§");

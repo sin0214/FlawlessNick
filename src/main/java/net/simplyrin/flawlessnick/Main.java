@@ -107,7 +107,7 @@ public class Main {
 			}
 
 			try {
-				String[] result = Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/SimpleNickMod/disabledNames.txt").split(",");
+				String[] result = Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/FlawlessNick/disabledNames.txt").split(",");
 				for(String name : result) {
 					this.disabledList.add(name);
 				}
@@ -200,12 +200,12 @@ public class Main {
 		}
 	}
 
-	public static Main getMod() {
+	public static Main getInstance() {
 		return mod;
 	}
 
 	public String getPrefix() {
-		return "§7[§cSimpleNick§7] §r";
+		return "§7[§cFlawlessNick§7] §r";
 	}
 
 	public void sendMessage(String message) {
