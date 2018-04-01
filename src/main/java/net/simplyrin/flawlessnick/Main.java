@@ -43,7 +43,6 @@ public class Main {
 
 	private boolean isHypixel = false;
 	private boolean hasUpdate = false;
-	private boolean updateNoticed = false;
 	private String updateVersion = "";
 	private String updateMessage = "";
 
@@ -133,26 +132,22 @@ public class Main {
 		String address = event.manager.getRemoteAddress().toString().toLowerCase();
 
 		this.isHypixel = address.contains("hypixel.net");
-		if(!this.updateNoticed) {
-			if(!this.hasUpdate) {
-				return;
-			}
-			updateNoticed = true;
-			Multithreading.runAsync(() -> {
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-				this.sendMessage(this.getPrefix() + "&e&m----------------------------------");
-				this.sendMessage(this.getPrefix() + "&eFlawlessNick の更新が利用できます。");
-				this.sendMessage(this.getPrefix() + " ");
-				this.sendMessage(this.getPrefix() + "&eバージョン: " + this.updateVersion);
-				this.sendMessage(this.getPrefix() + "&eメッセージ: " + this.updateMessage);
-				this.sendMessage(this.getPrefix() + "&e&m----------------------------------");
-			});
+		if(!this.hasUpdate) {
+			return;
 		}
+		Multithreading.runAsync(() -> {
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			this.sendMessage(this.getPrefix() + "&e&m----------------------------------");
+			this.sendMessage(this.getPrefix() + "&eFlawlessNick has new version!");
+			this.sendMessage(this.getPrefix() + " ");
+			this.sendMessage(this.getPrefix() + "&eVersion: " + this.updateVersion);
+			this.sendMessage(this.getPrefix() + "&eMessage: " + this.updateMessage);
+			this.sendMessage(this.getPrefix() + "&e&m----------------------------------");
+		});
 	}
 
 	@SubscribeEvent
