@@ -210,6 +210,9 @@ public class Main {
 
 			event.setCanceled(true);
 
+			message = message.replaceAll("&r", "");
+			message = message.replace("&r", "");
+
 			Minecraft.getMinecraft().renderGlobal.loadRenderers();
 
 			if(message.equals("&e" + player.getName() + " joined.")) {
@@ -230,7 +233,7 @@ public class Main {
 				return;
 			}
 
-			this.sendMessage(message.replaceAll(player.getName(), StringUtils.left(nickPrefix, 2) + "" + nick+"§r"));
+			this.sendMessage(message.replace(player.getName(), StringUtils.left(nickPrefix, 2) + "" + nick));
 		}
 	}
 
@@ -358,7 +361,7 @@ public class Main {
 
 		private boolean nick;
 		private String nickname;
-		private String prefix = "&f";
+		private String prefix = "&a[VIP]";
 
 		public void setNick(boolean b) {
 			this.nick = b;
