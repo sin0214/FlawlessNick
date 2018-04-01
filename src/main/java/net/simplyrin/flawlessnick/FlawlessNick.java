@@ -31,6 +31,10 @@ import net.simplyrin.flawlessnick.command.Nick;
 import net.simplyrin.flawlessnick.command.NickRank;
 import net.simplyrin.flawlessnick.utils.CustomTabOverlay;
 
+/**
+ * Powered by SimpleNickMod.
+ *
+ */
 @Mod(modid = FlawlessNick.MODID, version = FlawlessNick.VERSION, clientSideOnly = true)
 public class FlawlessNick {
 
@@ -218,31 +222,31 @@ public class FlawlessNick {
 		message = message.replaceAll("&", "\u00a7");
 		message = message.replaceAll("§", "\u00a7");
 
-		Minecraft.getMinecraft().thePlayer.addChatComponentMessage(new ChatComponentText(message));
+		instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message));
 	}
 
 	public List<String> getRankList() {
-		return this.list;
+		return instance.list;
 	}
 
 	public NickManager getNickManager() {
-		return this.nickManager;
+		return instance.nickManager;
 	}
 
 	public SkinManager getSkinManager() {
-		return this.skinManager;
+		return instance.skinManager;
 	}
 
 	public List<String> getDisabledList() {
-		return this.disabledList;
+		return instance.disabledList;
 	}
 
 	public boolean isInfo() {
-		return this.isInfo;
+		return instance.isInfo;
 	}
 
 	public String getInfoMessage() {
-		return this.infoMessage;
+		return instance.infoMessage;
 	}
 
 	public static class FieldWrapper<T> {

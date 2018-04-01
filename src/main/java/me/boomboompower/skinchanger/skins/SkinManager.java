@@ -43,8 +43,6 @@ public class SkinManager {
 
 	private String skinName = "";
 
-	public boolean isOn = false;
-
 	public SkinManager(EntityPlayer player) {
 		this.mc = Minecraft.getMinecraft();
 		this.playerIn = player == null ? Minecraft.getMinecraft().thePlayer : player;
@@ -88,7 +86,7 @@ public class SkinManager {
 	}
 
 	public void replaceSkin(ResourceLocation location) {
-		if (playerIn == null || skinName == null || skinName.isEmpty()) return;
+		if(playerIn == null || skinName == null || skinName.isEmpty()) return;
 
 		NetworkPlayerInfo playerInfo;
 
@@ -99,7 +97,7 @@ public class SkinManager {
 			return;
 		}
 
-		if (location != null) {
+		if(location != null) {
 			try {
 				ReflectUtils.setPrivateValue(NetworkPlayerInfo.class, playerInfo, location, "locationSkin", "field_178865_e");
 			} catch (Exception ex) {
@@ -112,7 +110,7 @@ public class SkinManager {
 		if (name != null && !name.isEmpty()) {
 			final ResourceLocation location = new ResourceLocation("skins/" + name);
 
-			File file1 = new File(new File("./mods/FlawlessNick/".replace("/", File.separator), "skins"), UUID.nameUUIDFromBytes(name.getBytes()).toString());
+			File file1 = new File(new File("mods/FlawlessNick/".replace("/", File.separator), "skins"), UUID.nameUUIDFromBytes(name.getBytes()).toString());
 			File file2 = new File(file1, UUID.nameUUIDFromBytes(name.getBytes()).toString() + ".png");
 
 			final IImageBuffer imageBuffer = new ImageBufferDownload();
