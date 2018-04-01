@@ -63,8 +63,8 @@ public class Main {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		mod = this;
-		this.skinManager = new SkinManager(Minecraft.getMinecraft().thePlayer);
 		this.mc = Minecraft.getMinecraft();
+		this.skinManager = new SkinManager(this.mc.thePlayer);
 
 		MinecraftForge.EVENT_BUS.register(this);
 		MinecraftForge.EVENT_BUS.register(new SkinEvents());
@@ -204,6 +204,10 @@ public class Main {
 		return mod;
 	}
 
+	public Minecraft getMinecraft() {
+		return this.mc;
+	}
+
 	public String getPrefix() {
 		return "§7[§cFlawlessNick§7] §r";
 	}
@@ -324,7 +328,7 @@ public class Main {
 		public String getPrefix() {
 			if(Main.getInstance().isHypixel) {
 				return this.prefix;
-			}else {
+			} else {
 				return "";
 			}
 		}

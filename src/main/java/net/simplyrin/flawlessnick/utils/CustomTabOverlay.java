@@ -153,17 +153,17 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 				GameProfile gameprofile = networkPlayerInfo.getGameProfile();
 
 				if(flag) {
-					EntityPlayer entityplayer = this.mc.theWorld.getPlayerEntityByUUID(gameprofile.getId());
-					boolean flag1 = entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.CAPE) && (gameprofile.getName().equals("Dinnerbone") || gameprofile.getName().equals("Grumm"));
+					EntityPlayer entityPlayer = this.mc.theWorld.getPlayerEntityByUUID(gameprofile.getId());
+					boolean flag1 = entityPlayer != null && entityPlayer.isWearing(EnumPlayerModelParts.CAPE) && (gameprofile.getName().equals("Dinnerbone") || gameprofile.getName().equals("Grumm"));
 					this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
 					int l2 = 8 + (flag1 ? 8 : 0);
 					int i3 = 8 * (flag1 ? -1 : 1);
-					Gui.drawScaledCustomSizeModalRect(j2, k2, 8.0F, (float)l2, 8, i3, 8, 8, 64.0F, 64.0F);
+					Gui.drawScaledCustomSizeModalRect(j2, k2, 8.0F, (float) l2, 8, i3, 8, 8, 64.0F, 64.0F);
 
-					if(entityplayer != null && entityplayer.isWearing(EnumPlayerModelParts.HAT)) {
+					if(entityPlayer != null && entityPlayer.isWearing(EnumPlayerModelParts.HAT)) {
 						int j3 = 8 + (flag1 ? 8 : 0);
 						int k3 = 8 * (flag1 ? -1 : 1);
-						Gui.drawScaledCustomSizeModalRect(j2, k2, 40.0F, (float)j3, 8, k3, 8, 8, 64.0F, 64.0F);
+						Gui.drawScaledCustomSizeModalRect(j2, k2, 40.0F, (float) j3, 8, k3, 8, 8, 64.0F, 64.0F);
 					}
 
 					j2 += 9;
@@ -171,9 +171,9 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 
 				if(networkPlayerInfo.getGameType() == WorldSettings.GameType.SPECTATOR) {
 					s1 = EnumChatFormatting.ITALIC + s1;
-					this.mc.fontRendererObj.drawStringWithShadow(s1, (float)j2, (float)k2, -1862270977);
+					this.mc.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1862270977);
 				} else {
-					this.mc.fontRendererObj.drawStringWithShadow(s1, (float)j2, (float)k2, -1);
+					this.mc.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1);
 				}
 
 				this.drawPing(i1, j2 - (flag ? 9 : 0), k2, networkPlayerInfo);
