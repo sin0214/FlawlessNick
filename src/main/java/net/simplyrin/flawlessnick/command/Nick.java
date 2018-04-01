@@ -39,7 +39,7 @@ public class Nick extends CommandBase {
 		}
 
 		for(String name : Main.getInstance().getDisabledList()) {
-			if(args[0].contains(name.toLowerCase())) {
+			if(args[0].toLowerCase().contains(name.toLowerCase())) {
 				Main.getInstance().sendMessage(Main.getInstance().getPrefix() + "&cThis name is not allowed!");
 				return;
 			}
