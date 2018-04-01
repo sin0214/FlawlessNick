@@ -149,7 +149,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						s1 = s1.replace(player.getName(), Main.getMod().getNickManager().getPrefix().substring(0, 2) + Main.getMod().getNickManager().getNickname());
 					}
 				}
-				s1 = s1.replace("\u00a7", "&");
+				s1 = s1.replace("\u00a7", "§");
 
 				GameProfile gameprofile = networkPlayerInfo.getGameProfile();
 
