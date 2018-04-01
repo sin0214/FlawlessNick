@@ -9,7 +9,6 @@ import com.mojang.authlib.GameProfile;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.GuiPlayerTabOverlay;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -43,17 +42,18 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		this.mc = mc;
 	}
 
+	@Override
 	public void renderPlayerlist(int width, Scoreboard scoreboardIn, ScoreObjective scoreObjectiveIn) {
 		List<NetworkPlayerInfo> list = ordering.sortedCopy(this.mc.getNetHandler().getPlayerInfoMap());
 		int i = 0;
 		int j = 0;
 
-		for (NetworkPlayerInfo networkplayerinfo : list) {
-			int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkplayerinfo));
+		for (NetworkPlayerInfo networkPlayerInfo : list) {
+			int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo));
 			i = Math.max(i, k);
 
 			if(scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
-				k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkplayerinfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
+				k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkPlayerInfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
 				j = Math.max(j, k);
 			}
 		}
@@ -147,23 +147,23 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 					if(s1.contains(player.getName())) {
 						s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
 					}
+					s1 = s1.replace("&", "§");
 				}
-				s1 = s1.replace("&", "§");
 
-				GameProfile gameprofile = networkPlayerInfo.getGameProfile();
+				GameProfile gameProfile = networkPlayerInfo.getGameProfile();
 
 				if(flag) {
-					EntityPlayer entityPlayer = this.mc.theWorld.getPlayerEntityByUUID(gameprofile.getId());
-					boolean flag1 = entityPlayer != null && entityPlayer.isWearing(EnumPlayerModelParts.CAPE) && (gameprofile.getName().equals("Dinnerbone") || gameprofile.getName().equals("Grumm"));
+					EntityPlayer entityPlayer = this.mc.theWorld.getPlayerEntityByUUID(gameProfile.getId());
+					boolean flag1 = entityPlayer != null && entityPlayer.isWearing(EnumPlayerModelParts.CAPE) && (gameProfile.getName().equals("Dinnerbone") || gameProfile.getName().equals("Grumm"));
 					this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
 					int l2 = 8 + (flag1 ? 8 : 0);
 					int i3 = 8 * (flag1 ? -1 : 1);
-					Gui.drawScaledCustomSizeModalRect(j2, k2, 8.0F, (float) l2, 8, i3, 8, 8, 64.0F, 64.0F);
+					drawScaledCustomSizeModalRect(j2, k2, 8.0F, (float) l2, 8, i3, 8, 8, 64.0F, 64.0F);
 
 					if(entityPlayer != null && entityPlayer.isWearing(EnumPlayerModelParts.HAT)) {
 						int j3 = 8 + (flag1 ? 8 : 0);
 						int k3 = 8 * (flag1 ? -1 : 1);
-						Gui.drawScaledCustomSizeModalRect(j2, k2, 40.0F, (float) j3, 8, k3, 8, 8, 64.0F, 64.0F);
+						drawScaledCustomSizeModalRect(j2, k2, 40.0F, (float) j3, 8, k3, 8, 8, 64.0F, 64.0F);
 					}
 
 					j2 += 9;
@@ -186,7 +186,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 
 			for (String s4 : list2) {
 				int j5 = this.mc.fontRendererObj.getStringWidth(s4);
-				this.mc.fontRendererObj.drawStringWithShadow(s4, (float)(width / 2 - j5 / 2), (float)k1, -1);
+				this.mc.fontRendererObj.drawStringWithShadow(s4, (float) (width / 2 - j5 / 2), (float) k1, -1);
 				k1 += this.mc.fontRendererObj.FONT_HEIGHT;
 			}
 		}
