@@ -47,6 +47,7 @@ public class Nick extends CommandBase {
 		}
 
 		if(args[0].equalsIgnoreCase("reset") || args[0].equalsIgnoreCase("clear")) {
+			Main.getInstance().getSkinManager().update(Minecraft.getMinecraft().thePlayer.getName());
 			Main.getInstance().getNickManager().setNick(false);
 			Main.getInstance().sendMessage("&aYour nick has been reset!");
 			return;
