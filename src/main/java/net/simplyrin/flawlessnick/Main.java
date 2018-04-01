@@ -58,7 +58,9 @@ public class Main {
 			"&b[MVP&a+&b]", "&b[MVP&e+&b]", "&b[MVP&d+&b]", "&b[MVP&f+&b]", "&b[MVP&9+&b]", "&b[MVP&2+&b]",
 			"&b[MVP&4+&b]", "&b[MVP&3+&b]", "&b[MVP&5+&b]", "&b[MVP&7+&b]", "&b[MVP&0+&b]", "&6[MVP&c++&6]",
 			"&6[MVP&6++&6]", "&6[MVP&a++&6]", "&b[MVP&e++&6]", "&6[MVP&d++&6]", "&6[MVP&f++&6]", "&6[MVP&9++&b]",
-			"&6[MVP&2++&6]", "&6[MVP&4++&6]", "&b[MVP&3++&6]", "&6[MVP&5++&6]", "&6[MVP&7++&6]", "&6[MVP&0++&b]");
+			"&6[MVP&2++&6]", "&6[MVP&4++&6]", "&b[MVP&3++&6]", "&6[MVP&5++&6]", "&6[MVP&7++&6]", "&6[MVP&0++&b]",
+
+			"&9[HELPER]", "&3[MOD]", "&c[&fYOUTUBER&c]", "&c[ADMIN]");
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
