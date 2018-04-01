@@ -140,12 +140,12 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 
 					for(String prefix : Main.getInstance().getRankList()) {
 						if(s1.contains(prefix + " " + player.getName())) {
-							s1 = s1.replace(prefix + " " + player.getName(), Main.getInstance().getNickManager().getPrefix() + " " + Main.getInstance().getNickManager().getNickname());
+							s1 = s1.replace(prefix + " " + player.getName(), Main.getInstance().getNickManager().getPrefix() + " " + Main.getInstance().getNickManager().getNickName());
 						}
 					}
 
 					if(s1.contains(player.getName())) {
-						s1 = s1.replace(player.getName(), Main.getInstance().getNickManager().getPrefix().substring(0, 2) + Main.getInstance().getNickManager().getNickname());
+						s1 = s1.replace(player.getName(), Main.getInstance().getNickManager().getPrefix().substring(0, 2) + Main.getInstance().getNickManager().getNickName());
 					}
 				}
 				s1 = s1.replace("&", "§");

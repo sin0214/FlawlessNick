@@ -176,7 +176,7 @@ public class Main {
 				}
 
 				this.sendMessage(this.getPrefix() + "&e&m----------------------------------");
-				this.sendMessage(this.getPrefix() + "&eSimpleNickMod の更新が利用できます。");
+				this.sendMessage(this.getPrefix() + "&eFlawlessNick の更新が利用できます。");
 				this.sendMessage(this.getPrefix() + " ");
 				this.sendMessage(this.getPrefix() + "&eバージョン: " + this.updateVersion);
 				this.sendMessage(this.getPrefix() + "&eメッセージ: " + this.updateMessage);
@@ -206,7 +206,7 @@ public class Main {
 
 		if(message.contains(player.getName())) {
 			String nickPrefix = this.nickManager.getPrefix();
-			String nick = this.nickManager.getNickname();
+			String nick = this.nickManager.getNickName();
 
 			event.setCanceled(true);
 
@@ -371,7 +371,7 @@ public class Main {
 			this.nickname = nick;
 		}
 
-		public String getNickname() {
+		public String getNickName() {
 			return this.nickname;
 		}
 
