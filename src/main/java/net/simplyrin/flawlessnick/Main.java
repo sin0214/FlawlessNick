@@ -183,11 +183,6 @@ public class Main {
 			message = message.replaceAll("&r", "");
 			message = message.replace("&r", "");
 
-<<<<<<< HEAD
-=======
-			Minecraft.getMinecraft().renderGlobal.loadRenderers();
->>>>>>> 58d4f42fc319af2dd439e808667efd09d2bebe16
-
 			if(message.equals("&e" + player.getName() + " joined.")) {
 				this.sendMessage("&e" + message.replace(player.getName(), nick));
 				return;
@@ -206,11 +201,7 @@ public class Main {
 				return;
 			}
 
-<<<<<<< HEAD
-			this.sendMessage(message.replaceAll(player.getName(), StringUtils.left(nickPrefix, 2) + "" + nick + "&r"));
-=======
 			this.sendMessage(message.replace(player.getName(), StringUtils.left(nickPrefix, 2) + "" + nick));
->>>>>>> 58d4f42fc319af2dd439e808667efd09d2bebe16
 		}
 	}
 
@@ -317,11 +308,7 @@ public class Main {
 
 		private boolean nick;
 		private String nickname;
-<<<<<<< HEAD
 		private String prefix = "&7[VIP]";
-=======
-		private String prefix = "&a[VIP]";
->>>>>>> 58d4f42fc319af2dd439e808667efd09d2bebe16
 
 		public void setNick(boolean b) {
 			this.nick = b;
