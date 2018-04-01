@@ -139,7 +139,7 @@ public class Main {
 				}
 
 				this.sendMessage(this.getPrefix() + "&e&m----------------------------------");
-				this.sendMessage(this.getPrefix() + "&eSimpleNickMod の更新が利用できます。");
+				this.sendMessage(this.getPrefix() + "&eFlawlessNick の更新が利用できます。");
 				this.sendMessage(this.getPrefix() + " ");
 				this.sendMessage(this.getPrefix() + "&eバージョン: " + this.updateVersion);
 				this.sendMessage(this.getPrefix() + "&eメッセージ: " + this.updateMessage);
