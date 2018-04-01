@@ -1,5 +1,6 @@
 package net.simplyrin.flawlessnick.command;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.simplyrin.flawlessnick.Main;
@@ -8,12 +9,12 @@ public class Nick extends CommandBase {
 
 	@Override
 	public String getCommandName() {
-		return "nickk";
+		return "nick";
 	}
 
 	@Override
 	public String getCommandUsage(ICommandSender sender) {
-		return "&cUsage: /nickk <nickname>";
+		return "&cUsage: /nick <nickname>";
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class Nick extends CommandBase {
 		}
 
 		if(args.length == 0) {
-			Main.getInstance().sendMessage(Main.getInstance().getPrefix() + "&cUsage: /nickk <nickname>");
+			Main.getInstance().sendMessage(Main.getInstance().getPrefix() + "&cUsage: /nick <nickname>");
 			return;
 		}
 
@@ -50,6 +51,8 @@ public class Nick extends CommandBase {
 			Main.getInstance().sendMessage("&aYour nick has been reset!");
 			return;
 		}
+
+		Minecraft.getMinecraft().renderGlobal.loadRenderers();
 
 		Main.getInstance().getNickManager().setNick(true);
 		Main.getInstance().getNickManager().setNickname(args[0]);
