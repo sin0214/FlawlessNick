@@ -1,9 +1,10 @@
 package club.sk1er.mods.publicmod;
 
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import org.apache.commons.io.IOUtils;
 
@@ -13,7 +14,7 @@ public class Sk1erMod {
 		System.out.println("Fetching: " + url);
 		try {
 			URL u = new URL(url);
-			HttpURLConnection connection = (HttpURLConnection) u.openConnection();
+			HttpsURLConnection connection = (HttpsURLConnection) u.openConnection();
 			connection.setRequestMethod("GET");
 			connection.setUseCaches(true);
 			connection.addRequestProperty("User-Agent", "Mozilla/4.76");
@@ -26,9 +27,7 @@ public class Sk1erMod {
 			if (s != null)
 				return s;
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		} catch (Exception e) {}
 		// JsonObject object = new JsonObject();
 		// object.addProperty("success", false);
 		// object.addProperty("cause", "Exception");

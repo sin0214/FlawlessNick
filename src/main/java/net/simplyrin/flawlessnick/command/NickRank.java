@@ -13,7 +13,7 @@ public class NickRank extends CommandBase {
 
 	@Override
 	public String getCommandUsage(ICommandSender sender) {
-		return "command.vanillaplusmod.usage";
+		return "/nickrank <prefix>";
 	}
 
 	@Override
