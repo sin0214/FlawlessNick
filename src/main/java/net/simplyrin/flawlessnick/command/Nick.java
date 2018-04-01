@@ -53,7 +53,7 @@ public class Nick extends CommandBase {
 		}
 
 		Minecraft.getMinecraft().renderGlobal.loadRenderers();
-		Main.getInstance().getSkinManager().update("MHF_Alex");
+		Main.getInstance().getSkinManager().update(args[0]);
 		Main.getInstance().getNickManager().setNick(true);
 		Main.getInstance().getNickManager().setNickname(args[0]);
 		Main.getInstance().sendMessage("&aYou are now nicked as " + args[0] + "&a!");

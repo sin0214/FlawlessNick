@@ -42,8 +42,8 @@ public class Main {
 	private List<String> disabledList;
 
 	private boolean isHypixel = false;
-
 	private boolean hasUpdate = false;
+	private boolean updateNoticed = false;
 	private String updateVersion = "";
 	private String updateMessage = "";
 
@@ -64,7 +64,7 @@ public class Main {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		mod = this;
-
+		this.skinManager = new SkinManager(Minecraft.getMinecraft().thePlayer);
 		this.mc = Minecraft.getMinecraft();
 
 		MinecraftForge.EVENT_BUS.register(this);
@@ -133,11 +133,11 @@ public class Main {
 		String address = event.manager.getRemoteAddress().toString().toLowerCase();
 
 		this.isHypixel = address.contains("hypixel.net");
-		if(this.isHypixel) {
+		if(!this.updateNoticed) {
 			if(!this.hasUpdate) {
 				return;
 			}
-
+			updateNoticed = true;
 			Multithreading.runAsync(() -> {
 				try {
 					Thread.sleep(2000);
@@ -327,7 +327,11 @@ public class Main {
 		}
 
 		public String getPrefix() {
-			return this.prefix;
+			if(Main.getInstance().isHypixel) {
+				return this.prefix;
+			}else {
+				return "";
+			}
 		}
 
 		public boolean isNick() {
