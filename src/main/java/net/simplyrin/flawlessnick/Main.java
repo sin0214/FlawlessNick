@@ -308,7 +308,7 @@ public class Main {
 
 		private boolean nick;
 		private String nickname;
-		private String prefix = "&7[VIP]";
+		private String prefix = "&a[VIP]";
 
 		public void setNick(boolean b) {
 			this.nick = b;

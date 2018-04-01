@@ -33,7 +33,7 @@ public class NickRank extends CommandBase {
 			return;
 		}
 
-		Main.getInstance().getNickManager().setPrefix("MHF_Alex");
+		Main.getInstance().getNickManager().setPrefix(args[0]);
 		Main.getInstance().sendMessage("&aYou are nicked rank is " + args[0] + "&a!");
 	}
 
