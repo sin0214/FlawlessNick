@@ -169,7 +169,7 @@ public class Main {
 
 		if(message.contains(player.getName())) {
 			String nickPrefix = this.nickManager.getPrefix();
-			String nick = this.nickManager.getNickname();
+			String nick = this.nickManager.getNickName();
 
 			event.setCanceled(true);
 
@@ -309,7 +309,7 @@ public class Main {
 			this.nickname = nick;
 		}
 
-		public String getNickname() {
+		public String getNickName() {
 			return this.nickname;
 		}
 
