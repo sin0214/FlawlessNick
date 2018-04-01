@@ -20,17 +20,17 @@ package me.boomboompower.skinchanger;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.simplyrin.flawlessnick.Main;
+import net.simplyrin.flawlessnick.FlawlessNick;
 
 public class SkinEvents {
 
 	@SubscribeEvent
 	public void onRender(RenderWorldLastEvent event) {
 		if(Minecraft.getMinecraft().currentScreen == null) {
-			Main.getInstance().getSkinManager().updatePlayer(null);
+			FlawlessNick.getInstance().getSkinManager().updatePlayer(null);
 
-			if (!Main.getInstance().getSkinManager().getSkinName().isEmpty()) {
-				Main.getInstance().getSkinManager().updateSkin();
+			if (!FlawlessNick.getInstance().getSkinManager().getSkinName().isEmpty()) {
+				FlawlessNick.getInstance().getSkinManager().updateSkin();
 			}
 		}
 	}

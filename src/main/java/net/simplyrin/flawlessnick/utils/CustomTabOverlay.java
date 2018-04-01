@@ -25,8 +25,8 @@ import net.minecraft.util.IChatComponent;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.simplyrin.flawlessnick.Main;
-import net.simplyrin.flawlessnick.Main.FieldWrapper;
+import net.simplyrin.flawlessnick.FlawlessNick;
+import net.simplyrin.flawlessnick.FlawlessNick.FieldWrapper;
 
 /**
  * Created by SimplyRin on 2018/04/01
@@ -134,18 +134,18 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 				NetworkPlayerInfo networkPlayerInfo = (NetworkPlayerInfo) list.get(k4);
 				String s1 = this.getPlayerName(networkPlayerInfo);
 
-				if(Main.getInstance().getNickManager().isNick()) {
+				if(FlawlessNick.getInstance().getNickManager().isNick()) {
 					EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
 					s1 = s1.replaceAll("\u00a7", "&");
 
-					for(String prefix : Main.getInstance().getRankList()) {
+					for(String prefix : FlawlessNick.getInstance().getRankList()) {
 						if(s1.contains(prefix + " " + player.getName())) {
-							s1 = s1.replace(prefix + " " + player.getName(), Main.getInstance().getNickManager().getPrefix() + " " + Main.getInstance().getNickManager().getNickName());
+							s1 = s1.replace(prefix + " " + player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
 						}
 					}
 
 					if(s1.contains(player.getName())) {
-						s1 = s1.replace(player.getName(), Main.getInstance().getNickManager().getPrefix().substring(0, 2) + Main.getInstance().getNickManager().getNickName());
+						s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
 					}
 				}
 				s1 = s1.replace("&", "§");

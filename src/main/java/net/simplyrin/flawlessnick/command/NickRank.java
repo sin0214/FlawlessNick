@@ -2,7 +2,7 @@ package net.simplyrin.flawlessnick.command;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
-import net.simplyrin.flawlessnick.Main;
+import net.simplyrin.flawlessnick.FlawlessNick;
 
 public class NickRank extends CommandBase {
 
@@ -29,12 +29,12 @@ public class NickRank extends CommandBase {
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) {
 		if(args.length == 0) {
-			Main.getInstance().sendMessage("&cUsage: /nickrank <prefix>");
+			FlawlessNick.getInstance().sendMessage("&cUsage: /nickrank <prefix>");
 			return;
 		}
 
-		Main.getInstance().getNickManager().setPrefix(args[0]);
-		Main.getInstance().sendMessage("&aYou are nicked rank is " + args[0] + "&a!");
+		FlawlessNick.getInstance().getNickManager().setPrefix(args[0]);
+		FlawlessNick.getInstance().sendMessage("&aYou are nicked rank is " + args[0] + "&a!");
 	}
 
 }
