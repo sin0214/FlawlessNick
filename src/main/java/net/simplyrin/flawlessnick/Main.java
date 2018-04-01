@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
-import club.sk1er.mods.publicmod.JsonHolder;
-import club.sk1er.mods.publicmod.Multithreading;
-import club.sk1er.mods.publicmod.Sk1erMod;
+import club.sk1er.utils.JsonHolder;
+import club.sk1er.utils.Multithreading;
+import club.sk1er.utils.Sk1erMod;
 import me.boomboompower.skinchanger.SkinEvents;
 import me.boomboompower.skinchanger.skins.SkinManager;
 import net.md_5.bungee.api.ChatColor;
