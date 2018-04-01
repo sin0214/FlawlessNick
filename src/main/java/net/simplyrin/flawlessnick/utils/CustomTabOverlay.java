@@ -35,8 +35,8 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 
 	private Minecraft mc;
 	private Ordering<NetworkPlayerInfo> ordering = Ordering.from(new PlayerComparator());
-	private static FieldWrapper<IChatComponent> footer = new FieldWrapper("field_175255_h", GuiPlayerTabOverlay.class);
-	private static FieldWrapper<IChatComponent> header = new FieldWrapper("field_175256_i", GuiPlayerTabOverlay.class);
+	private static FieldWrapper<IChatComponent> footer = new FieldWrapper<>("field_175255_h", GuiPlayerTabOverlay.class);
+	private static FieldWrapper<IChatComponent> header = new FieldWrapper<>("field_175256_i", GuiPlayerTabOverlay.class);
 
 	public CustomTabOverlay(Minecraft mc, GuiIngame guiIngameIn) {
 		super(mc, guiIngameIn);
@@ -87,7 +87,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		List<String> list1 = null;
 		List<String> list2 = null;
 
-		IChatComponent header = (IChatComponent) CustomTabOverlay.header.get((Object)this);
+		IChatComponent header = (IChatComponent) CustomTabOverlay.header.get((Object) this);
 		if(header != null) {
 			list1 = this.mc.fontRendererObj.listFormattedStringToWidth(((IChatComponent) header).getFormattedText(), width - 50);
 
@@ -96,7 +96,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 			}
 		}
 
-		IChatComponent footer = (IChatComponent) CustomTabOverlay.footer.get((Object)this);
+		IChatComponent footer = (IChatComponent) CustomTabOverlay.footer.get((Object) this);
 		if(footer != null) {
 			list2 = this.mc.fontRendererObj.listFormattedStringToWidth(((IChatComponent) footer).getFormattedText(), width - 50);
 

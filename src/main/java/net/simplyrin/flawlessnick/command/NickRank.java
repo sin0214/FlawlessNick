@@ -38,4 +38,3 @@ public class NickRank extends CommandBase {
 	}
 
 }
-

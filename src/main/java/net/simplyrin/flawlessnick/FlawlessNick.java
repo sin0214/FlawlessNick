@@ -55,7 +55,7 @@ public class FlawlessNick {
 	private String infoMessage = "";
 
 	private Minecraft mc;
-	private FieldWrapper<GuiPlayerTabOverlay> overlay = new FieldWrapper("field_175196_v", GuiIngame.class);
+	private FieldWrapper<GuiPlayerTabOverlay> overlay = new FieldWrapper<>("field_175196_v", GuiIngame.class);
 
 	private SkinManager skinManager;
 
@@ -266,6 +266,7 @@ public class FlawlessNick {
 			}
 		}
 
+		@SuppressWarnings("unchecked")
 		public T get(Object obj) {
 			this.register();
 			try {
