@@ -106,8 +106,9 @@ public class GuiFlawlessNick extends GuiScreen {
 				FlawlessNick.getInstance().getSkinManager().setSkinName(nickNameField.getText());
 				FlawlessNick.getInstance().getNickManager().setNick(true);
 				FlawlessNick.getInstance().getNickManager().setNickName(nickNameField.getText());
+				FlawlessNick.getInstance().getNickManager().setPrefix(nickRankField.getText());
 			}
-			FlawlessNick.getInstance().getMinecraft().currentScreen = null;
+			FlawlessNick.getInstance().getMinecraft().displayGuiScreen(null);
 		} else if(button.id == 3) {
 			nickNameField.setText("§7NickName");
 			nickRankField.setText("§7NickRank");
