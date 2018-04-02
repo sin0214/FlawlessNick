@@ -1,6 +1,5 @@
 package net.simplyrin.flawlessnick.command;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.simplyrin.flawlessnick.FlawlessNick;
@@ -47,13 +46,14 @@ public class Nick extends CommandBase {
 		}
 
 		if(args[0].equalsIgnoreCase("reset") || args[0].equalsIgnoreCase("clear")) {
+			FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
 			FlawlessNick.getInstance().getSkinManager().reset();
 			FlawlessNick.getInstance().getNickManager().setNick(false);
 			FlawlessNick.getInstance().sendMessage("&aYour nick has been reset!");
 			return;
 		}
 
-		Minecraft.getMinecraft().renderGlobal.loadRenderers();
+		FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
 		FlawlessNick.getInstance().getSkinManager().update(args[0]);
 		FlawlessNick.getInstance().getNickManager().setNick(true);
 		FlawlessNick.getInstance().getNickManager().setNickname(args[0]);

@@ -144,9 +144,14 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						}
 					}
 
-					if(s1.contains(player.getName())) {
-						s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
+					if(s1.contains("&")) {
+						if(s1.contains(player.getName())) {
+							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
+						}
+					} else {
+						s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
 					}
+
 					s1 = s1.replace("&", "§");
 				}
 
