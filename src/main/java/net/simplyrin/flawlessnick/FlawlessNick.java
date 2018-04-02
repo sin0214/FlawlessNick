@@ -271,8 +271,8 @@ public class FlawlessNick {
 	}
 
 	public JsonHolder getJsonHolder() {
-		json = Json.loadJson("mods/FlawlessNick/config.json");
-		return json;
+		instance.json = Json.loadJson("mods/FlawlessNick/config.json");
+		return instance.json;
 	}
 
 	public static class FieldWrapper<T> {
