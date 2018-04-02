@@ -1,8 +1,13 @@
 package net.simplyrin.flawlessnick.command;
 
+import java.io.File;
+
+import club.sk1er.utils.JsonHolder;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.simplyrin.flawlessnick.FlawlessNick;
+import net.simplyrin.flawlessnick.Json;
+import work.siro.mod.flawlessnick.gui.GuiFlawlessNick;
 
 public class FNick extends CommandBase {
 
@@ -30,6 +35,33 @@ public class FNick extends CommandBase {
 	public void processCommand(ICommandSender sender, String[] args) {
 		if(!FlawlessNick.getInstance().isInfo()) {
 			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + FlawlessNick.getInstance().getInfoMessage());
+			return;
+		}
+
+		if(!(args.length == 0) && args[0].equalsIgnoreCase("mode")) {
+			if(!(args.length == 2)) {
+				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cUsage: /fnick mode <cui/gui>");
+				return;
+			}
+			if(args[1].equalsIgnoreCase("cui")) {
+				JsonHolder json = FlawlessNick.getInstance().getJsonHolder();
+				json.put("Mode", "CUI");
+				Json.saveJson(json, new File("mods/FlawlessNick/config.json"));
+				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aFlawlessNick is now CUI mode!");
+				return;
+			}else if(args[1].equalsIgnoreCase("gui")) {
+				JsonHolder json = FlawlessNick.getInstance().getJsonHolder();
+				json.put("Mode", "GUI");
+				Json.saveJson(json, new File("mods/FlawlessNick/config.json"));
+				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aFlawlessNick is now GUI mode!");
+				return;
+			}
+			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cUsage: /fnick mode <cui/gui>");
+			return;
+		}
+
+		if(FlawlessNick.getInstance().getJsonHolder().getString("Mode").equalsIgnoreCase("Gui")){
+			new GuiFlawlessNick().display();
 			return;
 		}
 

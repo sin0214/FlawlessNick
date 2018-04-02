@@ -44,6 +44,7 @@ public class FlawlessNick {
 	public static final String VERSION = "1.0";
 
 	private static FlawlessNick instance;
+	private JsonHolder json;
 	private NickManager nickManager;
 	private List<String> disabledList;
 
@@ -94,7 +95,7 @@ public class FlawlessNick {
 				e.printStackTrace();
 			}
 
-			JsonHolder json = Json.loadJson(config);
+			json = new JsonHolder();
 			json.put("Mode", "CUI");
 			Json.saveJson(json, config);
 		}
@@ -267,6 +268,11 @@ public class FlawlessNick {
 
 	public String getInfoMessage() {
 		return instance.infoMessage;
+	}
+
+	public JsonHolder getJsonHolder() {
+		json = Json.loadJson("mods/FlawlessNick/config.json");
+		return json;
 	}
 
 	public static class FieldWrapper<T> {
