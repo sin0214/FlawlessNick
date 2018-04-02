@@ -338,7 +338,7 @@ public class FlawlessNick {
 			if(!ready) {
 				try {
 					modifiersField = Field.class.getDeclaredField("modifiers");
-				} catch (NoSuchFieldException | SecurityException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				modifiersField.setAccessible(true);
