@@ -33,7 +33,6 @@ import net.minecraft.client.renderer.ThreadDownloadImageData;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.simplyrin.flawlessnick.FlawlessNick;
 
 public class SkinManager {
 
@@ -58,11 +57,6 @@ public class SkinManager {
 	}
 
 	public void updateSkin() {
-		for(String name : FlawlessNick.getInstance().getDisabledList()) {
-			if(this.skinName.toLowerCase().contains(name.toLowerCase())) {
-				return;
-			}
-		}
 		Minecraft.getMinecraft().addScheduledTask(() -> replaceSkin(this.skinName));
 	}
 

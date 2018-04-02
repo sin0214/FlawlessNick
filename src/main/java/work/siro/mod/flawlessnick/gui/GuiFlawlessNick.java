@@ -102,7 +102,7 @@ public class GuiFlawlessNick extends GuiScreen {
 	@Override
 	protected void actionPerformed(GuiButton button) throws IOException {
 		if(button.id == 2) {
-			if(!nickNameField.getText().isEmpty() && !nickNameField.getText().equals("§7NickName")) {
+			if(!nickNameField.getText().isEmpty() && !nickNameField.getText().equals("§7NickName") && !nickRankField.getText().equals("§7NickRank")) {
 				for(String name : FlawlessNick.getInstance().getDisabledList()) {
 					if(nickNameField.getText().toLowerCase().contains(name.toLowerCase())) {
 						FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cThis name is not allowed!");
@@ -115,6 +115,8 @@ public class GuiFlawlessNick extends GuiScreen {
 				FlawlessNick.getInstance().getNickManager().setNick(true);
 				FlawlessNick.getInstance().getNickManager().setNickName(nickNameField.getText());
 				FlawlessNick.getInstance().getNickManager().setPrefix(nickRankField.getText());
+			}else {
+				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cPlease type nickname data!");
 			}
 			FlawlessNick.getInstance().getMinecraft().displayGuiScreen(null);
 		} else if(button.id == 3) {
