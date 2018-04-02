@@ -67,31 +67,32 @@ public class FNick extends CommandBase {
 			return;
 		}
 
-		if(args.length == 0) {
-			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cUsage: /fnick <nickname>");
-			return;
-		}
+		if(args.length > 0) {
+			for(String name : FlawlessNick.getInstance().getDisabledList()) {
+				if(args[0].toLowerCase().contains(name.toLowerCase())) {
+					FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cThis name is not allowed!");
+					return;
+				}
+			}
 
-		for(String name : FlawlessNick.getInstance().getDisabledList()) {
-			if(args[0].toLowerCase().contains(name.toLowerCase())) {
-				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cThis name is not allowed!");
+			if(args[0].equalsIgnoreCase("reset") || args[0].equalsIgnoreCase("clear")) {
+				FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
+				FlawlessNick.getInstance().getSkinManager().reset();
+				FlawlessNick.getInstance().getNickManager().setNick(false);
+				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYour nick has been reset!");
 				return;
 			}
-		}
 
-		if(args[0].equalsIgnoreCase("reset") || args[0].equalsIgnoreCase("clear")) {
 			FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
-			FlawlessNick.getInstance().getSkinManager().reset();
-			FlawlessNick.getInstance().getNickManager().setNick(false);
-			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYour nick has been reset!");
+			FlawlessNick.getInstance().getSkinManager().update(args[0]);
+			FlawlessNick.getInstance().getNickManager().setNick(true);
+			FlawlessNick.getInstance().getNickManager().setNickName(args[0]);
+			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYou are now nicked as " + args[0] + "&a!");
 			return;
 		}
 
-		FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
-		FlawlessNick.getInstance().getSkinManager().update(args[0]);
-		FlawlessNick.getInstance().getNickManager().setNick(true);
-		FlawlessNick.getInstance().getNickManager().setNickName(args[0]);
-		FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYou are now nicked as " + args[0] + "&a!");
+		FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cUsage: /fnick <nickname>");
+		return;
 	}
 
 }
