@@ -60,7 +60,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkPlayerInfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
 						j = Math.max(j, k);
 					}
-				}else {
+				} else {
 					int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo));
 					i = Math.max(i, k);
 
@@ -69,7 +69,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						j = Math.max(j, k);
 					}
 				}
-			}else {
+			} else {
 				int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo));
 				i = Math.max(i, k);
 
@@ -275,13 +275,11 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
 
 						if(flag) {
-							if (j1 * 2 + 1 < networkPlayerInfo.func_178860_m())
-							{
+							if (j1 * 2 + 1 < networkPlayerInfo.func_178860_m()) {
 								this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 70, 0, 9, 9);
 							}
 
-							if (j1 * 2 + 1 == networkPlayerInfo.func_178860_m())
-							{
+							if (j1 * 2 + 1 == networkPlayerInfo.func_178860_m()) {
 								this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 79, 0, 9, 9);
 							}
 						}
