@@ -217,7 +217,11 @@ public class FlawlessNick {
 			}
 
 			if(message.contains(":")) {
-				message = message.replace(player.getName(), nickPrefix + " " + nick);
+				String replace = message.split(":")[0];
+				replace = replace.replace(player.getName(), nickPrefix + " " + nick);
+				if(message.split(":").length > 1) {
+					replace += message.split(":")[1];
+				}
 				instance.sendMessage(message.replace("&7", "&f"));
 				return;
 			}
