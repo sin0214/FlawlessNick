@@ -196,6 +196,11 @@ public class FlawlessNick {
 
 		message = message.replaceAll("\u00a7", "&");
 
+		if(message.contains(instance.getMinecraft().thePlayer.getName() + " joined the lobby!")) {
+			event.setCanceled(true);
+			return;
+		}
+
 		if(message.contains(player.getName())) {
 			String nickPrefix = instance.nickManager.getPrefix();
 			String nick = instance.nickManager.getNickName();
