@@ -193,7 +193,19 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 				if(flag) {
 					EntityPlayer entityPlayer = this.mc.theWorld.getPlayerEntityByUUID(gameProfile.getId());
 					boolean flag1 = entityPlayer != null && entityPlayer.isWearing(EnumPlayerModelParts.CAPE) && (gameProfile.getName().equals("Dinnerbone") || gameProfile.getName().equals("Grumm"));
-					this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
+					if(entityPlayer != null) {
+						if(entityPlayer.getName().equals(FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
+							if(FlawlessNick.getInstance().getNickManager().isNick()) {
+								this.mc.getTextureManager().bindTexture(FlawlessNick.getInstance().getSkinManager().getSkin(FlawlessNick.getInstance().getNickManager().getNickName()));
+							}else {
+								this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
+							}
+						}else {
+							this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
+						}
+					}else {
+						this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
+					}
 					int l2 = 8 + (flag1 ? 8 : 0);
 					int i3 = 8 * (flag1 ? -1 : 1);
 					drawScaledCustomSizeModalRect(j2, k2, 8.0F, (float) l2, 8, i3, 8, 8, 64.0F, 64.0F);
