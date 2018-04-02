@@ -42,9 +42,8 @@ public class Json {
 	}
 
 	public static void saveJson(JsonHolder json, File file) {
-		FileWriter filewriter;
 		try {
-			filewriter = new FileWriter(file);
+			FileWriter filewriter = new FileWriter(file);
 			filewriter.write(json.toString());
 			filewriter.close();
 		} catch (IOException e) {

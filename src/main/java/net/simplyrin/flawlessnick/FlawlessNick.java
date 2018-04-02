@@ -196,6 +196,11 @@ public class FlawlessNick {
 
 		message = message.replaceAll("\u00a7", "&");
 
+		if(message.contains(instance.getMinecraft().thePlayer.getName() + " joined the lobby!")) {
+			event.setCanceled(true);
+			return;
+		}
+
 		if(message.contains(player.getName())) {
 			String nickPrefix = instance.nickManager.getPrefix();
 			String nick = instance.nickManager.getNickName();
@@ -220,7 +225,11 @@ public class FlawlessNick {
 				String replace = message.split(":")[0];
 				replace = replace.replace(player.getName(), nickPrefix + " " + nick);
 				if(message.split(":").length > 1) {
-					replace += message.split(":")[1];
+					if(replace.startsWith("To ") || replace.startsWith("From ")) {
+						replace += "&7" + message.split(":")[1];
+					} else {
+						replace += message.split(":")[1];
+					}
 				}
 				instance.sendMessage(message.replace("&7", "&f"));
 				return;
