@@ -115,6 +115,8 @@ public class GuiFlawlessNick extends GuiScreen {
 				FlawlessNick.getInstance().getNickManager().setNick(true);
 				FlawlessNick.getInstance().getNickManager().setNickName(nickNameField.getText());
 				FlawlessNick.getInstance().getNickManager().setPrefix(nickRankField.getText());
+				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYou are now nicked as " + nickNameField.getText() + "&a!");
+				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aSet your nick rank to " + nickRankField.getText() + "&a!");
 			}else {
 				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cPlease type nickname data!");
 			}
