@@ -1,5 +1,7 @@
 package net.simplyrin.flawlessnick;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,6 +80,24 @@ public class FlawlessNick {
 
 		ClientCommandHandler.instance.registerCommand(new Nick());
 		ClientCommandHandler.instance.registerCommand(new NickRank());
+
+		File folder = new File("mods/FlawlessNick");
+		if(!folder.exists()) {
+			folder.mkdir();
+		}
+
+		File config = new File(folder, "config.json");
+		if(!config.exists()) {
+			try {
+				config.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			JsonHolder json = Json.loadJson(config);
+			json.put("Mode", "GUI");
+			Json.saveJson(json, config);
+		}
 
 		this.nickManager = new NickManager();
 		this.disabledList = new ArrayList<String>();

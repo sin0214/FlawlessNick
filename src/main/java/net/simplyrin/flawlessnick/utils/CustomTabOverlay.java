@@ -137,7 +137,8 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 				if(FlawlessNick.getInstance().isInfo()) {
 					if(FlawlessNick.getInstance().getNickManager().isNick()) {
 						EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-						s1 = s1.replaceAll("\u00a7", "&");
+						s1 = s1.replace("\u00a7", "&");
+						s1 = s1.replace("&r", "");
 
 						for(String prefix : FlawlessNick.getInstance().getRankList()) {
 							if(s1.contains(prefix + " " + player.getName())) {
