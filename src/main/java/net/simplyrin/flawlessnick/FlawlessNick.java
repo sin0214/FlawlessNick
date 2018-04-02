@@ -95,7 +95,7 @@ public class FlawlessNick {
 			}
 
 			JsonHolder json = Json.loadJson(config);
-			json.put("Mode", "GUI");
+			json.put("Mode", "CUI");
 			Json.saveJson(json, config);
 		}
 
