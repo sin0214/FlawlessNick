@@ -38,26 +38,28 @@ public class FNick extends CommandBase {
 			return;
 		}
 
-		if(!(args.length == 0) && args[0].equalsIgnoreCase("mode")) {
-			if(!(args.length == 2)) {
+		if(args.length > 0) {
+			if(args[0].equalsIgnoreCase("mode")) {
+				if(args.length > 1) {
+					JsonHolder json = FlawlessNick.getInstance().getJsonHolder();
+
+					if(args[1].equalsIgnoreCase("cui")) {
+						json.put("Mode", "CUI");
+						Json.saveJson(json, new File("mods/FlawlessNick/config.json"));
+						FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aFlawlessNick is now CUI mode!");
+						return;
+					}
+
+					if(args[1].equalsIgnoreCase("gui")) {
+						json.put("Mode", "GUI");
+						Json.saveJson(json, new File("mods/FlawlessNick/config.json"));
+						FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aFlawlessNick is now GUI mode!");
+						return;
+					}
+				}
 				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cUsage: /fnick mode <cui/gui>");
 				return;
 			}
-			if(args[1].equalsIgnoreCase("cui")) {
-				JsonHolder json = FlawlessNick.getInstance().getJsonHolder();
-				json.put("Mode", "CUI");
-				Json.saveJson(json, new File("mods/FlawlessNick/config.json"));
-				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aFlawlessNick is now CUI mode!");
-				return;
-			}else if(args[1].equalsIgnoreCase("gui")) {
-				JsonHolder json = FlawlessNick.getInstance().getJsonHolder();
-				json.put("Mode", "GUI");
-				Json.saveJson(json, new File("mods/FlawlessNick/config.json"));
-				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aFlawlessNick is now GUI mode!");
-				return;
-			}
-			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cUsage: /fnick mode <cui/gui>");
-			return;
 		}
 
 		if(FlawlessNick.getInstance().getJsonHolder().getString("Mode").equalsIgnoreCase("Gui")){

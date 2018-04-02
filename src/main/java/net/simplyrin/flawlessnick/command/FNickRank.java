@@ -28,13 +28,14 @@ public class FNickRank extends CommandBase {
 
 	@Override
 	public void processCommand(ICommandSender sender, String[] args) {
-		if(args.length == 0) {
-			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cUsage: /fnickrank <prefix>");
+		if(args.length > 0) {
+			FlawlessNick.getInstance().getNickManager().setPrefix(args[0]);
+			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYou are nicked rank is " + args[0] + "&a!");
 			return;
 		}
 
-		FlawlessNick.getInstance().getNickManager().setPrefix(args[0]);
-		FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYou are nicked rank is " + args[0] + "&a!");
+		FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cUsage: /fnickrank <prefix>");
+		return;
 	}
 
 }
