@@ -23,9 +23,9 @@ public class Sk1erMod {
 			InputStream is = connection.getInputStream();
 			Charset encoding = Charset.defaultCharset();
 			String s = IOUtils.toString(is, encoding);
-			if (s != null)
+			if (s != null) {
 				return s;
-
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
