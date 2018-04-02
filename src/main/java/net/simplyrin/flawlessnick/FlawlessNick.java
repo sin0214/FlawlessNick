@@ -57,7 +57,7 @@ public class FlawlessNick {
 	private String infoMessage = "";
 
 	private Minecraft mc;
-	private FieldWrapper<GuiPlayerTabOverlay> overlay = new FieldWrapper<>("field_175196_v", GuiIngame.class);
+	private FieldWrapper<GuiPlayerTabOverlay> overlay = new FieldWrapper<>(CustomTabOverlay.isObfuscated() ? "field_175196_v" : "overlayPlayerList", GuiIngame.class);
 
 	private SkinManager skinManager;
 

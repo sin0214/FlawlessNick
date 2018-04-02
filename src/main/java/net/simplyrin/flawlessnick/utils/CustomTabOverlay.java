@@ -34,8 +34,8 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 
 	private Minecraft mc;
 	private Ordering<NetworkPlayerInfo> ordering = Ordering.from(new PlayerComparator());
-	private static FieldWrapper<IChatComponent> footer = new FieldWrapper<>("field_175255_h", GuiPlayerTabOverlay.class);
-	private static FieldWrapper<IChatComponent> header = new FieldWrapper<>("field_175256_i", GuiPlayerTabOverlay.class);
+	private static FieldWrapper<IChatComponent> footer = new FieldWrapper<>(isObfuscated() ? "field_175255_h" : "footer", GuiPlayerTabOverlay.class);
+	private static FieldWrapper<IChatComponent> header = new FieldWrapper<>(isObfuscated() ? "field_175256_i" : "header", GuiPlayerTabOverlay.class);
 
 	public CustomTabOverlay(Minecraft mc, GuiIngame guiIngameIn) {
 		super(mc, guiIngameIn);
