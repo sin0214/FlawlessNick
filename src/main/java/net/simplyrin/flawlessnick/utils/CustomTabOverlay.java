@@ -21,6 +21,7 @@ import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -34,8 +35,9 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 
 	private Minecraft mc;
 	private Ordering<NetworkPlayerInfo> ordering = Ordering.from(new PlayerComparator());
-	private static FieldWrapper<IChatComponent> footer = new FieldWrapper<>("field_175255_h", GuiPlayerTabOverlay.class);
-	private static FieldWrapper<IChatComponent> header = new FieldWrapper<>("field_175256_i", GuiPlayerTabOverlay.class);
+	private FieldWrapper<IChatComponent> footer = new FieldWrapper<>(isObfuscated() ? "field_175255_h" : "footer", GuiPlayerTabOverlay.class);
+	private FieldWrapper<IChatComponent> header = new FieldWrapper<>(isObfuscated() ? "field_175256_i" : "header", GuiPlayerTabOverlay.class);
+	private FieldWrapper<Long> lastTimeOpened = new FieldWrapper<>(isObfuscated() ? "field_175253_j" : "lastTimeOpened", GuiPlayerTabOverlay.class);
 
 	public CustomTabOverlay(Minecraft mc, GuiIngame guiIngameIn) {
 		super(mc, guiIngameIn);
@@ -87,7 +89,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		List<String> list1 = null;
 		List<String> list2 = null;
 
-		IChatComponent header = (IChatComponent) CustomTabOverlay.header.get((Object) this);
+		IChatComponent header = (IChatComponent) this.header.get((Object) this);
 		if(header != null) {
 			list1 = this.mc.fontRendererObj.listFormattedStringToWidth(((IChatComponent) header).getFormattedText(), width - 50);
 
@@ -96,7 +98,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 			}
 		}
 
-		IChatComponent footer = (IChatComponent) CustomTabOverlay.footer.get((Object) this);
+		IChatComponent footer = (IChatComponent) this.footer.get((Object) this);
 		if(footer != null) {
 			list2 = this.mc.fontRendererObj.listFormattedStringToWidth(((IChatComponent) footer).getFormattedText(), width - 50);
 
@@ -147,7 +149,9 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						}
 
 						if(s1.contains("&")) {
-							if(s1.contains(player.getName())) {
+							if(s1.equals("&a" + FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
+								s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
+							} else if(s1.contains(player.getName())) {
 								s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
 							}
 						} else {
@@ -184,6 +188,15 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 					this.mc.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1);
 				}
 
+				if (scoreObjectiveIn != null && networkPlayerInfo.getGameType() != WorldSettings.GameType.SPECTATOR) {
+					int k5 = j2 + i + 1;
+					int l5 = k5 + l;
+
+					if (l5 - k5 > 5) {
+						this.drawScoreboardValues(scoreObjectiveIn, k2, gameProfile.getName(), k5, l5, networkPlayerInfo);
+					}
+				}
+
 				this.drawPing(i1, j2 - (flag ? 9 : 0), k2, networkPlayerInfo);
 			}
 		}
@@ -197,6 +210,85 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 				this.mc.fontRendererObj.drawStringWithShadow(s4, (float) (width / 2 - j5 / 2), (float) k1, -1);
 				k1 += this.mc.fontRendererObj.FONT_HEIGHT;
 			}
+		}
+	}
+
+	private void drawScoreboardValues(ScoreObjective objective, int p_175247_2_, String string, int p_175247_4_, int p_175247_5_, NetworkPlayerInfo networkPlayerInfo) {
+		int i = objective.getScoreboard().getValueFromObjective(string, objective).getScorePoints();
+
+		Long lastTimeOpened = (Long) this.lastTimeOpened.get((Object) this);
+
+		if(objective.getRenderType() == IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
+			this.mc.getTextureManager().bindTexture(icons);
+
+			if(lastTimeOpened == networkPlayerInfo.func_178855_p()) {
+				if (i < networkPlayerInfo.func_178835_l()) {
+					networkPlayerInfo.func_178846_a(Minecraft.getSystemTime());
+					networkPlayerInfo.func_178844_b((long) (this.mc.ingameGUI.getUpdateCounter() + 20));
+				} else if (i > networkPlayerInfo.func_178835_l()) {
+					networkPlayerInfo.func_178846_a(Minecraft.getSystemTime());
+					networkPlayerInfo.func_178844_b((long) (this.mc.ingameGUI.getUpdateCounter() + 10));
+				}
+			}
+
+			if(Minecraft.getSystemTime() - networkPlayerInfo.func_178847_n() > 1000L || lastTimeOpened != networkPlayerInfo.func_178855_p()) {
+				networkPlayerInfo.func_178836_b(i);
+				networkPlayerInfo.func_178857_c(i);
+				networkPlayerInfo.func_178846_a(Minecraft.getSystemTime());
+			}
+
+			networkPlayerInfo.func_178843_c(lastTimeOpened);
+			networkPlayerInfo.func_178836_b(i);
+			int j = MathHelper.ceiling_float_int((float) Math.max(i, networkPlayerInfo.func_178860_m()) / 2.0F);
+			int k = Math.max(MathHelper.ceiling_float_int((float) (i / 2)), Math.max(MathHelper.ceiling_float_int((float) (networkPlayerInfo.func_178860_m() / 2)), 10));
+			boolean flag = networkPlayerInfo.func_178858_o() > (long) this.mc.ingameGUI.getUpdateCounter() && (networkPlayerInfo.func_178858_o() - (long) this.mc.ingameGUI.getUpdateCounter()) / 3L % 2L == 1L;
+
+			if(j > 0) {
+				float f = Math.min((float) (p_175247_5_ - p_175247_4_ - 4) / (float)k, 9.0F);
+
+				if (f > 3.0F) {
+					for(int l = j; l < k; ++l) {
+						this.drawTexturedModalRect((float) p_175247_4_ + (float) l * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
+					}
+
+					for(int j1 = 0; j1 < j; ++j1) {
+						this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
+
+						if(flag) {
+							if (j1 * 2 + 1 < networkPlayerInfo.func_178860_m())
+							{
+								this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 70, 0, 9, 9);
+							}
+
+							if (j1 * 2 + 1 == networkPlayerInfo.func_178860_m())
+							{
+								this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 79, 0, 9, 9);
+							}
+						}
+
+						if(j1 * 2 + 1 < i) {
+							this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, j1 >= 10 ? 160 : 52, 0, 9, 9);
+						}
+
+						if (j1 * 2 + 1 == i) {
+							this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, j1 >= 10 ? 169 : 61, 0, 9, 9);
+						}
+					}
+				} else {
+					float f1 = MathHelper.clamp_float((float)i / 20.0F, 0.0F, 1.0F);
+					int i1 = (int)((1.0F - f1) * 255.0F) << 16 | (int)(f1 * 255.0F) << 8;
+					String s = "" + (float)i / 2.0F;
+
+					if (p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s + "hp") >= p_175247_4_) {
+						s = s + "hp";
+					}
+
+					this.mc.fontRendererObj.drawStringWithShadow(s, (float) ((p_175247_5_ + p_175247_4_) / 2 - this.mc.fontRendererObj.getStringWidth(s) / 2), (float) p_175247_2_, i1);
+				}
+			}
+		} else {
+			String s1 = EnumChatFormatting.YELLOW + "" + i;
+			this.mc.fontRendererObj.drawStringWithShadow(s1, (float) (p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s1)), (float) p_175247_2_, 16777215);
 		}
 	}
 
