@@ -10,6 +10,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.simplyrin.flawlessnick.FlawlessNick;
+
 /**
  * Created by SiroQ on 2018/04/02
  */
