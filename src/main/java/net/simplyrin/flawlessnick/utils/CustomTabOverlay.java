@@ -51,12 +51,32 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		int j = 0;
 
 		for (NetworkPlayerInfo networkPlayerInfo : list) {
-			int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo));
-			i = Math.max(i, k);
+			if(this.getPlayerName(networkPlayerInfo).equals(FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
+				if(FlawlessNick.getInstance().getNickManager().isNick()) {
+					int k = this.mc.fontRendererObj.getStringWidth(FlawlessNick.getInstance().getNickManager().getNickName());
+					i = Math.max(i, k);
 
-			if(scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
-				k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkPlayerInfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
-				j = Math.max(j, k);
+					if(scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
+						k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkPlayerInfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
+						j = Math.max(j, k);
+					}
+				}else {
+					int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo));
+					i = Math.max(i, k);
+
+					if(scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
+						k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkPlayerInfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
+						j = Math.max(j, k);
+					}
+				}
+			}else {
+				int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo));
+				i = Math.max(i, k);
+
+				if(scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
+					k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkPlayerInfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
+					j = Math.max(j, k);
+				}
 			}
 		}
 
