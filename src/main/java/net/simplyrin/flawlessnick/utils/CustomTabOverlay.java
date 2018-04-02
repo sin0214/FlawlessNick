@@ -66,7 +66,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkPlayerInfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
 						j = Math.max(j, k);
 					}
-				}else {
+				} else {
 					int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo));
 					i = Math.max(i, k);
 
@@ -75,7 +75,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						j = Math.max(j, k);
 					}
 				}
-			}else {
+			} else {
 				int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo));
 				i = Math.max(i, k);
 
@@ -119,7 +119,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		if(header != null) {
 			list1 = this.mc.fontRendererObj.listFormattedStringToWidth(((IChatComponent) header).getFormattedText(), width - 50);
 
-			for (String s : list1) {
+			for(String s : list1) {
 				l1 = Math.max(l1, this.mc.fontRendererObj.getStringWidth(s));
 			}
 		}
@@ -128,7 +128,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		if(footer != null) {
 			list2 = this.mc.fontRendererObj.listFormattedStringToWidth(((IChatComponent) footer).getFormattedText(), width - 50);
 
-			for (String s2 : list2) {
+			for(String s2 : list2) {
 				l1 = Math.max(l1, this.mc.fontRendererObj.getStringWidth(s2));
 			}
 		}
