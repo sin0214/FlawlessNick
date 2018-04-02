@@ -320,7 +320,7 @@ public class FlawlessNick {
 			this.nick = b;
 		}
 
-		public void setNickname(String nick) {
+		public void setNickName(String nick) {
 			this.nickname = nick;
 		}
 

@@ -49,15 +49,15 @@ public class Nick extends CommandBase {
 			FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
 			FlawlessNick.getInstance().getSkinManager().reset();
 			FlawlessNick.getInstance().getNickManager().setNick(false);
-			FlawlessNick.getInstance().sendMessage("&aYour nick has been reset!");
+			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYour nick has been reset!");
 			return;
 		}
 
 		FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
 		FlawlessNick.getInstance().getSkinManager().update(args[0]);
 		FlawlessNick.getInstance().getNickManager().setNick(true);
-		FlawlessNick.getInstance().getNickManager().setNickname(args[0]);
-		FlawlessNick.getInstance().sendMessage("&aYou are now nicked as " + args[0] + "&a!");
+		FlawlessNick.getInstance().getNickManager().setNickName(args[0]);
+		FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYou are now nicked as " + args[0] + "&a!");
 	}
 
 }

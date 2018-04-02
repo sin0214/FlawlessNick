@@ -134,25 +134,27 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 				NetworkPlayerInfo networkPlayerInfo = (NetworkPlayerInfo) list.get(k4);
 				String s1 = this.getPlayerName(networkPlayerInfo);
 
-				if(FlawlessNick.getInstance().getNickManager().isNick()) {
-					EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
-					s1 = s1.replaceAll("\u00a7", "&");
+				if(FlawlessNick.getInstance().isInfo()) {
+					if(FlawlessNick.getInstance().getNickManager().isNick()) {
+						EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
+						s1 = s1.replaceAll("\u00a7", "&");
 
-					for(String prefix : FlawlessNick.getInstance().getRankList()) {
-						if(s1.contains(prefix + " " + player.getName())) {
-							s1 = s1.replace(prefix + " " + player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
+						for(String prefix : FlawlessNick.getInstance().getRankList()) {
+							if(s1.contains(prefix + " " + player.getName())) {
+								s1 = s1.replace(prefix + " " + player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
+							}
 						}
-					}
 
-					if(s1.contains("&")) {
-						if(s1.contains(player.getName())) {
-							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
+						if(s1.contains("&")) {
+							if(s1.contains(player.getName())) {
+								s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
+							}
+						} else {
+							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
 						}
-					} else {
-						s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
-					}
 
-					s1 = s1.replace("&", "§");
+						s1 = s1.replace("&", "§");
+					}
 				}
 
 				GameProfile gameProfile = networkPlayerInfo.getGameProfile();
