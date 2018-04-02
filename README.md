@@ -1,7 +1,7 @@
 # FlawlessNick
 Hypixel やその他のサーバーでローカル環境 Nick ができる Mod です。
 
-Powered by [SimpleNickMod](https://github.com/SimplyRin/SimpleNickMod),[PvPParticles](https://github.com/SiroQ/PvPParticles)
+Powered by [SimpleNickMod](https://github.com/SimplyRin/SimpleNickMod), [PvPParticles](https://github.com/SiroQ/PvPParticles)
 
 # Developer
 ・[SimplyRin](https://www.simplyrin.net/)
