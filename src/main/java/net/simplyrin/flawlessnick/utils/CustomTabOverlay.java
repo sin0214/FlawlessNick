@@ -200,13 +200,13 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						if(entityPlayer.getName().equals(FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
 							if(FlawlessNick.getInstance().getNickManager().isNick()) {
 								this.mc.getTextureManager().bindTexture(FlawlessNick.getInstance().getSkinManager().getSkin(FlawlessNick.getInstance().getNickManager().getNickName()));
-							}else {
+							} else {
 								this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
 							}
-						}else {
+						} else {
 							this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
 						}
-					}else {
+					} else {
 						this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
 					}
 					int l2 = 8 + (flag1 ? 8 : 0);
