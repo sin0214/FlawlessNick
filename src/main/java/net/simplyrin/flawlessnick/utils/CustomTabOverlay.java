@@ -113,7 +113,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		if(header != null) {
 			list1 = this.mc.fontRendererObj.listFormattedStringToWidth(((IChatComponent) header).getFormattedText(), width - 50);
 
-			for (String s : list1) {
+			for(String s : list1) {
 				l1 = Math.max(l1, this.mc.fontRendererObj.getStringWidth(s));
 			}
 		}
@@ -122,7 +122,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		if(footer != null) {
 			list2 = this.mc.fontRendererObj.listFormattedStringToWidth(((IChatComponent) footer).getFormattedText(), width - 50);
 
-			for (String s2 : list2) {
+			for(String s2 : list2) {
 				l1 = Math.max(l1, this.mc.fontRendererObj.getStringWidth(s2));
 			}
 		}
@@ -222,7 +222,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		}
 
 		if(list2 != null) {
-			k1 = k1 + i4 * 9 + 1;
+			k1 += i4 * 9 + 1;
 			drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + list2.size() * this.mc.fontRendererObj.FONT_HEIGHT, Integer.MIN_VALUE);
 
 			for (String s4 : list2) {
@@ -245,7 +245,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 				if (i < networkPlayerInfo.func_178835_l()) {
 					networkPlayerInfo.func_178846_a(Minecraft.getSystemTime());
 					networkPlayerInfo.func_178844_b((long) (this.mc.ingameGUI.getUpdateCounter() + 20));
-				} else if (i > networkPlayerInfo.func_178835_l()) {
+				} else if(i > networkPlayerInfo.func_178835_l()) {
 					networkPlayerInfo.func_178846_a(Minecraft.getSystemTime());
 					networkPlayerInfo.func_178844_b((long) (this.mc.ingameGUI.getUpdateCounter() + 10));
 				}
@@ -266,7 +266,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 			if(j > 0) {
 				float f = Math.min((float) (p_175247_5_ - p_175247_4_ - 4) / (float)k, 9.0F);
 
-				if (f > 3.0F) {
+				if(f > 3.0F) {
 					for(int l = j; l < k; ++l) {
 						this.drawTexturedModalRect((float) p_175247_4_ + (float) l * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
 					}
@@ -275,11 +275,11 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
 
 						if(flag) {
-							if (j1 * 2 + 1 < networkPlayerInfo.func_178860_m()) {
+							if(j1 * 2 + 1 < networkPlayerInfo.func_178860_m()) {
 								this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 70, 0, 9, 9);
 							}
 
-							if (j1 * 2 + 1 == networkPlayerInfo.func_178860_m()) {
+							if(j1 * 2 + 1 == networkPlayerInfo.func_178860_m()) {
 								this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 79, 0, 9, 9);
 							}
 						}
@@ -298,7 +298,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 					String s = "" + (float)i / 2.0F;
 
 					if (p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s + "hp") >= p_175247_4_) {
-						s = s + "hp";
+						s += "hp";
 					}
 
 					this.mc.fontRendererObj.drawStringWithShadow(s, (float) ((p_175247_5_ + p_175247_4_) / 2 - this.mc.fontRendererObj.getStringWidth(s) / 2), (float) p_175247_2_, i1);
