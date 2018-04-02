@@ -11,7 +11,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.simplyrin.flawlessnick.FlawlessNick;
 
-public class GuiFlawlessNick extends GuiScreen{
+public class GuiFlawlessNick extends GuiScreen {
+
 	private GuiButton doneButton;
 	private GuiButton resetButton;
 	private static GuiTextField nickNameField;
@@ -21,23 +22,25 @@ public class GuiFlawlessNick extends GuiScreen{
 	public void initGui() {
 		nickNameField = new GuiTextField(0, this.fontRendererObj, this.width / 2 - 75, this.height / 2 - 44, 150, 20);
 		nickRankField = new GuiTextField(1, this.fontRendererObj, this.width / 2 - 75, this.height / 2 - 22, 150, 20);
+
 		if(FlawlessNick.getInstance().getNickManager().isNick()) {
 			if(!FlawlessNick.getInstance().getNickManager().getNickName().isEmpty()) {
 				nickNameField.setText(FlawlessNick.getInstance().getNickManager().getNickName());
-			}else {
+			} else {
 				nickNameField.setText("§7NickName");
 			}
 			if(!FlawlessNick.getInstance().getNickManager().getPrefix().isEmpty()) {
 				nickRankField.setText(FlawlessNick.getInstance().getNickManager().getPrefix());
-			}else {
+			} else {
 				nickRankField.setText("§7NickRank");
 			}
-		}else {
+		} else {
 			nickNameField.setText("§7NickName");
 			nickRankField.setText("§7NickRank");
 		}
+
 		doneButton = new GuiButton(2, this.width / 2 - 75, this.height / 2, 150, 20, "Done");
-		resetButton = new GuiButton(3, this.width / 2 - 75, this.height / 2+22, 150, 20, "Reset");
+		resetButton = new GuiButton(3, this.width / 2 - 75, this.height / 2 + 22, 150, 20, "Reset");
 		this.buttonList.add(doneButton);
 		this.buttonList.add(resetButton);
 	}
@@ -76,7 +79,7 @@ public class GuiFlawlessNick extends GuiScreen{
 			if(nickNameField.getText().equals("§7NickName")) {
 				nickNameField.setText("");
 			}
-		}else {
+		} else {
 			if(nickNameField.getText().isEmpty()) {
 				nickNameField.setText("§7NickName");
 			}
@@ -85,7 +88,7 @@ public class GuiFlawlessNick extends GuiScreen{
 			if(nickRankField.getText().equals("§7NickRank")) {
 				nickRankField.setText("");
 			}
-		}else {
+		} else {
 			if(nickRankField.getText().isEmpty()) {
 				nickRankField.setText("§7NickRank");
 			}
@@ -103,7 +106,7 @@ public class GuiFlawlessNick extends GuiScreen{
 				FlawlessNick.getInstance().getNickManager().setNickName(nickNameField.getText());
 			}
 			FlawlessNick.getInstance().getMinecraft().currentScreen = null;
-		}else if(button.id == 3) {
+		} else if(button.id == 3) {
 			nickNameField.setText("§7NickName");
 			nickRankField.setText("§7NickRank");
 			FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
