@@ -174,7 +174,10 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 							}
 						}
 
-						if(s1.contains("&")) {
+						if(s1.startsWith("&bA ") || s1.startsWith("&9B ") || s1.startsWith("&8S ") || s1.startsWith("&aG ") ||
+								s1.startsWith("&dP ") || s1.startsWith("&cR ") || s1.startsWith("&fW ") || s1.startsWith("&eY ")) {
+							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
+						} else if(s1.contains("&")) {
 							if(s1.equals("&a" + FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
 								s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
 							} else if(s1.contains(player.getName())) {
