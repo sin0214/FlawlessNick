@@ -50,7 +50,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		int i = 0;
 		int j = 0;
 
-		for (NetworkPlayerInfo networkPlayerInfo : list) {
+		for(NetworkPlayerInfo networkPlayerInfo : list) {
 			if(this.getPlayerName(networkPlayerInfo).equals(FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
 				if(FlawlessNick.getInstance().getNickManager().isNick()) {
 					int k = this.mc.fontRendererObj.getStringWidth(FlawlessNick.getInstance().getNickManager().getNickName());
