@@ -51,9 +51,15 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		int j = 0;
 
 		for (NetworkPlayerInfo networkPlayerInfo : list) {
-			if(this.getPlayerName(networkPlayerInfo).equals(FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
+			if(this.getPlayerName(networkPlayerInfo).contains(FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
 				if(FlawlessNick.getInstance().getNickManager().isNick()) {
-					int k = this.mc.fontRendererObj.getStringWidth(FlawlessNick.getInstance().getNickManager().getNickName());
+					String name = this.getPlayerName(networkPlayerInfo);
+					for(String prefix : FlawlessNick.getInstance().getRankList()) {
+						if(name.contains(prefix + " " + FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
+							name = name.replace(prefix + " " + FlawlessNick.getInstance().getMinecraft().thePlayer.getName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
+						}
+					}
+					int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo).replace(FlawlessNick.getInstance().getMinecraft().thePlayer.getName(),FlawlessNick.getInstance().getNickManager().getNickName()));
 					i = Math.max(i, k);
 
 					if(scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
