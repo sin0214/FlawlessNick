@@ -34,8 +34,7 @@ import net.simplyrin.flawlessnick.command.FNickRank;
 import net.simplyrin.flawlessnick.utils.CustomTabOverlay;
 
 /**
- * Powered by SimpleNickMod.
- *
+ * Powered by SimpleNickMod and PvPParticles.
  */
 @Mod(modid = FlawlessNick.MODID, version = FlawlessNick.VERSION, clientSideOnly = true)
 public class FlawlessNick {
