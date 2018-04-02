@@ -244,7 +244,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 			boolean flag = networkPlayerInfo.func_178858_o() > (long) this.mc.ingameGUI.getUpdateCounter() && (networkPlayerInfo.func_178858_o() - (long) this.mc.ingameGUI.getUpdateCounter()) / 3L % 2L == 1L;
 
 			if(j > 0) {
-				float f = Math.min((float)(p_175247_5_ - p_175247_4_ - 4) / (float)k, 9.0F);
+				float f = Math.min((float) (p_175247_5_ - p_175247_4_ - 4) / (float)k, 9.0F);
 
 				if (f > 3.0F) {
 					for(int l = j; l < k; ++l) {
