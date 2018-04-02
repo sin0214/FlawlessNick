@@ -67,7 +67,7 @@ public class FlawlessNick {
 			"&6[MVP&6++&6]", "&6[MVP&a++&6]", "&b[MVP&e++&6]", "&6[MVP&d++&6]", "&6[MVP&f++&6]", "&6[MVP&9++&b]",
 			"&6[MVP&2++&6]", "&6[MVP&4++&6]", "&b[MVP&3++&6]", "&6[MVP&5++&6]", "&6[MVP&7++&6]", "&6[MVP&0++&b]",
 
-			"&9[HELPER]", "&3[MOD]", "&c[&fYOUTUBER&c]", "&c[ADMIN]");
+			"&9[HELPER]", "&3[MOD]", "&c[&fYOUTUBER&c]", "&c[ADMIN]", "&c[OWNER]");
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
