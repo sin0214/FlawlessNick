@@ -10,4 +10,5 @@ Powered by [SimpleNickMod](https://github.com/SimplyRin/SimpleNickMod)
 
 # Special Thanks
 この Mod は [boomboompower](https://github.com/boomboompower) の [SkinChanger](https://github.com/boomboompower/SkinChanger) を使用しています。
+
 この Mod は [HyperiumClient](https://github.com/HyperiumClient/Hyperium) の一部コードを使用しています。
