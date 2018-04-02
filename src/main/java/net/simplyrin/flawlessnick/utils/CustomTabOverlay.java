@@ -147,7 +147,9 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						}
 
 						if(s1.contains("&")) {
-							if(s1.contains(player.getName())) {
+							if(s1.equals("&a" + FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
+								s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
+							} else if(s1.contains(player.getName())) {
 								s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
 							}
 						} else {
