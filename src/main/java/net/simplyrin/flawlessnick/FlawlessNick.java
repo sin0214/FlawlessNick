@@ -29,8 +29,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
-import net.simplyrin.flawlessnick.command.Nick;
-import net.simplyrin.flawlessnick.command.NickRank;
+import net.simplyrin.flawlessnick.command.FNick;
+import net.simplyrin.flawlessnick.command.FNickRank;
 import net.simplyrin.flawlessnick.utils.CustomTabOverlay;
 
 /**
@@ -78,8 +78,8 @@ public class FlawlessNick {
 		MinecraftForge.EVENT_BUS.register(instance);
 		MinecraftForge.EVENT_BUS.register(new SkinEvents());
 
-		ClientCommandHandler.instance.registerCommand(new Nick());
-		ClientCommandHandler.instance.registerCommand(new NickRank());
+		ClientCommandHandler.instance.registerCommand(new FNick());
+		ClientCommandHandler.instance.registerCommand(new FNickRank());
 
 		File folder = new File("mods/FlawlessNick");
 		if(!folder.exists()) {
