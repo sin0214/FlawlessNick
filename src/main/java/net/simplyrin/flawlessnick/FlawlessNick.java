@@ -354,8 +354,8 @@ public class FlawlessNick {
 		private String nickname;
 		private String prefix = "&a[VIP]";
 
-		public void setNick(boolean b) {
-			this.nick = b;
+		public void setNick(boolean bool) {
+			this.nick = bool;
 		}
 
 		public void setNickName(String nick) {
