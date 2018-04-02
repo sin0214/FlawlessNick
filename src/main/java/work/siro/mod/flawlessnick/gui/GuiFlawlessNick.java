@@ -102,6 +102,13 @@ public class GuiFlawlessNick extends GuiScreen {
 	protected void actionPerformed(GuiButton button) throws IOException {
 		if(button.id == 2) {
 			if(!nickNameField.getText().isEmpty() && !nickNameField.getText().equals("§7NickName")) {
+				for(String name : FlawlessNick.getInstance().getDisabledList()) {
+					if(nickNameField.getText().toLowerCase().contains(name.toLowerCase())) {
+						FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cThis name is not allowed!");
+						FlawlessNick.getInstance().getMinecraft().displayGuiScreen(null);
+						return;
+					}
+				}
 				FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
 				FlawlessNick.getInstance().getSkinManager().setSkinName(nickNameField.getText());
 				FlawlessNick.getInstance().getNickManager().setNick(true);
