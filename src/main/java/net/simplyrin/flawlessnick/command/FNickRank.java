@@ -30,7 +30,7 @@ public class FNickRank extends CommandBase {
 	public void processCommand(ICommandSender sender, String[] args) {
 		if(args.length > 0) {
 			FlawlessNick.getInstance().getNickManager().setPrefix(args[0]);
-			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYou are nicked rank is " + args[0] + "&a!");
+			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aSet your nick rank to " + args[0] + "&a!");
 			return;
 		}
 
