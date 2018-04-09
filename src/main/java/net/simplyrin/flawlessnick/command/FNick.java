@@ -83,6 +83,10 @@ public class FNick extends CommandBase {
 				return;
 			}
 
+			if(args[0].length() > 16) {
+				args[0] = args[0].substring(0, 15);
+			}
+
 			FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
 			FlawlessNick.getInstance().getSkinManager().update(args[0]);
 			FlawlessNick.getInstance().getNickManager().setNick(true);

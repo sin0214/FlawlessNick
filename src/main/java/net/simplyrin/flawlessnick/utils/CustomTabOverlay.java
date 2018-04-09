@@ -50,7 +50,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		int i = 0;
 		int j = 0;
 
-		for (NetworkPlayerInfo networkPlayerInfo : list) {
+		for(NetworkPlayerInfo networkPlayerInfo : list) {
 			if(this.getPlayerName(networkPlayerInfo).contains(FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
 				if(FlawlessNick.getInstance().getNickManager().isNick()) {
 					String name = this.getPlayerName(networkPlayerInfo);
@@ -136,7 +136,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		if(list1 != null) {
 			drawRect(width / 2 - l1 / 2 - 1, k1 - 1, width / 2 + l1 / 2 + 1, k1 + list1.size() * this.mc.fontRendererObj.FONT_HEIGHT, Integer.MIN_VALUE);
 
-			for (String s3 : list1) {
+			for(String s3 : list1) {
 				int i2 = this.mc.fontRendererObj.getStringWidth(s3);
 				this.mc.fontRendererObj.drawStringWithShadow(s3, (float)(width / 2 - i2 / 2), (float)k1, -1);
 				k1 += this.mc.fontRendererObj.FONT_HEIGHT;
@@ -173,15 +173,12 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 								s1 = s1.replace(prefix + " " + player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
 							}
 						}
-						if(s1.startsWith("&b&lA ") || s1.startsWith("&9&lB ") || s1.startsWith("&8&lS ") || s1.startsWith("&a&lG ") ||
-								s1.startsWith("&d&lP ") || s1.startsWith("&c&lR ") || s1.startsWith("&f&lW ") || s1.startsWith("&e&lY ")) {
+						if(s1.startsWith("&b&lA ") || s1.startsWith("&9&lB ") || s1.startsWith("&8&lS ") || s1.startsWith("&a&lG ") || s1.startsWith("&d&lP ") || s1.startsWith("&c&lR ") || s1.startsWith("&f&lW ") || s1.startsWith("&e&lY ")) {
 							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
-						}else if(s1.startsWith("&a[C&a]") || s1.startsWith("&a[D&a]") || s1.startsWith("&a[E&a]") || s1.startsWith("&a[F&a]") || s1.startsWith("&a[G&a]") || s1.startsWith("&a[H&a]") ||
-                                s1.startsWith("&a[I&a]") || s1.startsWith("&a[J&a]") || s1.startsWith("&a[K&a]") || s1.startsWith("&a[L&a]") || s1.startsWith("&a[M&a]") || s1.startsWith("&a[N&a]")) {
-                            s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
-                        }else if(s1.startsWith("&7[C&7]") || s1.startsWith("&7[D&7]") || s1.startsWith("&7[E&7]") || s1.startsWith("&7[F&7]") || s1.startsWith("&7[G&7]") || s1.startsWith("&7[H&7]") ||
-                                s1.startsWith("&7[I&7]") || s1.startsWith("&7[J&7]") || s1.startsWith("&7[K&7]") || s1.startsWith("&7[L&7]") || s1.startsWith("&7[M&7]") || s1.startsWith("&7[N&7]")){
-                            s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
+						} else if(s1.startsWith("&a[C&a]") || s1.startsWith("&a[D&a]") || s1.startsWith("&a[E&a]") || s1.startsWith("&a[F&a]") || s1.startsWith("&a[G&a]") || s1.startsWith("&a[H&a]") || s1.startsWith("&a[I&a]") || s1.startsWith("&a[J&a]") || s1.startsWith("&a[K&a]") || s1.startsWith("&a[L&a]") || s1.startsWith("&a[M&a]") || s1.startsWith("&a[N&a]")) {
+							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
+						} else if(s1.startsWith("&7[C&7]") || s1.startsWith("&7[D&7]") || s1.startsWith("&7[E&7]") || s1.startsWith("&7[F&7]") || s1.startsWith("&7[G&7]") || s1.startsWith("&7[H&7]") || s1.startsWith("&7[I&7]") || s1.startsWith("&7[J&7]") || s1.startsWith("&7[K&7]") || s1.startsWith("&7[L&7]") || s1.startsWith("&7[M&7]") || s1.startsWith("&7[N&7]")){
+							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
 						} else if(s1.contains("&")) {
 							if(s1.equals("&a" + FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
 								s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());

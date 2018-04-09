@@ -110,14 +110,20 @@ public class GuiFlawlessNick extends GuiScreen {
 						return;
 					}
 				}
+
+				String nick = nickNameField.getText();
+				if(nick.length() > 16) {
+					nick = nick.substring(0, 15);
+				}
+
 				FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
-				FlawlessNick.getInstance().getSkinManager().setSkinName(nickNameField.getText());
+				FlawlessNick.getInstance().getSkinManager().setSkinName(nick);
 				FlawlessNick.getInstance().getNickManager().setNick(true);
-				FlawlessNick.getInstance().getNickManager().setNickName(nickNameField.getText());
+				FlawlessNick.getInstance().getNickManager().setNickName(nick);
 				FlawlessNick.getInstance().getNickManager().setPrefix(nickRankField.getText());
-				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYou are now nicked as " + nickNameField.getText() + "&a!");
+				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYou are now nicked as " + nick + "&a!");
 				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aSet your nick rank to " + nickRankField.getText() + "&a!");
-			}else {
+			} else {
 				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cPlease type nickname data!");
 			}
 			FlawlessNick.getInstance().getMinecraft().displayGuiScreen(null);
