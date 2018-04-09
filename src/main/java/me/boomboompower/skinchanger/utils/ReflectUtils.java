@@ -29,6 +29,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class ReflectUtils {
+
 	/*
 	 *     Copyright (C) 2017 boomboompower
 	 *

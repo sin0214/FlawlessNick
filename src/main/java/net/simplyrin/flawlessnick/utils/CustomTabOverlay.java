@@ -59,7 +59,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 							name = name.replace(prefix + " " + FlawlessNick.getInstance().getMinecraft().thePlayer.getName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
 						}
 					}
-					int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo).replace(FlawlessNick.getInstance().getMinecraft().thePlayer.getName(),FlawlessNick.getInstance().getNickManager().getNickName()));
+					int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo).replace(FlawlessNick.getInstance().getMinecraft().thePlayer.getName(), FlawlessNick.getInstance().getNickManager().getNickName()));
 					i = Math.max(i, k);
 
 					if(scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.EnumRenderType.HEARTS) {

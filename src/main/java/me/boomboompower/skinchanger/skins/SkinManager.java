@@ -35,6 +35,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class SkinManager {
+
 	/*
 	 *     Copyright (C) 2017 boomboompower
 	 *
