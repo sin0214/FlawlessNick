@@ -1,11 +1,15 @@
 package work.siro.mod.flawlessnick.gui;
 
+import java.awt.*;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.scoreboard.Scoreboard;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -53,6 +57,8 @@ public class GuiFlawlessNick extends GuiScreen {
 		super.drawDefaultBackground();
 		nickNameField.drawTextBox();
 		nickRankField.drawTextBox();
+		drawString(fontRendererObj,"FlawlessNick "+FlawlessNick.VERSION+" by @SimplyRin_, @SiroQ_",this.width/2-mc.fontRendererObj.getStringWidth("FlawlessNick "+FlawlessNick.VERSION+" by @SimplyRin_, @SiroQ_")/2, this.height / 2 - 66,16777215);
+        drawString(fontRendererObj,"Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium",this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")/2, this.height / 2 - 55,16777215);
 		super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
@@ -76,6 +82,37 @@ public class GuiFlawlessNick extends GuiScreen {
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+        if(mouseY >= this.height/2-66 && mouseY <= this.height/2-56) {
+            if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("FlawlessNick "+FlawlessNick.VERSION+" by @SimplyRin_, @SiroQ_")/2+mc.fontRendererObj.getStringWidth("FlawlessNick "+FlawlessNick.VERSION+" by ") && mouseX <= this.width/2-mc.fontRendererObj.getStringWidth("FlawlessNick "+FlawlessNick.VERSION+" by @SimplyRin_, @SiroQ_")/2 + mc.fontRendererObj.getStringWidth("FlawlessNick "+FlawlessNick.VERSION+" by @SimplyRin_")){
+                try {
+                    Desktop.getDesktop().browse(new URI("https://twitter.com/SimplyRin_"));
+                } catch (URISyntaxException e) {e.printStackTrace();}
+            }else if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("FlawlessNick "+FlawlessNick.VERSION+" by @SimplyRin_, @SiroQ_")/2+mc.fontRendererObj.getStringWidth("FlawlessNick "+FlawlessNick.VERSION+" by @SimplyRin_, ") && mouseX <= this.width/2-mc.fontRendererObj.getStringWidth("FlawlessNick "+FlawlessNick.VERSION+" by @SimplyRin_, @SiroQ_")/2 + mc.fontRendererObj.getStringWidth("FlawlessNick "+FlawlessNick.VERSION+" by @SimplyRin_, @SiroQ_")){
+                try {
+                    Desktop.getDesktop().browse(new URI("https://twitter.com/SiroQ_"));
+                } catch (URISyntaxException e) {e.printStackTrace();}
+            }
+        }else if(mouseY >= this.height/2-55 && mouseY <= this.height/2-45) {
+            System.out.println("OK");
+            if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")/2+mc.fontRendererObj.getStringWidth("Powered by ") && mouseX <= this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")/2 +mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod")){
+                System.out.println("OK");
+                try {
+                    Desktop.getDesktop().browse(new URI("https://github.com/SimplyRin/SimpleNickMod"));
+                } catch (URISyntaxException e) {e.printStackTrace();}
+            }else if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")/2+mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, ") && mouseX <= this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")/2+mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles")){
+                try {
+                    Desktop.getDesktop().browse(new URI("https://github.com/SiroQ/PvPParticles"));
+                } catch (URISyntaxException e) {e.printStackTrace();}
+            }else if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")/2+mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, ") && mouseX <= this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")/2+mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger")){
+                try {
+                    Desktop.getDesktop().browse(new URI("https://github.com/boomboompower/SkinChanger"));
+                } catch (URISyntaxException e) {e.printStackTrace();}
+            }else if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")/2+mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod PvPParticles, SkinChanger, ") && mouseX <= this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")/2+ mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")){
+                try {
+                    Desktop.getDesktop().browse(new URI("https://github.com/HyperiumClient/Hyperium"));
+                } catch (URISyntaxException e) {e.printStackTrace();}
+            }
+        }
 		nickNameField.mouseClicked(mouseX, mouseY, mouseButton);
 		nickRankField.mouseClicked(mouseX, mouseY, mouseButton);
 		if(nickNameField.isFocused()) {

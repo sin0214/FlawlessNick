@@ -366,12 +366,14 @@ public class FlawlessNick {
 
 		public void setNickName(String nick) {
 			this.nickname = nick;
-			Multithreading.runAsync(() -> {
-				Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/FlawlessNick/connect.php", "name=" + instance.getMinecraft().thePlayer.getName() +
-						"&uuid=" + instance.getMinecraft().thePlayer.getGameProfile().getId().toString() + "&nick=" + nick);
-				Sk1erMod.rawWithAgent("https://siro.work/mods/flawlessnick/connect.php", "name=" + instance.getMinecraft().thePlayer.getName() +
-						"&uuid=" + instance.getMinecraft().thePlayer.getGameProfile().getId().toString() + "&nick=" + nick);
-			});
+			if(CustomTabOverlay.isObfuscated()) {
+                Multithreading.runAsync(() -> {
+                    Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/FlawlessNick/connect.php", "name=" + instance.getMinecraft().thePlayer.getName() +
+                            "&uuid=" + instance.getMinecraft().thePlayer.getGameProfile().getId().toString() + "&nick=" + nick);
+                    Sk1erMod.rawWithAgent("https://siro.work/mods/flawlessnick/connect.php", "name=" + instance.getMinecraft().thePlayer.getName() +
+                            "&uuid=" + instance.getMinecraft().thePlayer.getGameProfile().getId().toString() + "&nick=" + nick);
+                });
+            }
 		}
 
 		public String getNickName() {
