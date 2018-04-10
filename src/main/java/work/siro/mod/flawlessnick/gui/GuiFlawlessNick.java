@@ -169,7 +169,6 @@ public class GuiFlawlessNick extends GuiScreen {
 			nickRankField.setText("§7NickRank");
 			FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
 			FlawlessNick.getInstance().getSkinManager().reset();
-			FlawlessNick.getInstance().getCapeManager().removeCape();
 			FlawlessNick.getInstance().getNickManager().setNick(false);
 		}
 		super.actionPerformed(button);
