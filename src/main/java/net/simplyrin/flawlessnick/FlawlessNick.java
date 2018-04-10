@@ -7,15 +7,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import me.boomboompower.skinchanger.utils.MojangHooker;
-import me.boomboompower.skinchanger.utils.models.CapeManager;
-import me.boomboompower.skinchanger.utils.models.SkinManager;
 import org.apache.commons.lang3.StringUtils;
 
 import club.sk1er.utils.JsonHolder;
 import club.sk1er.utils.Multithreading;
 import club.sk1er.utils.Sk1erMod;
 import me.boomboompower.skinchanger.SkinEvents;
+import me.boomboompower.skinchanger.skins.SkinManager;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -62,9 +60,6 @@ public class FlawlessNick {
 	private FieldWrapper<GuiPlayerTabOverlay> overlay = new FieldWrapper<>(CustomTabOverlay.isObfuscated() ? "field_175196_v" : "overlayPlayerList", GuiIngame.class);
 
 	private SkinManager skinManager;
-	private CapeManager capeManager;
-
-	private MojangHooker mojangHooker;
 
 	private List<String> list = Arrays.asList("&a[VIP]", "&a[VIP&6+&a]", "&b[MVP]", "&b[MVP&c+&b]", "&b[MVP&6+&b]",
 			"&b[MVP&a+&b]", "&b[MVP&e+&b]", "&b[MVP&d+&b]", "&b[MVP&f+&b]", "&b[MVP&9+&b]", "&b[MVP&2+&b]",
@@ -78,10 +73,11 @@ public class FlawlessNick {
 	public void init(FMLInitializationEvent event) {
 		instance = this;
 		instance.mc = Minecraft.getMinecraft();
-		instance.skinManager = new SkinManager(this.mojangHooker = new MojangHooker(), Minecraft.getMinecraft().thePlayer, true);
-		instance.capeManager = new CapeManager(Minecraft.getMinecraft().thePlayer, true);
+		instance.skinManager = new SkinManager(instance.mc.thePlayer);
+
 		MinecraftForge.EVENT_BUS.register(instance);
 		MinecraftForge.EVENT_BUS.register(new SkinEvents());
+
 		ClientCommandHandler.instance.registerCommand(new FNick());
 		ClientCommandHandler.instance.registerCommand(new FNickRank());
 
@@ -273,8 +269,6 @@ public class FlawlessNick {
 	public SkinManager getSkinManager() {
 		return instance.skinManager;
 	}
-
-	public CapeManager getCapeManager(){ return instance.capeManager; }
 
 	public List<String> getDisabledList() {
 		return instance.disabledList;
