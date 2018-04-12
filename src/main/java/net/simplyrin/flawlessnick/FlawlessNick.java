@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import me.boomboompower.skinchanger.utils.MojangHooker;
-import me.boomboompower.skinchanger.utils.models.SkinManager;
 import org.apache.commons.lang3.StringUtils;
 
 import club.sk1er.utils.JsonHolder;
 import club.sk1er.utils.Multithreading;
 import club.sk1er.utils.Sk1erMod;
 import me.boomboompower.skinchanger.SkinEvents;
+import me.boomboompower.skinchanger.utils.MojangHooker;
+import me.boomboompower.skinchanger.utils.models.SkinManager;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -23,6 +23,7 @@ import net.minecraft.client.gui.GuiPlayerTabOverlay;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -173,7 +174,7 @@ public class FlawlessNick {
 			this.sendMessage(this.getPrefix() + "&eFlawlessNick has new version!");
 			this.sendMessage(this.getPrefix());
 			this.sendMessage(this.getPrefix() + "&eVersion: " + instance.updateVersion);
-			this.sendMessage(this.getPrefix() + "&eMessage: " + instance.updateMessage);
+			this.sendMessage(this.getPrefix() + "&eMessage: " + instance.updateMessage, true);
 			this.sendMessage(this.getPrefix() + "&e&m----------------------------------");
 		});
 	}
@@ -257,6 +258,17 @@ public class FlawlessNick {
 		message = message.replaceAll("§", "\u00a7");
 
 		instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message));
+	}
+
+	public void sendMessage(String message, boolean link) {
+		message = message.replaceAll("&", "\u00a7");
+		message = message.replaceAll("§", "\u00a7");
+
+		if(link) {
+			instance.mc.thePlayer.addChatComponentMessage(ForgeHooks.newChatWithLinks(message));
+		} else {
+			instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message));
+		}
 	}
 
 	public List<String> getRankList() {
