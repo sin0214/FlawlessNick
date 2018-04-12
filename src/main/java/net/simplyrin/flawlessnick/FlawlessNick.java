@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import me.boomboompower.skinchanger.utils.MojangHooker;
+import me.boomboompower.skinchanger.utils.models.SkinManager;
 import org.apache.commons.lang3.StringUtils;
 
 import club.sk1er.utils.JsonHolder;
 import club.sk1er.utils.Multithreading;
 import club.sk1er.utils.Sk1erMod;
 import me.boomboompower.skinchanger.SkinEvents;
-import me.boomboompower.skinchanger.skins.SkinManager;
 import net.md_5.bungee.api.ChatColor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -56,6 +57,7 @@ public class FlawlessNick {
 	private boolean isInfo = true;
 	private String infoMessage = "";
 
+	private MojangHooker mojangHooker;
 	private Minecraft mc;
 	private FieldWrapper<GuiPlayerTabOverlay> overlay = new FieldWrapper<>(CustomTabOverlay.isObfuscated() ? "field_175196_v" : "overlayPlayerList", GuiIngame.class);
 
@@ -73,8 +75,7 @@ public class FlawlessNick {
 	public void init(FMLInitializationEvent event) {
 		instance = this;
 		instance.mc = Minecraft.getMinecraft();
-		instance.skinManager = new SkinManager(instance.mc.thePlayer);
-
+		instance.skinManager = new SkinManager(this.mojangHooker = new MojangHooker(), Minecraft.getMinecraft().thePlayer, true);
 		MinecraftForge.EVENT_BUS.register(instance);
 		MinecraftForge.EVENT_BUS.register(new SkinEvents());
 
@@ -360,6 +361,7 @@ public class FlawlessNick {
 
 		public void setNickName(String nick) {
 			this.nickname = nick;
+			CustomTabOverlay.nickedLocation = getSkinManager().getSkin(nick);
 			if(CustomTabOverlay.isObfuscated()) {
                 Multithreading.runAsync(() -> {
                     Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/FlawlessNick/connect.php", "name=" + instance.getMinecraft().thePlayer.getName() +

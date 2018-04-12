@@ -22,6 +22,7 @@ import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -34,6 +35,7 @@ import net.simplyrin.flawlessnick.FlawlessNick.FieldWrapper;
 public class CustomTabOverlay extends GuiPlayerTabOverlay {
 
 	private Minecraft mc;
+	public static ResourceLocation nickedLocation;
 	private Ordering<NetworkPlayerInfo> ordering = Ordering.from(new PlayerComparator());
 	private FieldWrapper<IChatComponent> footer = new FieldWrapper<>(isObfuscated() ? "field_175255_h" : "footer", GuiPlayerTabOverlay.class);
 	private FieldWrapper<IChatComponent> header = new FieldWrapper<>(isObfuscated() ? "field_175256_i" : "header", GuiPlayerTabOverlay.class);
@@ -201,7 +203,12 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 					if(entityPlayer != null) {
 						if(entityPlayer.getName().equals(FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
 							if(FlawlessNick.getInstance().getNickManager().isNick()) {
-								this.mc.getTextureManager().bindTexture(FlawlessNick.getInstance().getSkinManager().getSkin(FlawlessNick.getInstance().getNickManager().getNickName()));
+								if(nickedLocation != null){
+									this.mc.getTextureManager().bindTexture(nickedLocation);
+								}else {
+									nickedLocation = FlawlessNick.getInstance().getSkinManager().getSkin(FlawlessNick.getInstance().getNickManager().getNickName());
+									this.mc.getTextureManager().bindTexture(nickedLocation);
+								}
 							} else {
 								this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
 							}
