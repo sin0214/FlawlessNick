@@ -41,7 +41,7 @@ import net.simplyrin.flawlessnick.utils.CustomTabOverlay;
 public class FlawlessNick {
 
 	public static final String MODID = "FlawlessNick";
-	public static final String VERSION = "1.0-Beta-2";
+	public static final String VERSION = "1.0-Beta-3";
 
 	private static FlawlessNick instance;
 	private JsonHolder json;
@@ -59,7 +59,7 @@ public class FlawlessNick {
 
 	private MojangHooker mojangHooker;
 	private Minecraft mc;
-	private FieldWrapper<GuiPlayerTabOverlay> overlay = new FieldWrapper<>(CustomTabOverlay.isObfuscated() ? "field_175196_v" : "overlayPlayerList", GuiIngame.class);
+	private FieldWrap<GuiPlayerTabOverlay> overlay = new FieldWrap<>(CustomTabOverlay.isObfuscated() ? "field_175196_v" : "overlayPlayerList", GuiIngame.class);
 
 	private SkinManager skinManager;
 
@@ -288,14 +288,14 @@ public class FlawlessNick {
 		return instance.json;
 	}
 
-	public static class FieldWrapper<T> {
+	public static class FieldWrap<T> {
 
 		private static boolean ready = false;
 
 		private static Field modifiersField;
 		private Field field;
 
-		public FieldWrapper(String fieldName, Class<?> clazz) {
+		public FieldWrap(String fieldName, Class<?> clazz) {
 			this.register();
 			try {
 				this.field = clazz.getDeclaredField(fieldName);

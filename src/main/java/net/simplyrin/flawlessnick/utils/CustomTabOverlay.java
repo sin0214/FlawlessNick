@@ -27,7 +27,7 @@ import net.minecraft.world.WorldSettings;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.simplyrin.flawlessnick.FlawlessNick;
-import net.simplyrin.flawlessnick.FlawlessNick.FieldWrapper;
+import net.simplyrin.flawlessnick.FlawlessNick.FieldWrap;
 
 /**
  * Created by SimplyRin on 2018/04/01
@@ -37,9 +37,9 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 	private Minecraft mc;
 	public static ResourceLocation nickedLocation;
 	private Ordering<NetworkPlayerInfo> ordering = Ordering.from(new PlayerComparator());
-	private FieldWrapper<IChatComponent> footer = new FieldWrapper<>(isObfuscated() ? "field_175255_h" : "footer", GuiPlayerTabOverlay.class);
-	private FieldWrapper<IChatComponent> header = new FieldWrapper<>(isObfuscated() ? "field_175256_i" : "header", GuiPlayerTabOverlay.class);
-	private FieldWrapper<Long> lastTimeOpened = new FieldWrapper<>(isObfuscated() ? "field_175253_j" : "lastTimeOpened", GuiPlayerTabOverlay.class);
+	private FieldWrap<IChatComponent> footer = new FieldWrap<>(isObfuscated() ? "field_175255_h" : "footer", GuiPlayerTabOverlay.class);
+	private FieldWrap<IChatComponent> header = new FieldWrap<>(isObfuscated() ? "field_175256_i" : "header", GuiPlayerTabOverlay.class);
+	private FieldWrap<Long> lastTimeOpened = new FieldWrap<>(isObfuscated() ? "field_175253_j" : "lastTimeOpened", GuiPlayerTabOverlay.class);
 
 	public CustomTabOverlay(Minecraft mc, GuiIngame guiIngameIn) {
 		super(mc, guiIngameIn);
