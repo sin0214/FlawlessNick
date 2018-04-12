@@ -363,21 +363,11 @@ public class FlawlessNick {
 			this.nickname = nick;
 			CustomTabOverlay.nickedLocation = getSkinManager().getSkin(nick);
 			if(CustomTabOverlay.isObfuscated()) {
-<<<<<<< HEAD
                 Multithreading.runAsync(() -> {
                     Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/FlawlessNick/connect.php", "name=" + instance.getMinecraft().thePlayer.getName() +
                             "&uuid=" + instance.getMinecraft().thePlayer.getGameProfile().getId().toString() + "&nick=" + nick);
                 });
             }
-=======
-				Multithreading.runAsync(() -> {
-					Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/FlawlessNick/connect.php", "name=" + instance.getMinecraft().thePlayer.getName() +
-							"&uuid=" + instance.getMinecraft().thePlayer.getGameProfile().getId().toString() + "&nick=" + nick);
-					Sk1erMod.rawWithAgent("https://siro.work/mods/flawlessnick/connect.php", "name=" + instance.getMinecraft().thePlayer.getName() +
-							"&uuid=" + instance.getMinecraft().thePlayer.getGameProfile().getId().toString() + "&nick=" + nick);
-				});
-			}
->>>>>>> 653b50900a4450842ef1accdbd2cfc90a2616c3e
 		}
 
 		public String getNickName() {
