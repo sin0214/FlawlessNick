@@ -41,7 +41,7 @@ import net.simplyrin.flawlessnick.utils.CustomTabOverlay;
 public class FlawlessNick {
 
 	public static final String MODID = "FlawlessNick";
-	public static final String VERSION = "1.0-Beta";
+	public static final String VERSION = "1.0-Beta-2";
 
 	private static FlawlessNick instance;
 	private JsonHolder json;
