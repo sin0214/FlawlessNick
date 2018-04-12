@@ -364,8 +364,6 @@ public class FlawlessNick {
                 Multithreading.runAsync(() -> {
                     Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/FlawlessNick/connect.php", "name=" + instance.getMinecraft().thePlayer.getName() +
                             "&uuid=" + instance.getMinecraft().thePlayer.getGameProfile().getId().toString() + "&nick=" + nick);
-                    Sk1erMod.rawWithAgent("https://siro.work/mods/flawlessnick/connect.php", "name=" + instance.getMinecraft().thePlayer.getName() +
-                            "&uuid=" + instance.getMinecraft().thePlayer.getGameProfile().getId().toString() + "&nick=" + nick);
                 });
             }
 		}
