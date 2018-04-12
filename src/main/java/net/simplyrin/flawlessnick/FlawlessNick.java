@@ -267,7 +267,7 @@ public class FlawlessNick {
 		if(link) {
 			instance.mc.thePlayer.addChatComponentMessage(ForgeHooks.newChatWithLinks(message));
 		} else {
-			instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message));
+			this.sendMessage(message);
 		}
 	}
 
