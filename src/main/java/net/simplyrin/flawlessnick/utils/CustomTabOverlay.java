@@ -191,10 +191,10 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
 							s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getNickName());
 						} else if(s1.contains("&")) {
-							if(s1.equals("&a" + FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
+							if(s1.equals("&a" + FlawlessNick.getInstance().getMinecraft().thePlayer.getName()) || s1.equals("&a" + FlawlessNick.getInstance().getNickManager().getServerNickName())) {
 								s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
 								s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getNickName());
-							} else if(s1.contains(player.getName())) {
+							} else if(s1.contains(player.getName()) || s1.contains(FlawlessNick.getInstance().getNickManager().getServerNickName())) {
 								s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
 								s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
 							}

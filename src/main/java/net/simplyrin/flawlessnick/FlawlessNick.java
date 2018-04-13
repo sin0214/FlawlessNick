@@ -207,7 +207,7 @@ public class FlawlessNick {
 			return;
 		}
 
-		if(message.contains(player.getName())) {
+		if(message.contains(player.getName()) || message.contains(getNickManager().getServerNickName())) {
 			String nickPrefix = instance.nickManager.getPrefix();
 			String nick = instance.nickManager.getNickName();
 
@@ -221,7 +221,7 @@ public class FlawlessNick {
 			}
 
 			for(String prefix : list) {
-				if(message.contains(prefix + " " + player.getName())) {
+				if(message.contains(prefix + " " + player.getName()) || message.contains(prefix + " " + getNickManager().getServerNickName())) {
 					instance.sendMessage(message.replace(prefix + " " + player.getName(), nickPrefix + " " + nick).replace(prefix + " " + getNickManager().getServerNickName(),nickPrefix + " " + nick));
 					return;
 				}
@@ -229,7 +229,7 @@ public class FlawlessNick {
 
 			if(message.contains(":")) {
 				String replace = message.split(":")[0];
-				replace = replace.replace(player.getName(), nickPrefix + " " + nick).replace(getNickManager().getServerNickName(),nick);
+				replace = replace.replace(player.getName(), nickPrefix + " " + nick).replace(getNickManager().getServerNickName(),nickPrefix + " " + nick);
 				if(message.split(":").length > 1) {
 					if(replace.startsWith("To ") || replace.startsWith("From ")) {
 						replace += "&7" + message.split(":")[1];
@@ -241,7 +241,7 @@ public class FlawlessNick {
 				return;
 			}
 
-			instance.sendMessage(message.replace(player.getName(), StringUtils.left(nickPrefix, 2) + "" + nick).replace(getNickManager().getServerNickName(),StringUtils.left(nickPrefix, 2) + "" +nick));
+			instance.sendMessage(message.replace(getNickManager().getServerNickName(),StringUtils.left(nickPrefix, 2) + "" +nick).replace(player.getName(), StringUtils.left(nickPrefix, 2) + "" + nick));
 		}
 	}
 
