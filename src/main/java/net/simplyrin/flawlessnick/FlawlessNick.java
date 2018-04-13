@@ -272,7 +272,7 @@ public class FlawlessNick {
 		    new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://siro.work/mods/flawlessnick"));
 			instance.mc.thePlayer.addChatComponentMessage(ForgeHooks.newChatWithLinks(message));
 		} else {
-			instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message));
+			this.sendMessage(message);
 		}
 	}
 
