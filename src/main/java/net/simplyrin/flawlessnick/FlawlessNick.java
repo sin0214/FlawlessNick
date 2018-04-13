@@ -70,8 +70,8 @@ public class FlawlessNick {
 	private List<String> list = Arrays.asList("&a[VIP]", "&a[VIP&6+&a]", "&b[MVP]", "&b[MVP&c+&b]", "&b[MVP&6+&b]",
 			"&b[MVP&a+&b]", "&b[MVP&e+&b]", "&b[MVP&d+&b]", "&b[MVP&f+&b]", "&b[MVP&9+&b]", "&b[MVP&2+&b]",
 			"&b[MVP&4+&b]", "&b[MVP&3+&b]", "&b[MVP&5+&b]", "&b[MVP&7+&b]", "&b[MVP&0+&b]", "&6[MVP&c++&6]",
-			"&6[MVP&6++&6]", "&6[MVP&a++&6]", "&b[MVP&e++&6]", "&6[MVP&d++&6]", "&6[MVP&f++&6]", "&6[MVP&9++&b]",
-			"&6[MVP&2++&6]", "&6[MVP&4++&6]", "&b[MVP&3++&6]", "&6[MVP&5++&6]", "&6[MVP&7++&6]", "&6[MVP&0++&b]",
+			"&6[MVP&6++&6]", "&6[MVP&a++&6]", "&6[MVP&e++&6]", "&6[MVP&d++&6]", "&6[MVP&f++&6]", "&6[MVP&9++&b]",
+			"&6[MVP&2++&6]", "&6[MVP&4++&6]", "&6[MVP&3++&6]", "&6[MVP&5++&6]", "&6[MVP&7++&6]", "&6[MVP&0++&b]",
 
 			"&9[HELPER]", "&3[MOD]", "&c[&fYOUTUBER&c]", "&c[ADMIN]", "&c[OWNER]");
 
@@ -233,11 +233,12 @@ public class FlawlessNick {
 				if(message.split(":").length > 1) {
 					if(replace.startsWith("To ") || replace.startsWith("From ")) {
 						replace += "&7" + message.split(":")[1];
+                        instance.sendMessage(replace.replace("&7", "&f"));
 					} else {
 						replace += message.split(":")[1];
 					}
 				}
-				instance.sendMessage(message.replace("&7", "&f"));
+				instance.sendMessage(replace);
 				return;
 			}
 
