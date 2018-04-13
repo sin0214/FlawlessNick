@@ -60,6 +60,11 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						if(name.contains(prefix + " " + FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
 							name = name.replace(prefix + " " + FlawlessNick.getInstance().getMinecraft().thePlayer.getName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
 						}
+						if(FlawlessNick.getInstance().getNickManager().getServerNickName() != null){
+							if(!FlawlessNick.getInstance().getNickManager().getServerNickName().isEmpty()){
+								name = FlawlessNick.getInstance().getNickManager().getServerNickName().replace(prefix + " " + FlawlessNick.getInstance().getNickManager().getServerNickName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
+							}
+						}
 					}
 					int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo).replace(FlawlessNick.getInstance().getMinecraft().thePlayer.getName(), FlawlessNick.getInstance().getNickManager().getNickName()));
 					i = Math.max(i, k);
@@ -171,24 +176,31 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						s1 = s1.replace("&r", "");
 
 						for(String prefix : FlawlessNick.getInstance().getRankList()) {
-							if(s1.contains(prefix + " " + player.getName())) {
+							if(s1.contains(prefix + " " + player.getName()) || s1.contains(prefix + " " + FlawlessNick.getInstance().getNickManager().getServerNickName())) {
 								s1 = s1.replace(prefix + " " + player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
+                                s1 = s1.replace(prefix + " " + FlawlessNick.getInstance().getNickManager().getServerNickName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
 							}
 						}
 						if(s1.startsWith("&b&lA ") || s1.startsWith("&9&lB ") || s1.startsWith("&8&lS ") || s1.startsWith("&a&lG ") || s1.startsWith("&d&lP ") || s1.startsWith("&c&lR ") || s1.startsWith("&f&lW ") || s1.startsWith("&e&lY ")) {
 							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
+							s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getNickName());
 						} else if(s1.startsWith("&a[C&a]") || s1.startsWith("&a[D&a]") || s1.startsWith("&a[E&a]") || s1.startsWith("&a[F&a]") || s1.startsWith("&a[G&a]") || s1.startsWith("&a[H&a]") || s1.startsWith("&a[I&a]") || s1.startsWith("&a[J&a]") || s1.startsWith("&a[K&a]") || s1.startsWith("&a[L&a]") || s1.startsWith("&a[M&a]") || s1.startsWith("&a[N&a]")) {
 							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
+							s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getNickName());
 						} else if(s1.startsWith("&7[C&7]") || s1.startsWith("&7[D&7]") || s1.startsWith("&7[E&7]") || s1.startsWith("&7[F&7]") || s1.startsWith("&7[G&7]") || s1.startsWith("&7[H&7]") || s1.startsWith("&7[I&7]") || s1.startsWith("&7[J&7]") || s1.startsWith("&7[K&7]") || s1.startsWith("&7[L&7]") || s1.startsWith("&7[M&7]") || s1.startsWith("&7[N&7]")){
 							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
+							s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getNickName());
 						} else if(s1.contains("&")) {
 							if(s1.equals("&a" + FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
 								s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
+								s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getNickName());
 							} else if(s1.contains(player.getName())) {
 								s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
+								s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
 							}
 						} else {
 							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
+							s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getNickName());
 						}
 
 						s1 = s1.replace("&", "§");
@@ -201,7 +213,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 					EntityPlayer entityPlayer = this.mc.theWorld.getPlayerEntityByUUID(gameProfile.getId());
 					boolean flag1 = entityPlayer != null && entityPlayer.isWearing(EnumPlayerModelParts.CAPE) && (gameProfile.getName().equals("Dinnerbone") || gameProfile.getName().equals("Grumm"));
 					if(entityPlayer != null) {
-						if(entityPlayer.getName().equals(FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
+						if(entityPlayer.getName().equals(FlawlessNick.getInstance().getMinecraft().thePlayer.getName()) || entityPlayer.getName().equals(FlawlessNick.getInstance().getNickManager().getServerNickName())) {
 							if(FlawlessNick.getInstance().getNickManager().isNick()) {
 								if(nickedLocation != null){
 									this.mc.getTextureManager().bindTexture(nickedLocation);

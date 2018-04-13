@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import net.minecraft.event.ClickEvent;
+import net.minecraft.util.ChatStyle;
+import net.simplyrin.flawlessnick.command.FNickServer;
 import org.apache.commons.lang3.StringUtils;
 
 import club.sk1er.utils.JsonHolder;
@@ -42,7 +45,7 @@ import net.simplyrin.flawlessnick.utils.CustomTabOverlay;
 public class FlawlessNick {
 
 	public static final String MODID = "FlawlessNick";
-	public static final String VERSION = "1.0-Beta-3";
+	public static final String VERSION = "1.0-Beta-4";
 
 	private static FlawlessNick instance;
 	private JsonHolder json;
@@ -82,6 +85,7 @@ public class FlawlessNick {
 
 		ClientCommandHandler.instance.registerCommand(new FNick());
 		ClientCommandHandler.instance.registerCommand(new FNickRank());
+		ClientCommandHandler.instance.registerCommand(new FNickServer());
 
 		File folder = new File("mods/FlawlessNick");
 		if(!folder.exists()) {
@@ -174,7 +178,7 @@ public class FlawlessNick {
 			this.sendMessage(this.getPrefix() + "&eFlawlessNick has new version!");
 			this.sendMessage(this.getPrefix());
 			this.sendMessage(this.getPrefix() + "&eVersion: " + instance.updateVersion);
-			this.sendMessage(this.getPrefix() + "&eMessage: " + instance.updateMessage, true);
+			this.sendMessage(this.getPrefix() + "&eMessage: " + instance.updateMessage, false,true);
 			this.sendMessage(this.getPrefix() + "&e&m----------------------------------");
 		});
 	}
@@ -212,20 +216,20 @@ public class FlawlessNick {
 			message = message.replace("&r", "");
 
 			if(message.equals("&e" + player.getName() + " joined.")) {
-				instance.sendMessage("&e" + message.replace(player.getName(), nick));
+				instance.sendMessage("&e" + message.replace(player.getName(), nick).replace(getNickManager().getServerNickName(),nick));
 				return;
 			}
 
 			for(String prefix : list) {
 				if(message.contains(prefix + " " + player.getName())) {
-					instance.sendMessage(message.replace(prefix + " " + player.getName(), nickPrefix + " " + nick));
+					instance.sendMessage(message.replace(prefix + " " + player.getName(), nickPrefix + " " + nick).replace(prefix + " " + getNickManager().getServerNickName(),nickPrefix + " " + nick));
 					return;
 				}
 			}
 
 			if(message.contains(":")) {
 				String replace = message.split(":")[0];
-				replace = replace.replace(player.getName(), nickPrefix + " " + nick);
+				replace = replace.replace(player.getName(), nickPrefix + " " + nick).replace(getNickManager().getServerNickName(),nick);
 				if(message.split(":").length > 1) {
 					if(replace.startsWith("To ") || replace.startsWith("From ")) {
 						replace += "&7" + message.split(":")[1];
@@ -237,7 +241,7 @@ public class FlawlessNick {
 				return;
 			}
 
-			instance.sendMessage(message.replace(player.getName(), StringUtils.left(nickPrefix, 2) + "" + nick));
+			instance.sendMessage(message.replace(player.getName(), StringUtils.left(nickPrefix, 2) + "" + nick).replace(getNickManager().getServerNickName(),StringUtils.left(nickPrefix, 2) + "" +nick));
 		}
 	}
 
@@ -265,11 +269,27 @@ public class FlawlessNick {
 		message = message.replaceAll("§", "\u00a7");
 
 		if(link) {
+		    new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://siro.work/mods/flawlessnick"));
 			instance.mc.thePlayer.addChatComponentMessage(ForgeHooks.newChatWithLinks(message));
 		} else {
 			instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message));
 		}
 	}
+
+
+    public void sendMessage(String message, boolean link,boolean update) {
+        message = message.replaceAll("&", "\u00a7");
+        message = message.replaceAll("§", "\u00a7");
+
+        if(link) {
+            instance.mc.thePlayer.addChatComponentMessage(ForgeHooks.newChatWithLinks(message));
+        } else if(update){
+            instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message).setChatStyle(
+                    new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://siro.work/mods/flawlessnick"))));
+        } else {
+            instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message));
+        }
+    }
 
 	public List<String> getRankList() {
 		return instance.list;
@@ -366,6 +386,7 @@ public class FlawlessNick {
 		private boolean nick;
 		private String nickname;
 		private String prefix = "&a[VIP]";
+		private String serverNickName;
 
 		public void setNick(boolean bool) {
 			this.nick = bool;
@@ -396,6 +417,15 @@ public class FlawlessNick {
 			} else {
 				return "";
 			}
+		}
+
+
+		public void setServerNickName(String serverNick){
+			this.serverNickName = serverNick;
+		}
+
+		public String getServerNickName(){
+			return this.serverNickName;
 		}
 
 		public boolean isNick() {
