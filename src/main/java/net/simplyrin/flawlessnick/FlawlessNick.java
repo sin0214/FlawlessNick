@@ -9,6 +9,7 @@ import java.util.List;
 
 import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatStyle;
+import net.simplyrin.flawlessnick.command.FNickMode;
 import net.simplyrin.flawlessnick.command.FNickServer;
 import org.apache.commons.lang3.StringUtils;
 
@@ -45,7 +46,7 @@ import net.simplyrin.flawlessnick.utils.CustomTabOverlay;
 public class FlawlessNick {
 
 	public static final String MODID = "FlawlessNick";
-	public static final String VERSION = "1.0-Beta-4";
+	public static final String VERSION = "1.0-Beta-5";
 
 	private static FlawlessNick instance;
 	private JsonHolder json;
@@ -86,6 +87,7 @@ public class FlawlessNick {
 		ClientCommandHandler.instance.registerCommand(new FNick());
 		ClientCommandHandler.instance.registerCommand(new FNickRank());
 		ClientCommandHandler.instance.registerCommand(new FNickServer());
+		ClientCommandHandler.instance.registerCommand(new FNickMode());
 
 		File folder = new File("mods/FlawlessNick");
 		if(!folder.exists()) {
@@ -426,7 +428,10 @@ public class FlawlessNick {
 		}
 
 		public String getServerNickName(){
-			return this.serverNickName;
+			if(this.serverNickName != null) {
+				return this.serverNickName;
+			}
+			return mc.thePlayer.getName();
 		}
 
 		public boolean isNick() {
