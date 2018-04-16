@@ -18,7 +18,6 @@
 package me.boomboompower.skinchanger;
 
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.simplyrin.flawlessnick.FlawlessNick;
@@ -42,7 +41,8 @@ public class SkinEvents {
 	 *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	 */
 	private int currentTick = 100;
-	/*@SubscribeEvent
+
+	/* @SubscribeEvent
 	public void onRender(RenderWorldLastEvent event) {
 		if(Minecraft.getMinecraft().currentScreen == null) {
 			FlawlessNick.getInstance().getSkinManager().updatePlayer(null);
@@ -50,7 +50,8 @@ public class SkinEvents {
 				FlawlessNick.getInstance().getSkinManager().updateSkin();
 			}
 		}
-	}*/
+	} */
+
 	@SubscribeEvent
 	public void onTick(TickEvent.ClientTickEvent event) {
 		if (Minecraft.getMinecraft().currentScreen == null) {
@@ -64,6 +65,5 @@ public class SkinEvents {
 			}
 		}
 	}
-
 
 }

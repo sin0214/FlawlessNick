@@ -1,25 +1,30 @@
 /*
- *     Copyright (C) 2017 boomboompower
+ *	 Copyright (C) 2017 boomboompower
  *
- *     This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
+ *	 This program is free software: you can redistribute it and/or modify
+ *	 it under the terms of the GNU General Public License as published by
+ *	 the Free Software Foundation, either version 3 of the License, or
+ *	 (at your option) any later version.
  *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
+ *	 This program is distributed in the hope that it will be useful,
+ *	 but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *	 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *	 GNU General Public License for more details.
  *
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *	 You should have received a copy of the GNU General Public License
+ *	 along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package me.boomboompower.skinchanger.utils.models;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import me.boomboompower.skinchanger.utils.MojangHooker;
 import me.boomboompower.skinchanger.utils.ReflectUtils;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.network.NetworkPlayerInfo;
@@ -29,141 +34,136 @@ import net.minecraft.client.renderer.ThreadDownloadImageData;
 import net.minecraft.client.resources.DefaultPlayerSkin;
 import net.minecraft.util.ResourceLocation;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 public class SkinManager {
-    /*
-     *     Copyright (C) 2017 boomboompower
-     *
-     *     This program is free software: you can redistribute it and/or modify
-     *     it under the terms of the GNU General Public License as published by
-     *     the Free Software Foundation, either version 3 of the License, or
-     *     (at your option) any later version.
-     *
-     *     This program is distributed in the hope that it will be useful,
-     *     but WITHOUT ANY WARRANTY; without even the implied warranty of
-     *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     *     GNU General Public License for more details.
-     *
-     *     You should have received a copy of the GNU General Public License
-     *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-     */
-    private List<String> logs = new ArrayList<>();
 
-    private Minecraft mc;
-    private AbstractClientPlayer playerIn;
+	/*
+	 *	 Copyright (C) 2017 boomboompower
+	 *
+	 *	 This program is free software: you can redistribute it and/or modify
+	 *	 it under the terms of the GNU General Public License as published by
+	 *	 the Free Software Foundation, either version 3 of the License, or
+	 *	 (at your option) any later version.
+	 *
+	 *	 This program is distributed in the hope that it will be useful,
+	 *	 but WITHOUT ANY WARRANTY; without even the implied warranty of
+	 *	 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	 *	 GNU General Public License for more details.
+	 *
+	 *	 You should have received a copy of the GNU General Public License
+	 *	 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+	 */
+	private List<String> logs = new ArrayList<>();
 
-    private String skinName = "";
+	private Minecraft mc;
+	private AbstractClientPlayer playerIn;
 
-    private boolean normalPlayer = false;
+	private String skinName = "";
 
-    public SkinManager(MojangHooker hooker, AbstractClientPlayer playerIn, boolean normalPlayer) {
-        this.playerIn = playerIn;
-        this.normalPlayer = normalPlayer;
-    }
+	private boolean normalPlayer = false;
 
-    public String getSkinName() {
-        return this.skinName != null ? this.skinName : "";
-    }
+	public SkinManager(MojangHooker hooker, AbstractClientPlayer playerIn, boolean normalPlayer) {
+		this.playerIn = playerIn;
+		this.normalPlayer = normalPlayer;
+	}
 
-    public void setSkinName(String skinName) {
-        this.skinName = formatName(skinName);
-    }
+	public String getSkinName() {
+		return this.skinName != null ? this.skinName : "";
+	}
 
-    public void updateSkin() {
+	public void setSkinName(String skinName) {
+		this.skinName = formatName(skinName);
+	}
 
-        Minecraft.getMinecraft().addScheduledTask(() -> replaceSkin(this.skinName));
-    }
+	public void updateSkin() {
 
-    public void update(String skinName) {
-        setSkinName(skinName);
-        updateSkin();
-    }
+		Minecraft.getMinecraft().addScheduledTask(() -> replaceSkin(this.skinName));
+	}
 
-    public void reset() {
-        update(getPlayer().getName());
-    }
+	public void update(String skinName) {
+		setSkinName(skinName);
+		updateSkin();
+	}
 
-    public void updatePlayer(AbstractClientPlayer playerIn) {
-        this.playerIn = this.normalPlayer ? Minecraft.getMinecraft().thePlayer : playerIn;
-    }
+	public void reset() {
+		update(getPlayer().getName());
+	}
 
-    /*
-     * MISC
-     */
+	public void updatePlayer(AbstractClientPlayer playerIn) {
+		this.playerIn = this.normalPlayer ? Minecraft.getMinecraft().thePlayer : playerIn;
+	}
 
-    private String formatName(String name) {
-        return name.length() > 16 ? name.substring(0, 16) : name;
-    }
+	/*
+	 * MISC
+	 */
 
-    private void replaceSkin(String skinName) {
-        this.replaceSkin(getSkin(skinName));
-    }
+	private String formatName(String name) {
+		return name.length() > 16 ? name.substring(0, 16) : name;
+	}
 
-    public void replaceSkin(ResourceLocation location) {
-        if (this.skinName == null || this.skinName.isEmpty() || (this.normalPlayer ? Minecraft.getMinecraft().thePlayer == null : this.playerIn == null)) return;
+	private void replaceSkin(String skinName) {
+		this.replaceSkin(getSkin(skinName));
+	}
 
-        NetworkPlayerInfo playerInfo;
+	public void replaceSkin(ResourceLocation location) {
+		if (this.skinName == null || this.skinName.isEmpty() || (this.normalPlayer ? Minecraft.getMinecraft().thePlayer == null : this.playerIn == null)) return;
 
-        try {
-            playerInfo = (NetworkPlayerInfo) ReflectUtils.findMethod(AbstractClientPlayer.class, new String[] {"getPlayerInfo", "func_175155_b"}).invoke(getPlayer());
-        } catch (Throwable ex) {
-            log("Could not get the players info!");
-            return;
-        }
+		NetworkPlayerInfo playerInfo;
 
-        if (location != null) {
-            if (!location.equals(getPlayer().getLocationSkin())) {
-                Minecraft.getMinecraft().renderEngine.deleteTexture(getPlayer().getLocationSkin());
-            }
-            try {
-                ReflectUtils.setPrivateValue(NetworkPlayerInfo.class, playerInfo, location, "locationSkin", "field_178865_e");
-            } catch (Exception ex) {
-                log("Failed to set the players skin (NetworkPlayerInfo)");
-            }
-        }
-    }
+		try {
+			playerInfo = (NetworkPlayerInfo) ReflectUtils.findMethod(AbstractClientPlayer.class, new String[] {"getPlayerInfo", "func_175155_b"}).invoke(getPlayer());
+		} catch (Throwable ex) {
+			log("Could not get the players info!");
+			return;
+		}
 
-    public ResourceLocation getSkin(String name) {
-        if (name != null && !name.isEmpty()) {
-            final ResourceLocation location = new ResourceLocation("skins/" + name);
+		if (location != null) {
+			if (!location.equals(getPlayer().getLocationSkin())) {
+				Minecraft.getMinecraft().renderEngine.deleteTexture(getPlayer().getLocationSkin());
+			}
+			try {
+				ReflectUtils.setPrivateValue(NetworkPlayerInfo.class, playerInfo, location, "locationSkin", "field_178865_e");
+			} catch (Exception ex) {
+				log("Failed to set the players skin (NetworkPlayerInfo)");
+			}
+		}
+	}
 
-            File file1 = new File(new File("./mods/skinchanger".replace("/", File.separator), "skins"), UUID.nameUUIDFromBytes(name.getBytes()).toString());
-            File file2 = new File(file1, UUID.nameUUIDFromBytes(name.getBytes()).toString() + ".png");
+	public ResourceLocation getSkin(String name) {
+		if (name != null && !name.isEmpty()) {
+			final ResourceLocation location = new ResourceLocation("skins/" + name);
 
-            final IImageBuffer imageBuffer = new ImageBufferDownload();
-            ThreadDownloadImageData imageData = new ThreadDownloadImageData(file2, String.format("https://minotar.net/skin/%s", name), DefaultPlayerSkin.getDefaultSkinLegacy(), new IImageBuffer() {
-                public BufferedImage parseUserSkin(BufferedImage image) {
-                    if (imageBuffer != null) {
-                        image = imageBuffer.parseUserSkin(image);
-                    }
-                    return image;
-                }
-                public void skinAvailable() {
-                    if (imageBuffer != null) {
-                        imageBuffer.skinAvailable();
-                    }
-                }
-            });
-            Minecraft.getMinecraft().renderEngine.loadTexture(location, imageData);
-            return location;
-        } else {
-            return null;
-        }
-    }
+			File file1 = new File(new File("./mods/skinchanger".replace("/", File.separator), "skins"), UUID.nameUUIDFromBytes(name.getBytes()).toString());
+			File file2 = new File(file1, UUID.nameUUIDFromBytes(name.getBytes()).toString() + ".png");
 
-    public AbstractClientPlayer getPlayer() {
-        return (this.normalPlayer ? Minecraft.getMinecraft().thePlayer : this.playerIn);
-    }
+			final IImageBuffer imageBuffer = new ImageBufferDownload();
+			ThreadDownloadImageData imageData = new ThreadDownloadImageData(file2, String.format("https://minotar.net/skin/%s", name), DefaultPlayerSkin.getDefaultSkinLegacy(), new IImageBuffer() {
+				public BufferedImage parseUserSkin(BufferedImage image) {
+					if (imageBuffer != null) {
+						image = imageBuffer.parseUserSkin(image);
+					}
+					return image;
+				}
+				public void skinAvailable() {
+					if (imageBuffer != null) {
+						imageBuffer.skinAvailable();
+					}
+				}
+			});
+			Minecraft.getMinecraft().renderEngine.loadTexture(location, imageData);
+			return location;
+		} else {
+			return null;
+		}
+	}
 
-    protected void log(String message, Object... replace) {
-        if (logs.contains(message)) return;
+	public AbstractClientPlayer getPlayer() {
+		return (this.normalPlayer ? Minecraft.getMinecraft().thePlayer : this.playerIn);
+	}
 
-        System.out.println(String.format("[SkinManager] " + message, replace));
-        logs.add(message);
-    }
+	protected void log(String message, Object... replace) {
+		if (logs.contains(message)) return;
+
+		System.out.println(String.format("[SkinManager] " + message, replace));
+		logs.add(message);
+	}
 }

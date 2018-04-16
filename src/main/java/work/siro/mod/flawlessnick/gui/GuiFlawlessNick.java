@@ -41,9 +41,9 @@ public class GuiFlawlessNick extends GuiScreen {
 			} else {
 				nickRankField.setText("§7NickRank");
 			}
-			if(!FlawlessNick.getInstance().getNickManager().getServerNickName().isEmpty()){
+			if(!FlawlessNick.getInstance().getNickManager().getServerNickName().isEmpty()) {
 			    serverNickNameField.setText(FlawlessNick.getInstance().getNickManager().getServerNickName());
-            }else{
+            } else{
                 serverNickNameField.setText("§7ServerNickName");
             }
 		} else {
@@ -70,13 +70,13 @@ public class GuiFlawlessNick extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
 	}
 
-	public void display(){
+	public void display() {
 		MinecraftForge.EVENT_BUS.register(this);
 	    initGui();
 	}
 
 	@SubscribeEvent
-	public void onClientTick(TickEvent.ClientTickEvent event){
+	public void onClientTick(TickEvent.ClientTickEvent event) {
 		MinecraftForge.EVENT_BUS.unregister(this);
 		Minecraft.getMinecraft().displayGuiScreen(this);
 	}
@@ -91,7 +91,7 @@ public class GuiFlawlessNick extends GuiScreen {
 
 	@Override
 	protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-		if(mouseY >= this.height/2-66 && mouseY <= this.height/2-56) {
+		if(mouseY >= this.height / 2 - 66 && mouseY <= this.height / 2 - 56) {
 			if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("FlawlessNick " + FlawlessNick.VERSION + " by @SimplyRin_, @SiroQ_") / 2 + mc.fontRendererObj.getStringWidth("FlawlessNick " + FlawlessNick.VERSION + " by ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("FlawlessNick " + FlawlessNick.VERSION + " by @SimplyRin_, @SiroQ_") / 2 + mc.fontRendererObj.getStringWidth("FlawlessNick " + FlawlessNick.VERSION + " by @SimplyRin_")){
 				this.openUrl("https://twitter.com/SimplyRin_");
 			} else if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("FlawlessNick " + FlawlessNick.VERSION + " by @SimplyRin_, @SiroQ_") / 2 + mc.fontRendererObj.getStringWidth("FlawlessNick " + FlawlessNick.VERSION + " by @SimplyRin_, ") && mouseX <= this.width/2-mc.fontRendererObj.getStringWidth("FlawlessNick " + FlawlessNick.VERSION + " by @SimplyRin_, @SiroQ_") / 2 + mc.fontRendererObj.getStringWidth("FlawlessNick " + FlawlessNick.VERSION + " by @SimplyRin_, @SiroQ_")){
@@ -100,15 +100,15 @@ public class GuiFlawlessNick extends GuiScreen {
 		} else if(mouseY >= this.height / 2 - 55 && mouseY <= this.height / 2 - 45) {
 			if(mouseX >= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")/ 2 +mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod")){
 				this.openUrl("https://github.com/SimplyRin/SimpleNickMod");
-			} else if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles")) {
+			} else if(mouseX >= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles")) {
 				this.openUrl("https://github.com/SiroQ/PvPParticles");
-			} else if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger")) {
+			} else if(mouseX >= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger")) {
 				this.openUrl("https://github.com/boomboompower/SkinChanger");
-			} else if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod PvPParticles, SkinChanger, ") && mouseX <= this.width/ 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")) {
+			} else if(mouseX >= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod PvPParticles, SkinChanger, ") && mouseX <= this.width/ 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")) {
 				this.openUrl("https://github.com/HyperiumClient/Hyperium");
 			}
-		} else if(mouseY >= this.height /2 - 44 && mouseY <= this.height /2 -34) {
-            if(mouseX >= this.width/2-mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/flawlessnick") / 2 + mc.fontRendererObj.getStringWidth("Setting: ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/flawlessnick") / 2 + mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/flawlessnick")){
+		} else if(mouseY >= this.height / 2 - 44 && mouseY <= this.height /2 -34) {
+            if(mouseX >= this.width / 2 - mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/flawlessnick") / 2 + mc.fontRendererObj.getStringWidth("Setting: ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/flawlessnick") / 2 + mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/flawlessnick")){
                 this.openUrl("https://siro.work/mods/flawlessnick");
             }
         }
@@ -133,7 +133,7 @@ public class GuiFlawlessNick extends GuiScreen {
 				nickRankField.setText("§7NickRank");
 			}
 		}
-		if(serverNickNameField.isFocused()){
+		if(serverNickNameField.isFocused()) {
 		    if(serverNickNameField.getText().equals("§7ServerNickName")){
 		        serverNickNameField.setText("");
             }

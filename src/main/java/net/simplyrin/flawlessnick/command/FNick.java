@@ -1,12 +1,8 @@
 package net.simplyrin.flawlessnick.command;
 
-import java.io.File;
-
-import club.sk1er.utils.JsonHolder;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.simplyrin.flawlessnick.FlawlessNick;
-import net.simplyrin.flawlessnick.Json;
 import work.siro.mod.flawlessnick.gui.GuiFlawlessNick;
 
 public class FNick extends CommandBase {
@@ -38,7 +34,7 @@ public class FNick extends CommandBase {
 			return;
 		}
 
-		if(FlawlessNick.getInstance().getJsonHolder().getString("Mode").equalsIgnoreCase("Gui")){
+		if(FlawlessNick.getInstance().getJsonHolder().getString("Mode").equalsIgnoreCase("Gui")) {
 			new GuiFlawlessNick().display();
 			return;
 		}

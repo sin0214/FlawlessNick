@@ -7,10 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import net.minecraft.event.ClickEvent;
-import net.minecraft.util.ChatStyle;
-import net.simplyrin.flawlessnick.command.FNickMode;
-import net.simplyrin.flawlessnick.command.FNickServer;
 import org.apache.commons.lang3.StringUtils;
 
 import club.sk1er.utils.JsonHolder;
@@ -24,7 +20,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.GuiPlayerTabOverlay;
+import net.minecraft.event.ClickEvent;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.ChatStyle;
 import net.minecraftforge.client.ClientCommandHandler;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
 import net.minecraftforge.common.ForgeHooks;
@@ -36,7 +34,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
 import net.simplyrin.flawlessnick.command.FNick;
+import net.simplyrin.flawlessnick.command.FNickMode;
 import net.simplyrin.flawlessnick.command.FNickRank;
+import net.simplyrin.flawlessnick.command.FNickServer;
 import net.simplyrin.flawlessnick.utils.CustomTabOverlay;
 
 /**
@@ -81,6 +81,7 @@ public class FlawlessNick {
 		instance = this;
 		instance.mc = Minecraft.getMinecraft();
 		instance.skinManager = new SkinManager(this.mojangHooker = new MojangHooker(), Minecraft.getMinecraft().thePlayer, true);
+
 		MinecraftForge.EVENT_BUS.register(instance);
 		MinecraftForge.EVENT_BUS.register(new SkinEvents());
 
@@ -102,8 +103,8 @@ public class FlawlessNick {
 				e.printStackTrace();
 			}
 
-			json = new JsonHolder();
-			json.put("Mode", "CUI");
+			instance.json = new JsonHolder();
+			instance.json.put("Mode", "CUI");
 			Json.saveJson(json, config);
 		}
 
@@ -180,7 +181,7 @@ public class FlawlessNick {
 			this.sendMessage(this.getPrefix() + "&eFlawlessNick has new version!");
 			this.sendMessage(this.getPrefix());
 			this.sendMessage(this.getPrefix() + "&eVersion: " + instance.updateVersion);
-			this.sendMessage(this.getPrefix() + "&eMessage: " + instance.updateMessage, false,true);
+			this.sendMessage(this.getPrefix() + "&eMessage: " + instance.updateMessage, false, true);
 			this.sendMessage(this.getPrefix() + "&e&m----------------------------------");
 		});
 	}
@@ -235,7 +236,7 @@ public class FlawlessNick {
 				if(message.split(":").length > 1) {
 					if(replace.startsWith("To ") || replace.startsWith("From ")) {
 						replace += "&7" + message.split(":")[1];
-                        instance.sendMessage(replace.replace("&7", "&f"));
+						instance.sendMessage(replace.replace("&7", "&f"));
 					} else {
 						replace += message.split(":")[1];
 					}
@@ -272,27 +273,25 @@ public class FlawlessNick {
 		message = message.replaceAll("§", "\u00a7");
 
 		if(link) {
-		    new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://siro.work/mods/flawlessnick"));
+			new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://siro.work/mods/flawlessnick"));
 			instance.mc.thePlayer.addChatComponentMessage(ForgeHooks.newChatWithLinks(message));
 		} else {
 			this.sendMessage(message);
 		}
 	}
 
+	public void sendMessage(String message, boolean link,boolean update) {
+		message = message.replaceAll("&", "\u00a7");
+		message = message.replaceAll("§", "\u00a7");
 
-    public void sendMessage(String message, boolean link,boolean update) {
-        message = message.replaceAll("&", "\u00a7");
-        message = message.replaceAll("§", "\u00a7");
-
-        if(link) {
-            instance.mc.thePlayer.addChatComponentMessage(ForgeHooks.newChatWithLinks(message));
-        } else if(update){
-            instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message).setChatStyle(
-                    new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://siro.work/mods/flawlessnick"))));
-        } else {
-            instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message));
-        }
-    }
+		if(link) {
+			instance.mc.thePlayer.addChatComponentMessage(ForgeHooks.newChatWithLinks(message));
+		} else if(update) {
+			instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message).setChatStyle(new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://siro.work/mods/flawlessnick"))));
+		} else {
+			instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message));
+		}
+	}
 
 	public List<String> getRankList() {
 		return instance.list;
@@ -325,7 +324,7 @@ public class FlawlessNick {
 
 	public static class FieldWrap<T> {
 
-		private static boolean ready = false;
+		private static boolean already = false;
 
 		private static Field modifiersField;
 		private Field field;
@@ -371,14 +370,14 @@ public class FlawlessNick {
 		}
 
 		private void register() {
-			if(!ready) {
+			if(!already) {
 				try {
 					modifiersField = Field.class.getDeclaredField("modifiers");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				modifiersField.setAccessible(true);
-				ready = true;
+				already = true;
 			}
 		}
 
@@ -399,11 +398,11 @@ public class FlawlessNick {
 			this.nickname = nick;
 			CustomTabOverlay.nickedLocation = getSkinManager().getSkin(nick);
 			if(CustomTabOverlay.isObfuscated()) {
-                Multithreading.runAsync(() -> {
-                    Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/FlawlessNick/connect.php", "name=" + instance.getMinecraft().thePlayer.getName() +
-                            "&uuid=" + instance.getMinecraft().thePlayer.getGameProfile().getId().toString() + "&nick=" + nick);
-                });
-            }
+				Multithreading.runAsync(() -> {
+					Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/FlawlessNick/connect.php", "name=" + instance.getMinecraft().thePlayer.getName() +
+							"&uuid=" + instance.getMinecraft().thePlayer.getGameProfile().getId().toString() + "&nick=" + nick);
+				});
+			}
 		}
 
 		public String getNickName() {
@@ -422,12 +421,11 @@ public class FlawlessNick {
 			}
 		}
 
-
-		public void setServerNickName(String serverNick){
+		public void setServerNickName(String serverNick) {
 			this.serverNickName = serverNick;
 		}
 
-		public String getServerNickName(){
+		public String getServerNickName() {
 			if(this.serverNickName != null) {
 				return this.serverNickName;
 			}
