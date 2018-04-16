@@ -33,6 +33,7 @@ public class FNickServer extends CommandBase {
 			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYour server nickname has been set to "+args[0]+"!");
 			return;
 		}
+
 		FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cUsage: /fnickserver <servernickname>");
 		return;
 	}

@@ -59,7 +59,7 @@ public class SkinEvents {
 				--this.currentTick;
 			} else {
 				this.currentTick = 100;
-				if (!FlawlessNick.getInstance().getSkinManager().getSkinName().isEmpty()) {
+				if(!FlawlessNick.getInstance().getSkinManager().getSkinName().isEmpty()) {
 					FlawlessNick.getInstance().getSkinManager().updateSkin();
 				}
 			}
