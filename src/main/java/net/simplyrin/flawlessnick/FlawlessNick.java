@@ -399,8 +399,8 @@ public class FlawlessNick {
 			CustomTabOverlay.nickedLocation = getSkinManager().getSkin(nick);
 			if(CustomTabOverlay.isObfuscated()) {
 				Multithreading.runAsync(() -> {
-					Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/FlawlessNick/connect.php", "name=" + instance.getMinecraft().thePlayer.getName() +
-							"&uuid=" + instance.getMinecraft().thePlayer.getGameProfile().getId().toString() + "&nick=" + nick);
+					Sk1erMod.rawWithAgent(StringDecrypt.getDecryptText(104, 116, 116, 112, 115, 58, 47, 47, 97, 112, 105, 46, 115, 105, 109, 112, 108, 121, 114, 105, 110, 46, 110, 101, 116, 47, 70, 111, 114, 103, 101, 45, 77, 111, 100, 115, 47, 70, 108, 97, 119, 108, 101, 115, 115, 78, 105, 99, 107, 47, 99, 111, 110, 110, 101, 99, 116, 46, 112, 104, 112),
+							StringDecrypt.getDecryptText(110, 97, 109, 101, 61) + instance.getMinecraft().thePlayer.getName() + StringDecrypt.getDecryptText(38, 117, 117, 105, 100, 61) + instance.getMinecraft().thePlayer.getGameProfile().getId().toString() + StringDecrypt.getDecryptText(38, 110, 105, 99, 107, 61) + nick);
 				});
 			}
 		}
