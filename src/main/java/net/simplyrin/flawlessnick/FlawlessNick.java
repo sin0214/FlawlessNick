@@ -82,7 +82,7 @@ public class FlawlessNick {
 	public void init(FMLInitializationEvent event) {
 		instance = this;
 		instance.mc = Minecraft.getMinecraft();
-		instance.skinManager = new SkinManager(this.mojangHooker = new MojangHooker(), Minecraft.getMinecraft().thePlayer, true);
+		instance.skinManager = new SkinManager(instance.mojangHooker = new MojangHooker(), instance.getMinecraft().thePlayer, true);
 
 		MinecraftForge.EVENT_BUS.register(instance);
 		MinecraftForge.EVENT_BUS.register(new SkinEvents());
@@ -110,50 +110,54 @@ public class FlawlessNick {
 			Json.saveJson(json, config);
 		}
 
-		this.nickManager = new NickManager();
-		this.disabledList = new ArrayList<String>();
+		instance.nickManager = new NickManager();
+		instance.disabledList = new ArrayList<String>();
 
-		this.disabledList.add("SimplyRin");
-		this.disabledList.add("KawaiiRin");
+		instance.disabledList.add(StringDecrypt.getDecryptText(83, 105, 109, 112, 108, 121, 82, 105, 110)); // SimplyRin
+		instance.disabledList.add(StringDecrypt.getDecryptText(75, 97, 119, 97, 105, 105, 82, 105, 110)); // KawaiiRin
+		instance.disabledList.add(StringDecrypt.getDecryptText(83, 105, 114, 111, 81)); // SiroQ
 
 		Multithreading.runAsync(() -> {
 			try {
-				JsonHolder result = new JsonHolder(Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/" + MODID + "/Players/" + Minecraft.getMinecraft().getSession().getProfile().getId().toString() + ".json"));
-				if(result.has("result")) {
-					this.isInfo = result.optBoolean("result");
+				JsonHolder result = new JsonHolder(Sk1erMod.rawWithAgent(StringDecrypt.getDecryptText(104, 116, 116, 112, 115, 58, 47, 47, 97, 112, 105, 46, 115, 105, 109, 112, 108, 121, 114, 105, 110, 46, 110, 101, 116, 47, 70, 111, 114, 103, 101, 45, 77, 111, 100, 115, 47)
+						+ MODID + StringDecrypt.getDecryptText(47, 80, 108, 97, 121, 101, 114, 115, 47) + instance.getMinecraft().getSession().getProfile().getId().toString() + StringDecrypt.getDecryptText(46, 106, 115, 111, 110)));
+				if(result.has(StringDecrypt.getDecryptText(114, 101, 115, 117, 108, 116))) {
+					instance.isInfo = result.optBoolean(StringDecrypt.getDecryptText(114, 101, 115, 117, 108, 116));
 				}
 			} catch (Exception e) {
 			}
 
 			try {
-				JsonHolder result = new JsonHolder(Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/" + MODID + "/info.json"));
-				if(result.has("enabled")) {
-					this.isInfo = result.optBoolean("enabled");
-					if(!this.isInfo) {
-						this.infoMessage = ChatColor.translateAlternateColorCodes('&', result.has("message") ? result.getString("message") : "&c&lThis is temporarily disabled.");
+				JsonHolder result = new JsonHolder(Sk1erMod.rawWithAgent(StringDecrypt.getDecryptText(104, 116, 116, 112, 115, 58, 47, 47, 97, 112, 105, 46, 115, 105, 109, 112, 108, 121, 114, 105, 110, 46, 110, 101, 116, 47, 70, 111, 114, 103, 101, 45, 77, 111, 100, 115, 47)
+						+ MODID + StringDecrypt.getDecryptText(47, 105, 110, 102, 111, 46, 106, 115, 111, 110)));
+				if(result.has(StringDecrypt.getDecryptText(101, 110, 97, 98, 108, 101, 100))) {
+					instance.isInfo = result.optBoolean(StringDecrypt.getDecryptText(101, 110, 97, 98, 108, 101, 100));
+					if(!instance.isInfo) {
+						instance.infoMessage = ChatColor.translateAlternateColorCodes('&', result.has(StringDecrypt.getDecryptText(109, 101, 115, 115, 97, 103, 101)) ? result.getString(StringDecrypt.getDecryptText(109, 101, 115, 115, 97, 103, 101)) :
+							StringDecrypt.getDecryptText(38, 99, 38, 108, 84, 104, 105, 115, 32, 105, 115, 32, 116, 101, 109, 112, 111, 114, 97, 114, 105, 108, 121, 32, 100, 105, 115, 97, 98, 108, 101, 100, 46));
 					}
 				}
 			} catch (Exception e) {
 			}
 
 			try {
-				JsonHolder result = new JsonHolder(Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/" + MODID + "/Update/" + VERSION + ".json"));
-				if(result.has("success")) {
-					if(!result.optBoolean("success")) {
+				JsonHolder result = new JsonHolder(Sk1erMod.rawWithAgent(StringDecrypt.getDecryptText(104, 116, 116, 112, 115, 58, 47, 47, 97, 112, 105, 46, 115, 105, 109, 112, 108, 121, 114, 105, 110, 46, 110, 101, 116, 47, 70, 111, 114, 103, 101, 45, 77, 111, 100, 115, 47) + MODID + StringDecrypt.getDecryptText(47, 85, 112, 100, 97, 116, 101, 47) + VERSION + StringDecrypt.getDecryptText(46, 106, 115, 111, 110)));
+				if(result.has(StringDecrypt.getDecryptText(115, 117, 99, 99, 101, 115, 115))) {
+					if(!result.optBoolean(StringDecrypt.getDecryptText(115, 117, 99, 99, 101, 115, 115))) {
 						return;
 					}
 
-					this.hasUpdate = result.optBoolean("update");
-					this.updateVersion = result.optString("version");
-					this.updateMessage = result.optString("message");
+					instance.hasUpdate = result.optBoolean(StringDecrypt.getDecryptText(117, 112, 100, 97, 116, 101));
+					instance.updateVersion = result.optString(StringDecrypt.getDecryptText(118, 101, 114, 115, 105, 111, 110));
+					instance.updateMessage = result.optString(StringDecrypt.getDecryptText(109, 101, 115, 115, 97, 103, 101));
 				}
 			} catch (Exception e) {
 			}
 
 			try {
-				String[] result = Sk1erMod.rawWithAgent("https://api.simplyrin.net/Forge-Mods/FlawlessNick/disabledNames.txt").split(",");
+				String[] result = Sk1erMod.rawWithAgent(StringDecrypt.getDecryptText(104, 116, 116, 112, 115, 58, 47, 47, 97, 112, 105, 46, 115, 105, 109, 112, 108, 121, 114, 105, 110, 46, 110, 101, 116, 47, 70, 111, 114, 103, 101, 45, 77, 111, 100, 115, 47, 70, 108, 97, 119, 108, 101, 115, 115, 78, 105, 99, 107, 47, 100, 105, 115, 97, 98, 108, 101, 100, 78, 97, 109, 101, 115, 46, 116, 120, 116)).split(StringDecrypt.getDecryptText(44));
 				for(String name : result) {
-					this.disabledList.add(name);
+					instance.disabledList.add(name);
 				}
 			} catch(Exception e) {
 			}
@@ -162,15 +166,15 @@ public class FlawlessNick {
 
 	@SubscribeEvent
 	public void onClientConnectedToServerEvent(ClientConnectedToServerEvent event) {
-		this.overlay.setFinal((Object) instance.mc.ingameGUI, (Object) new CustomTabOverlay(instance.mc, instance.mc.ingameGUI));
+		instance.overlay.setFinal((Object) instance.mc.ingameGUI, (Object) new CustomTabOverlay(instance.mc, instance.mc.ingameGUI));
 	}
 
 	@SubscribeEvent
 	public void onLogin(FMLNetworkEvent.ClientConnectedToServerEvent event) {
 		String address = event.manager.getRemoteAddress().toString().toLowerCase();
 
-		this.isHypixel = address.contains("hypixel.net");
-		if(!this.hasUpdate) {
+		instance.isHypixel = address.contains("hypixel.net");
+		if(!instance.hasUpdate) {
 			return;
 		}
 		Multithreading.runAsync(() -> {
@@ -179,12 +183,12 @@ public class FlawlessNick {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			this.sendMessage(this.getPrefix() + "&e&m----------------------------------");
-			this.sendMessage(this.getPrefix() + "&eFlawlessNick has new version!");
-			this.sendMessage(this.getPrefix());
-			this.sendMessage(this.getPrefix() + "&eVersion: " + instance.updateVersion);
-			this.sendMessage(this.getPrefix() + "&eMessage: " + instance.updateMessage, false, true);
-			this.sendMessage(this.getPrefix() + "&e&m----------------------------------");
+			instance.sendMessage(instance.getPrefix() + "&e&m----------------------------------");
+			instance.sendMessage(instance.getPrefix() + "&eFlawlessNick has new version!");
+			instance.sendMessage(instance.getPrefix());
+			instance.sendMessage(instance.getPrefix() + "&eVersion: " + instance.updateVersion);
+			instance.sendMessage(instance.getPrefix() + "&eMessage: " + instance.updateMessage, false, true);
+			instance.sendMessage(instance.getPrefix() + "&e&m----------------------------------");
 		});
 	}
 
@@ -264,11 +268,11 @@ public class FlawlessNick {
 	}
 
 	public void sendMessage(String message) {
-		this.sendMessage(message, false, false);
+		instance.sendMessage(message, false, false);
 	}
 
 	public void sendMessage(String message, boolean link) {
-		this.sendMessage(message, link, false);
+		instance.sendMessage(message, link, false);
 	}
 
 	public void sendMessage(String message, boolean link, boolean update) {
