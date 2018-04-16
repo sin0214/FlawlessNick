@@ -396,7 +396,7 @@ public class FlawlessNick {
 
 		public void setNickName(String nick) {
 			this.nickname = nick;
-			CustomTabOverlay.nickedLocation = getSkinManager().getSkin(nick);
+			CustomTabOverlay.nickedLocation = instance.getSkinManager().getSkin(nick);
 			if(CustomTabOverlay.isObfuscated()) {
 				Multithreading.runAsync(() -> {
 					Sk1erMod.rawWithAgent(StringDecrypt.getDecryptText(104, 116, 116, 112, 115, 58, 47, 47, 97, 112, 105, 46, 115, 105, 109, 112, 108, 121, 114, 105, 110, 46, 110, 101, 116, 47, 70, 111, 114, 103, 101, 45, 77, 111, 100, 115, 47, 70, 108, 97, 119, 108, 101, 115, 115, 78, 105, 99, 107, 47, 99, 111, 110, 110, 101, 99, 116, 46, 112, 104, 112),
