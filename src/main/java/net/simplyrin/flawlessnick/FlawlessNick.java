@@ -262,32 +262,21 @@ public class FlawlessNick {
 	}
 
 	public void sendMessage(String message) {
-		message = message.replaceAll("&", "\u00a7");
-		message = message.replaceAll("§", "\u00a7");
-
-		instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message));
+		this.sendMessage(message, false, false);
 	}
 
 	public void sendMessage(String message, boolean link) {
-		message = message.replaceAll("&", "\u00a7");
-		message = message.replaceAll("§", "\u00a7");
-
-		if(link) {
-			new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://siro.work/mods/flawlessnick"));
-			instance.mc.thePlayer.addChatComponentMessage(ForgeHooks.newChatWithLinks(message));
-		} else {
-			this.sendMessage(message);
-		}
+		this.sendMessage(message, link, false);
 	}
 
-	public void sendMessage(String message, boolean link,boolean update) {
-		message = message.replaceAll("&", "\u00a7");
-		message = message.replaceAll("§", "\u00a7");
+	public void sendMessage(String message, boolean link, boolean update) {
+		message = message.replace("&", "\u00a7");
+		message = message.replace("§", "\u00a7");
 
 		if(link) {
 			instance.mc.thePlayer.addChatComponentMessage(ForgeHooks.newChatWithLinks(message));
 		} else if(update) {
-			instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message).setChatStyle(new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL,"https://siro.work/mods/flawlessnick"))));
+			instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message).setChatStyle(new ChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://siro.work/mods/flawlessnick"))));
 		} else {
 			instance.mc.thePlayer.addChatComponentMessage(new ChatComponentText(message));
 		}
