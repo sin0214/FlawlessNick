@@ -81,7 +81,7 @@ public class BetterJsonObject {
 	 * @param jsonIn the json string to be parsed
 	 */
 	public BetterJsonObject(String jsonIn) {
-		if (jsonIn == null || jsonIn.isEmpty()) {
+		if(jsonIn == null || jsonIn.isEmpty()) {
 			this.data = new JsonObject();
 			return;
 		}
@@ -126,13 +126,13 @@ public class BetterJsonObject {
 	 * @return the value in the json data set or the default if the key cannot be found
 	 */
 	public String optString(String key, String value) {
-		if (key == null || key.isEmpty() || !has(key)) {
+		if(key == null || key.isEmpty() || !has(key)) {
 			return value;
 		}
 
 		JsonPrimitive primitive = asPrimitive(get(key));
 
-		if (primitive != null && primitive.isString()) {
+		if(primitive != null && primitive.isString()) {
 			return primitive.getAsString();
 		}
 		return value;
@@ -161,14 +161,14 @@ public class BetterJsonObject {
 	 * @return the value in the json data set or the default if the key cannot be found
 	 */
 	public int optInt(String key, int value) {
-		if (key == null || key.isEmpty() || !has(key)) {
+		if(key == null || key.isEmpty() || !has(key)) {
 			return value;
 		}
 
 		JsonPrimitive primitive = asPrimitive(get(key));
 
 		try {
-			if (primitive != null && primitive.isNumber()) {
+			if(primitive != null && primitive.isNumber()) {
 				return primitive.getAsInt();
 			}
 		} catch (NumberFormatException ignored) {
@@ -199,14 +199,14 @@ public class BetterJsonObject {
 	 * @return the value in the json data set or the default if the key cannot be found
 	 */
 	public double optDouble(String key, double value) {
-		if (key == null || key.isEmpty() || !has(key)) {
+		if(key == null || key.isEmpty() || !has(key)) {
 			return value;
 		}
 
 		JsonPrimitive primitive = asPrimitive(get(key));
 
 		try {
-			if (primitive != null && primitive.isNumber()) {
+			if(primitive != null && primitive.isNumber()) {
 				return primitive.getAsDouble();
 			}
 		} catch (NumberFormatException ignored) {
@@ -237,13 +237,13 @@ public class BetterJsonObject {
 	 * @return the value in the json data set or the default if the key cannot be found
 	 */
 	public boolean optBoolean(String key, boolean value) {
-		if (key == null || key.isEmpty() || !has(key)) {
+		if(key == null || key.isEmpty() || !has(key)) {
 			return value;
 		}
 
 		JsonPrimitive primitive = asPrimitive(get(key));
 
-		if (primitive != null && primitive.isBoolean()) {
+		if(primitive != null && primitive.isBoolean()) {
 			return primitive.getAsBoolean();
 		}
 		return value;
@@ -274,7 +274,7 @@ public class BetterJsonObject {
 	 * @param value the value
 	 */
 	public BetterJsonObject addProperty(String key, String value) {
-		if (key != null) {
+		if(key != null) {
 			this.data.addProperty(key, value);
 		}
 		return this;
@@ -288,7 +288,7 @@ public class BetterJsonObject {
 	 * @param value the value
 	 */
 	public BetterJsonObject addProperty(String key, Number value) {
-		if (key != null) {
+		if(key != null) {
 			this.data.addProperty(key, value);
 		}
 		return this;
@@ -302,7 +302,7 @@ public class BetterJsonObject {
 	 * @param value the value
 	 */
 	public BetterJsonObject addProperty(String key, Boolean value) {
-		if (key != null) {
+		if(key != null) {
 			this.data.addProperty(key, value);
 		}
 		return this;
@@ -315,7 +315,7 @@ public class BetterJsonObject {
 	 * @param object the object to add
 	 */
 	public BetterJsonObject add(String key, BetterJsonObject object) {
-		if (key != null) {
+		if(key != null) {
 			this.data.add(key, object.getData());
 		}
 		return this;
@@ -331,15 +331,15 @@ public class BetterJsonObject {
 	 * @apiNote Use with caution, we are not responsible for you breaking files
 	 */
 	public void writeToFile(File file) {
-		if (file == null || (file.exists() && file.isDirectory())) {
+		if(file == null || (file.exists() && file.isDirectory())) {
 			// Do nothing if future issues may occur
 			return;
 		}
 
 		try {
-			if (!file.exists()) {
+			if(!file.exists()) {
 				File parent = file.getParentFile();
-				if (parent != null && !parent.exists()) {
+				if(parent != null && !parent.exists()) {
 					parent.mkdirs();
 				}
 				file.createNewFile();

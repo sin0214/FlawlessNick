@@ -54,8 +54,8 @@ public class SkinEvents {
 
 	@SubscribeEvent
 	public void onTick(TickEvent.ClientTickEvent event) {
-		if (Minecraft.getMinecraft().currentScreen == null) {
-			if (this.currentTick > 0) {
+		if(Minecraft.getMinecraft().currentScreen == null) {
+			if(this.currentTick > 0) {
 				--this.currentTick;
 			} else {
 				this.currentTick = 100;

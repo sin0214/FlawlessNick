@@ -54,7 +54,6 @@ public class SkinManager {
 	 */
 	private List<String> logs = new ArrayList<>();
 
-	private Minecraft mc;
 	private AbstractClientPlayer playerIn;
 
 	private String skinName = "";
@@ -105,7 +104,7 @@ public class SkinManager {
 	}
 
 	public void replaceSkin(ResourceLocation location) {
-		if (this.skinName == null || this.skinName.isEmpty() || (this.normalPlayer ? Minecraft.getMinecraft().thePlayer == null : this.playerIn == null)) return;
+		if(this.skinName == null || this.skinName.isEmpty() || (this.normalPlayer ? Minecraft.getMinecraft().thePlayer == null : this.playerIn == null)) return;
 
 		NetworkPlayerInfo playerInfo;
 
@@ -116,8 +115,8 @@ public class SkinManager {
 			return;
 		}
 
-		if (location != null) {
-			if (!location.equals(getPlayer().getLocationSkin())) {
+		if(location != null) {
+			if(!location.equals(getPlayer().getLocationSkin())) {
 				Minecraft.getMinecraft().renderEngine.deleteTexture(getPlayer().getLocationSkin());
 			}
 			try {
@@ -129,7 +128,7 @@ public class SkinManager {
 	}
 
 	public ResourceLocation getSkin(String name) {
-		if (name != null && !name.isEmpty()) {
+		if(name != null && !name.isEmpty()) {
 			final ResourceLocation location = new ResourceLocation("skins/" + name);
 
 			File file1 = new File(new File("./mods/skinchanger".replace("/", File.separator), "skins"), UUID.nameUUIDFromBytes(name.getBytes()).toString());
@@ -138,13 +137,13 @@ public class SkinManager {
 			final IImageBuffer imageBuffer = new ImageBufferDownload();
 			ThreadDownloadImageData imageData = new ThreadDownloadImageData(file2, String.format("https://minotar.net/skin/%s", name), DefaultPlayerSkin.getDefaultSkinLegacy(), new IImageBuffer() {
 				public BufferedImage parseUserSkin(BufferedImage image) {
-					if (imageBuffer != null) {
+					if(imageBuffer != null) {
 						image = imageBuffer.parseUserSkin(image);
 					}
 					return image;
 				}
 				public void skinAvailable() {
-					if (imageBuffer != null) {
+					if(imageBuffer != null) {
 						imageBuffer.skinAvailable();
 					}
 				}
@@ -161,7 +160,7 @@ public class SkinManager {
 	}
 
 	protected void log(String message, Object... replace) {
-		if (logs.contains(message)) return;
+		if(logs.contains(message)) return;
 
 		System.out.println(String.format("[SkinManager] " + message, replace));
 		logs.add(message);

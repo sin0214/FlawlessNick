@@ -76,21 +76,21 @@ public class MojangHooker {
 	 * @return the id
 	 */
 	public String getIdFromUsername(String nameIn) {
-		if (nameIn == null) {
+		if(nameIn == null) {
 			return null;
 		}
 
-		if (nameIn.isEmpty()) {
+		if(nameIn.isEmpty()) {
 			return idCaches.put(nameIn, "");
 		}
 
 		BetterJsonObject profile = getProfileFromUsername(nameIn);
 
-		if (profile.has("success") && !profile.get("success").getAsBoolean()) {
+		if(profile.has("success") && !profile.get("success").getAsBoolean()) {
 			return idCaches.put(nameIn, "");
 		}
 
-		if (profile.has("id")) {
+		if(profile.has("id")) {
 			return idCaches.put(nameIn, profile.get("id").getAsString());
 		}
 		return idCaches.put(nameIn, "");
@@ -103,7 +103,7 @@ public class MojangHooker {
 	 * @return null if an error occured or no id is found in the response
 	 */
 	public BetterJsonObject getTexturesFromName(String name) {
-		if (name == null || name.isEmpty()) {
+		if(name == null || name.isEmpty()) {
 			return new BetterJsonObject();
 		}
 
@@ -117,7 +117,7 @@ public class MojangHooker {
 	 * @return the textures JsonObject or an empty JsonObject if an error occurs
 	 */
 	public BetterJsonObject getTexturesFromId(String id) {
-		if (id == null || id.isEmpty()) {
+		if(id == null || id.isEmpty()) {
 			return new BetterJsonObject();
 		}
 
@@ -133,7 +133,7 @@ public class MojangHooker {
 	 * @return their profile
 	 */
 	public BetterJsonObject getProfileFromUsername(String name) {
-		if (name == null || name.isEmpty()) {
+		if(name == null || name.isEmpty()) {
 			return new BetterJsonObject();
 		}
 
@@ -141,27 +141,27 @@ public class MojangHooker {
 	}
 
 	private BetterJsonObject getEncryptedTexturesUnsafe(String id) throws UnsupportedEncodingException, IllegalStateException, JsonParseException {
-		if (id == null) {
+		if(id == null) {
 			return new BetterJsonObject();
 		}
 
-		if (idEncryptedTextures.containsKey(id)) {
+		if(idEncryptedTextures.containsKey(id)) {
 			return idEncryptedTextures.get(id);
 		}
 
 		BetterJsonObject texturesIn = getTexturesFromId(id);
 
-		if (!texturesIn.has("properties") || !texturesIn.get("properties").isJsonArray()) {
+		if(!texturesIn.has("properties") || !texturesIn.get("properties").isJsonArray()) {
 			return new BetterJsonObject();
 		}
 
 		// Properties is a JsonArray
 		JsonArray propertyArray = texturesIn.get("properties").getAsJsonArray();
 
-		for (JsonElement propertyElement : propertyArray) {
+		for(JsonElement propertyElement : propertyArray) {
 			// This shouldn't actually happen at the time of making this,
 			// This has just been added for if they add anything to the api
-			if (!propertyElement.isJsonObject()) {
+			if(!propertyElement.isJsonObject()) {
 				continue;
 			}
 
@@ -169,13 +169,13 @@ public class MojangHooker {
 			JsonObject property = propertyElement.getAsJsonObject();
 
 			// Found the textures property!
-			if (property.has("name") && property.get("name").getAsString().equals("textures") && property.has("value")) {
+			if(property.has("name") && property.get("name").getAsString().equals("textures") && property.has("value")) {
 				// We need to decode the Base64 value property
 				byte[] decoded = Base64.getDecoder().decode(property.get("value").getAsString());
 				JsonObject decodedObj = new JsonParser().parse(new String(decoded, "UTF-8")).getAsJsonObject();
 
 				// We have a match!
-				if (decodedObj.has("textures") && decodedObj.has("profileId") && decodedObj.get("profileId").getAsString().equals(texturesIn.get("id").getAsString())) {
+				if(decodedObj.has("textures") && decodedObj.has("profileId") && decodedObj.get("profileId").getAsString().equals(texturesIn.get("id").getAsString())) {
 					return idEncryptedTextures.put(id, new BetterJsonObject(decodedObj.get("textures").getAsJsonObject()));
 				}
 			}
@@ -207,24 +207,24 @@ public class MojangHooker {
 	 * @return true if the texture is of the slim model
 	 */
 	private boolean hasSlimSkinUnsafe(String id) throws NullPointerException, UnsupportedEncodingException, IllegalStateException, JsonParseException {
-		if (id == null) {
+		if(id == null) {
 			return false;
 		}
 
-		if (slimSkins.containsKey(id)) {
+		if(slimSkins.containsKey(id)) {
 			return slimSkins.get(id);
 		}
 
 		JsonObject realTextures = getEncryptedTexturesUnsafe(id).getData();
 
 		// Should never happen
-		if (!realTextures.has("SKIN")) {
+		if(!realTextures.has("SKIN")) {
 			return slimSkins.put(id, false);
 		}
 
 		JsonObject skinData = realTextures.get("SKIN").getAsJsonObject();
 
-		if (skinData.has("metadata")) {
+		if(skinData.has("metadata")) {
 			JsonObject metaData = skinData.get("metadata").getAsJsonObject();
 
 			return slimSkins.put(id, metaData.has("model") && metaData.get("model").getAsString().equals("slim"));
@@ -256,12 +256,12 @@ public class MojangHooker {
 	 * @throws UnsupportedEncodingException if the encrypted resource cannot be decrypted
 	 */
 	private ResourceLocation getSkinFromIdUnsafe(String id) throws UnsupportedEncodingException {
-		if (id != null && !id.isEmpty()) {
-			if (skins.containsKey(id)) {
+		if(id != null && !id.isEmpty()) {
+			if(skins.containsKey(id)) {
 				ResourceLocation loc = skins.get(id);
 
 				// Test if the resource is still loaded
-				if (Minecraft.getMinecraft().getTextureManager().getTexture(loc) != null) {
+				if(Minecraft.getMinecraft().getTextureManager().getTexture(loc) != null) {
 					return loc;
 				} else {
 					skins.remove(id);
@@ -271,19 +271,19 @@ public class MojangHooker {
 			JsonObject realTextures = getEncryptedTexturesUnsafe(id).getData();
 
 			// Should never happen
-			if (!realTextures.has("SKIN")) {
+			if(!realTextures.has("SKIN")) {
 				return skins.put(id, DefaultPlayerSkin.getDefaultSkinLegacy());
 			}
 
 			JsonObject skinData = realTextures.get("SKIN").getAsJsonObject();
 
-			if (!skinData.has("url")) {
+			if(!skinData.has("url")) {
 				return skins.put(id, DefaultPlayerSkin.getDefaultSkinLegacy());
 			}
 
 			String url = skinData.get("url").getAsString();
 
-			if (!isTrustedDomain(url)) {
+			if(!isTrustedDomain(url)) {
 				// Spoofed payload? Does not use an official Mojang network...
 				throw new IllegalArgumentException("Invalid payload, the domain issued was not trusted.");
 			}
@@ -299,13 +299,13 @@ public class MojangHooker {
 			ThreadDownloadImageData imageData = new ThreadDownloadImageData(fileLocation, url, DefaultPlayerSkin
 				.getDefaultSkinLegacy(), new IImageBuffer() {
 				public BufferedImage parseUserSkin(BufferedImage image) {
-					if (imageBuffer != null) {
+					if(imageBuffer != null) {
 						image = imageBuffer.parseUserSkin(image);
 					}
 					return image;
 				}
 				public void skinAvailable() {
-					if (imageBuffer != null) {
+					if(imageBuffer != null) {
 						imageBuffer.skinAvailable();
 					}
 				}
@@ -324,10 +324,10 @@ public class MojangHooker {
 	 * @return the response, may not always return as json
 	 */
 	private String getUrl(String url) {
-		if (org.lwjgl.input.Keyboard.isKeyDown(org.lwjgl.input.Keyboard.KEY_L)) {
+		if(org.lwjgl.input.Keyboard.isKeyDown(org.lwjgl.input.Keyboard.KEY_L)) {
 			responses.clear();
 		}
-		if (responses.containsKey(url)) {
+		if(responses.containsKey(url)) {
 			return responses.get(url);
 		}
 
@@ -365,11 +365,11 @@ public class MojangHooker {
 	 * @return the segment or the url if no spitter is found
 	 */
 	private String getLastSegment(String url) {
-		if (url == null) {
+		if(url == null) {
 			return url;
 		}
 
-		if (url.contains("/")) {
+		if(url.contains("/")) {
 			// The final part of the domain
 			String[] last = url.split("/");
 
@@ -404,7 +404,7 @@ public class MojangHooker {
 	 * @throws IllegalArgumentException if the url is not valid
 	 */
 	private boolean isTrustedDomain(String url) {
-		if (url == null) {
+		if(url == null) {
 			return false;
 		}
 
@@ -418,8 +418,8 @@ public class MojangHooker {
 
 		String host = uri.getHost();
 
-		for (String domain : TRUSTED_DOMAINS) {
-			if (host.endsWith(domain)) {
+		for(String domain : TRUSTED_DOMAINS) {
+			if(host.endsWith(domain)) {
 				return true;
 			}
 		}

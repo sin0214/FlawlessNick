@@ -63,8 +63,7 @@ public class ReflectUtils {
 
 	public static <T, E> void setPrivateValue(Class<? super T> classToAccess, T instance, E value, String... fieldNames) {
 		try {
-			ReflectionHelper.setPrivateValue(classToAccess, instance, value,
-				ObfuscationReflectionHelper.remapFieldNames(classToAccess.getName(), fieldNames));
+			ReflectionHelper.setPrivateValue(classToAccess, instance, value, ObfuscationReflectionHelper.remapFieldNames(classToAccess.getName(), fieldNames));
 		} catch (Throwable e) {
 			sendLog("No methods found for arguments: %s !", Arrays.toString(fieldNames));
 		}
