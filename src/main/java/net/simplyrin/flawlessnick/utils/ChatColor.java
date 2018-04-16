@@ -1,4 +1,4 @@
-package net.md_5.bungee.api;
+package net.simplyrin.flawlessnick.utils;
 
 import java.util.HashMap;
 import java.util.Map;

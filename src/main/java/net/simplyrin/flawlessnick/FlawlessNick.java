@@ -15,7 +15,6 @@ import club.sk1er.utils.Sk1erMod;
 import me.boomboompower.skinchanger.SkinEvents;
 import me.boomboompower.skinchanger.utils.MojangHooker;
 import me.boomboompower.skinchanger.utils.models.SkinManager;
-import net.md_5.bungee.api.ChatColor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.GuiIngame;
@@ -37,7 +36,10 @@ import net.simplyrin.flawlessnick.command.FNick;
 import net.simplyrin.flawlessnick.command.FNickMode;
 import net.simplyrin.flawlessnick.command.FNickRank;
 import net.simplyrin.flawlessnick.command.FNickServer;
+import net.simplyrin.flawlessnick.utils.ChatColor;
 import net.simplyrin.flawlessnick.utils.CustomTabOverlay;
+import net.simplyrin.flawlessnick.utils.Json;
+import net.simplyrin.flawlessnick.utils.StringDecrypt;
 
 /**
  * Powered by SimpleNickMod and PvPParticles.

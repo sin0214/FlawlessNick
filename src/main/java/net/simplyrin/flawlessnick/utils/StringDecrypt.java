@@ -1,4 +1,4 @@
-package net.simplyrin.flawlessnick;
+package net.simplyrin.flawlessnick.utils;
 
 /**
  * Created by SimplyRin on 2018/04/09

@@ -6,7 +6,7 @@ import club.sk1er.utils.JsonHolder;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.simplyrin.flawlessnick.FlawlessNick;
-import net.simplyrin.flawlessnick.Json;
+import net.simplyrin.flawlessnick.utils.Json;
 
 public class FNickMode extends CommandBase {
 
