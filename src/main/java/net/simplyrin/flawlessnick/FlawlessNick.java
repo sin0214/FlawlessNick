@@ -424,7 +424,7 @@ public class FlawlessNick {
 			if(this.serverNickName != null) {
 				return this.serverNickName;
 			}
-			return mc.thePlayer.getName();
+			return instance.mc.thePlayer.getName();
 		}
 
 		public boolean isNick() {
