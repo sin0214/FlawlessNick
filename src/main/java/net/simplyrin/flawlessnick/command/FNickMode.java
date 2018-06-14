@@ -1,12 +1,11 @@
 package net.simplyrin.flawlessnick.command;
 
-import java.io.File;
-
-import club.sk1er.utils.JsonHolder;
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.server.MinecraftServer;
 import net.simplyrin.flawlessnick.FlawlessNick;
-import net.simplyrin.flawlessnick.utils.Json;
+import net.simplyrin.jsonloader.JsonLoader;
 
 public class FNickMode extends CommandBase {
 
@@ -21,33 +20,28 @@ public class FNickMode extends CommandBase {
 	}
 
 	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender sender) {
-		return true;
-	}
-
-	@Override
 	public int getRequiredPermissionLevel() {
 		return 0;
 	}
 
 	@Override
-	public void processCommand(ICommandSender sender, String[] args) {
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if(!FlawlessNick.getInstance().isInfo()) {
 			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + FlawlessNick.getInstance().getInfoMessage());
 			return;
 		}
 
 		if(args.length > 0) {
-			JsonHolder json = FlawlessNick.getInstance().getJsonHolder();
+			JsonLoader json = FlawlessNick.getInstance().getJsonLoader();
 			if(args[0].equalsIgnoreCase("cui")) {
 				json.put("Mode", "CUI");
-				Json.saveJson(json, new File("mods/FlawlessNick/config.json"));
+				JsonLoader.saveJson(json, "mods/FlawlessNick/config.json");
 				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aFlawlessNick is now CUI mode!");
 				return;
 			}
 			if(args[0].equalsIgnoreCase("gui")) {
 				json.put("Mode", "GUI");
-				Json.saveJson(json, new File("mods/FlawlessNick/config.json"));
+				JsonLoader.saveJson(json, "mods/FlawlessNick/config.json");
 				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aFlawlessNick is now GUI mode!");
 				return;
 			}

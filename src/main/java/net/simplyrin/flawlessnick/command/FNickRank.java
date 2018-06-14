@@ -1,7 +1,9 @@
 package net.simplyrin.flawlessnick.command;
 
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.server.MinecraftServer;
 import net.simplyrin.flawlessnick.FlawlessNick;
 
 public class FNickRank extends CommandBase {
@@ -17,17 +19,12 @@ public class FNickRank extends CommandBase {
 	}
 
 	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender sender) {
-		return true;
-	}
-
-	@Override
 	public int getRequiredPermissionLevel() {
 		return 0;
 	}
 
 	@Override
-	public void processCommand(ICommandSender sender, String[] args) {
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if(args.length > 0) {
 			FlawlessNick.getInstance().getNickManager().setPrefix(args[0]);
 			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aSet your nick rank to " + args[0] + "&a!");

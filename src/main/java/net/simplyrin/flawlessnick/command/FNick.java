@@ -1,7 +1,9 @@
 package net.simplyrin.flawlessnick.command;
 
 import net.minecraft.command.CommandBase;
+import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.server.MinecraftServer;
 import net.simplyrin.flawlessnick.FlawlessNick;
 import work.siro.mod.flawlessnick.gui.GuiFlawlessNick;
 
@@ -18,23 +20,18 @@ public class FNick extends CommandBase {
 	}
 
 	@Override
-	public boolean canCommandSenderUseCommand(ICommandSender sender) {
-		return true;
-	}
-
-	@Override
 	public int getRequiredPermissionLevel() {
 		return 0;
 	}
 
 	@Override
-	public void processCommand(ICommandSender sender, String[] args) {
+	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if(!FlawlessNick.getInstance().isInfo()) {
 			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + FlawlessNick.getInstance().getInfoMessage());
 			return;
 		}
 
-		if(FlawlessNick.getInstance().getJsonHolder().getString("Mode").equalsIgnoreCase("Gui")) {
+		if(FlawlessNick.getInstance().getJsonLoader().getString("Mode").equalsIgnoreCase("Gui")) {
 			new GuiFlawlessNick().display();
 			return;
 		}
@@ -49,7 +46,6 @@ public class FNick extends CommandBase {
 
 			if(args[0].equalsIgnoreCase("reset") || args[0].equalsIgnoreCase("clear")) {
 				FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
-				FlawlessNick.getInstance().getSkinManager().reset();
 				FlawlessNick.getInstance().getNickManager().setNick(false);
 				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYour nick has been reset!");
 				return;
@@ -60,9 +56,8 @@ public class FNick extends CommandBase {
 			}
 
 			FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
-			FlawlessNick.getInstance().getSkinManager().update(args[0]);
-			FlawlessNick.getInstance().getNickManager().setNick(true);
 			FlawlessNick.getInstance().getNickManager().setNickName(args[0]);
+			FlawlessNick.getInstance().getNickManager().setNick(true);
 			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYou are now nicked as " + args[0] + "&a!");
 			return;
 		}

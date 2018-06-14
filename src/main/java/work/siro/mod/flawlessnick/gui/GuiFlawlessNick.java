@@ -22,13 +22,11 @@ public class GuiFlawlessNick extends GuiScreen {
 	private GuiButton resetButton;
 	private static GuiTextField nickNameField;
 	private static GuiTextField nickRankField;
-	private static GuiTextField serverNickNameField;
 
 	@Override
 	public void initGui() {
 		nickNameField = new GuiTextField(0, this.fontRendererObj, this.width / 2 - 75, this.height / 2 - 33, 150, 20);
 		nickRankField = new GuiTextField(1, this.fontRendererObj, this.width / 2 - 75, this.height / 2 - 11, 150, 20);
-		serverNickNameField = new GuiTextField(2,this.fontRendererObj,this.width / 2 - 75, this.height / 2 + 11,150, 20);
 
 		if(FlawlessNick.getInstance().getNickManager().isNick()) {
 			if(!FlawlessNick.getInstance().getNickManager().getNickName().isEmpty()) {
@@ -41,15 +39,9 @@ public class GuiFlawlessNick extends GuiScreen {
 			} else {
 				nickRankField.setText("§7NickRank");
 			}
-			if(!FlawlessNick.getInstance().getNickManager().getServerNickName().isEmpty()) {
-			    serverNickNameField.setText(FlawlessNick.getInstance().getNickManager().getServerNickName());
-            } else{
-                serverNickNameField.setText("§7ServerNickName");
-            }
 		} else {
 			nickNameField.setText("§7NickName");
 			nickRankField.setText("§7NickRank");
-			serverNickNameField.setText("§7ServerNickName");
 		}
 
 		doneButton = new GuiButton(2, this.width / 2 - 75, this.height / 2 + 33, 150, 20, "Done");
@@ -63,9 +55,8 @@ public class GuiFlawlessNick extends GuiScreen {
 		super.drawDefaultBackground();
 		nickNameField.drawTextBox();
 		nickRankField.drawTextBox();
-		serverNickNameField.drawTextBox();
-		drawString(fontRendererObj,"FlawlessNick "+FlawlessNick.VERSION+" by @SimplyRin_, @SiroQ_",this.width/2-mc.fontRendererObj.getStringWidth("FlawlessNick "+FlawlessNick.VERSION+" by @SimplyRin_, @SiroQ_")/2, this.height / 2 - 66,16777215);
-        drawString(fontRendererObj,"Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium",this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")/2, this.height / 2 - 55,16777215);
+		drawString(fontRendererObj,"FlawlessNick " + FlawlessNick.VERSION + " by @SimplyRin_, @SiroQ_", this.width / 2 - mc.fontRendererObj.getStringWidth("FlawlessNick "+FlawlessNick.VERSION+" by @SimplyRin_, @SiroQ_")/2, this.height / 2 - 66,16777215);
+        drawString(fontRendererObj,"Powered by SimpleNickMod, PvPParticles",this.width/2-mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles")/2, this.height / 2 - 55,16777215);
 		drawString(fontRendererObj,"Setting: https://siro.work/mods/flawlessnick",this.width/2-mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/flawlessnick")/2, this.height / 2 - 44,16777215);
         super.drawScreen(mouseX, mouseY, partialTicks);
 	}
@@ -85,7 +76,6 @@ public class GuiFlawlessNick extends GuiScreen {
 	protected void keyTyped(char typedChar, int keyCode) throws IOException {
 		nickNameField.textboxKeyTyped(typedChar, keyCode);
 		nickRankField.textboxKeyTyped(typedChar, keyCode);
-		serverNickNameField.textboxKeyTyped(typedChar,keyCode);
 		super.keyTyped(typedChar, keyCode);
 	}
 
@@ -98,14 +88,10 @@ public class GuiFlawlessNick extends GuiScreen {
 				this.openUrl("https://twitter.com/SiroQ_");
 			}
 		} else if(mouseY >= this.height / 2 - 55 && mouseY <= this.height / 2 - 45) {
-			if(mouseX >= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")/ 2 +mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod")){
+			if(mouseX >= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles") / 2 + mc.fontRendererObj.getStringWidth("Powered by ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles")/ 2 +mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod")){
 				this.openUrl("https://github.com/SimplyRin/SimpleNickMod");
-			} else if(mouseX >= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles")) {
+			} else if(mouseX >= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles")) {
 				this.openUrl("https://github.com/SiroQ/PvPParticles");
-			} else if(mouseX >= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger")) {
-				this.openUrl("https://github.com/boomboompower/SkinChanger");
-			} else if(mouseX >= this.width / 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod PvPParticles, SkinChanger, ") && mouseX <= this.width/ 2 - mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium") / 2 + mc.fontRendererObj.getStringWidth("Powered by SimpleNickMod, PvPParticles, SkinChanger, Hyperium")) {
-				this.openUrl("https://github.com/HyperiumClient/Hyperium");
 			}
 		} else if(mouseY >= this.height / 2 - 44 && mouseY <= this.height /2 -34) {
             if(mouseX >= this.width / 2 - mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/flawlessnick") / 2 + mc.fontRendererObj.getStringWidth("Setting: ") && mouseX <= this.width / 2 - mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/flawlessnick") / 2 + mc.fontRendererObj.getStringWidth("Setting: https://siro.work/mods/flawlessnick")){
@@ -114,7 +100,6 @@ public class GuiFlawlessNick extends GuiScreen {
         }
 		nickNameField.mouseClicked(mouseX, mouseY, mouseButton);
 		nickRankField.mouseClicked(mouseX, mouseY, mouseButton);
-		serverNickNameField.mouseClicked(mouseX,mouseY,mouseButton);
 		if(nickNameField.isFocused()) {
 			if(nickNameField.getText().equals("§7NickName")) {
 				nickNameField.setText("");
@@ -133,15 +118,6 @@ public class GuiFlawlessNick extends GuiScreen {
 				nickRankField.setText("§7NickRank");
 			}
 		}
-		if(serverNickNameField.isFocused()) {
-		    if(serverNickNameField.getText().equals("§7ServerNickName")){
-		        serverNickNameField.setText("");
-            }
-        } else {
-		    if(serverNickNameField.getText().isEmpty()){
-                serverNickNameField.setText("§7ServerNickName");
-            }
-        }
 		super.mouseClicked(mouseX, mouseY, mouseButton);
 	}
 
@@ -156,9 +132,6 @@ public class GuiFlawlessNick extends GuiScreen {
 						return;
 					}
 				}
-				if(!serverNickNameField.getText().isEmpty() && !serverNickNameField.getText().equals("§7ServerNickName")){
-				    FlawlessNick.getInstance().getNickManager().setServerNickName(serverNickNameField.getText());
-                }
 
 				String nick = nickNameField.getText();
 				if(nick.length() > 16) {
@@ -166,9 +139,7 @@ public class GuiFlawlessNick extends GuiScreen {
 				}
 
 				FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
-				FlawlessNick.getInstance().getSkinManager().setSkinName(nick);
 				FlawlessNick.getInstance().getNickManager().setNick(true);
-				FlawlessNick.getInstance().getNickManager().setNickName(nick);
 				FlawlessNick.getInstance().getNickManager().setPrefix(nickRankField.getText());
 				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYou are now nicked as " + nick + "&a!");
 				FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aSet your nick rank to " + nickRankField.getText() + "&a!");
@@ -179,9 +150,7 @@ public class GuiFlawlessNick extends GuiScreen {
 		} else if(button.id == 3) {
 			nickNameField.setText("§7NickName");
 			nickRankField.setText("§7NickRank");
-			serverNickNameField.setText("§7ServerNickName");
 			FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
-			FlawlessNick.getInstance().getSkinManager().reset();
 			FlawlessNick.getInstance().getNickManager().setNick(false);
 		}
 		super.actionPerformed(button);
@@ -191,7 +160,6 @@ public class GuiFlawlessNick extends GuiScreen {
 	public void updateScreen() {
 		nickNameField.updateCursorCounter();
 		nickRankField.updateCursorCounter();
-		serverNickNameField.updateCursorCounter();
 	}
 
 	@Override

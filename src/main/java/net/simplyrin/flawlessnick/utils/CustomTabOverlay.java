@@ -15,14 +15,13 @@ import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EnumPlayerModelParts;
-import net.minecraft.scoreboard.IScoreObjectiveCriteria;
+import net.minecraft.scoreboard.IScoreCriteria;
 import net.minecraft.scoreboard.ScoreObjective;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Scoreboard;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.IChatComponent;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.WorldSettings;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -35,10 +34,9 @@ import net.simplyrin.flawlessnick.FlawlessNick.FieldWrap;
 public class CustomTabOverlay extends GuiPlayerTabOverlay {
 
 	private Minecraft mc;
-	public static ResourceLocation nickedLocation;
 	private Ordering<NetworkPlayerInfo> ordering = Ordering.from(new PlayerComparator());
-	private FieldWrap<IChatComponent> footer = new FieldWrap<>(isObfuscated() ? "field_175255_h" : "footer", GuiPlayerTabOverlay.class);
-	private FieldWrap<IChatComponent> header = new FieldWrap<>(isObfuscated() ? "field_175256_i" : "header", GuiPlayerTabOverlay.class);
+	private FieldWrap<ITextComponent> footer = new FieldWrap<>(isObfuscated() ? "field_175255_h" : "footer", GuiPlayerTabOverlay.class);
+	private FieldWrap<ITextComponent> header = new FieldWrap<>(isObfuscated() ? "field_175256_i" : "header", GuiPlayerTabOverlay.class);
 	private FieldWrap<Long> lastTimeOpened = new FieldWrap<>(isObfuscated() ? "field_175253_j" : "lastTimeOpened", GuiPlayerTabOverlay.class);
 
 	public CustomTabOverlay(Minecraft mc, GuiIngame guiIngameIn) {
@@ -48,7 +46,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 
 	@Override
 	public void renderPlayerlist(int width, Scoreboard scoreboardIn, ScoreObjective scoreObjectiveIn) {
-		List<NetworkPlayerInfo> list = ordering.sortedCopy(this.mc.getNetHandler().getPlayerInfoMap());
+		List<NetworkPlayerInfo> list = ordering.sortedCopy(this.mc.getConnection().getPlayerInfoMap());
 		int i = 0;
 		int j = 0;
 
@@ -60,25 +58,25 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						if(name.contains(prefix + " " + FlawlessNick.getInstance().getMinecraft().thePlayer.getName())) {
 							name = name.replace(prefix + " " + FlawlessNick.getInstance().getMinecraft().thePlayer.getName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
 						}
-						if(FlawlessNick.getInstance().getNickManager().getServerNickName() != null){
-							if(!FlawlessNick.getInstance().getNickManager().getServerNickName().isEmpty()){
-								name = FlawlessNick.getInstance().getNickManager().getServerNickName().replace(prefix + " " + FlawlessNick.getInstance().getNickManager().getServerNickName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
+						if(FlawlessNick.getInstance().getNickManager().getNickName() != null){
+							if(!FlawlessNick.getInstance().getNickManager().getNickName().isEmpty()){
+								name = FlawlessNick.getInstance().getNickManager().getNickName().replace(prefix + " " + FlawlessNick.getInstance().getNickManager().getNickName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
 							}
 						}
 					}
 					int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo).replace(FlawlessNick.getInstance().getMinecraft().thePlayer.getName(), FlawlessNick.getInstance().getNickManager().getNickName()));
 					i = Math.max(i, k);
 
-					if(scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
-						k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkPlayerInfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
+					if(scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreCriteria.EnumRenderType.HEARTS) {
+						k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getOrCreateScore(networkPlayerInfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
 						j = Math.max(j, k);
 					}
 				} else {
 					int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo));
 					i = Math.max(i, k);
 
-					if(scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
-						k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkPlayerInfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
+					if(scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreCriteria.EnumRenderType.HEARTS) {
+						k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getOrCreateScore(networkPlayerInfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
 						j = Math.max(j, k);
 					}
 				}
@@ -86,8 +84,8 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 				int k = this.mc.fontRendererObj.getStringWidth(this.getPlayerName(networkPlayerInfo));
 				i = Math.max(i, k);
 
-				if(scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
-					k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getValueFromObjective(networkPlayerInfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
+				if(scoreObjectiveIn != null && scoreObjectiveIn.getRenderType() != IScoreCriteria.EnumRenderType.HEARTS) {
+					k = this.mc.fontRendererObj.getStringWidth(" " + scoreboardIn.getOrCreateScore(networkPlayerInfo.getGameProfile().getName(), scoreObjectiveIn).getScorePoints());
 					j = Math.max(j, k);
 				}
 			}
@@ -102,11 +100,11 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 			++j4;
 		}
 
-		boolean flag = this.mc.isIntegratedServerRunning() || this.mc.getNetHandler().getNetworkManager().getIsencrypted();
+		boolean flag = this.mc.isIntegratedServerRunning() || this.mc.getConnection().getNetworkManager().isEncrypted();
 		int l;
 
 		if(scoreObjectiveIn != null) {
-			if(scoreObjectiveIn.getRenderType() == IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
+			if(scoreObjectiveIn.getRenderType() == IScoreCriteria.EnumRenderType.HEARTS) {
 				l = 90;
 			} else {
 				l = j;
@@ -122,18 +120,18 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 		List<String> list1 = null;
 		List<String> list2 = null;
 
-		IChatComponent header = (IChatComponent) this.header.get((Object) this);
+		ITextComponent header = (ITextComponent) this.header.get((Object) this);
 		if(header != null) {
-			list1 = this.mc.fontRendererObj.listFormattedStringToWidth(((IChatComponent) header).getFormattedText(), width - 50);
+			list1 = this.mc.fontRendererObj.listFormattedStringToWidth(((ITextComponent) header).getFormattedText(), width - 50);
 
 			for(String s : list1) {
 				l1 = Math.max(l1, this.mc.fontRendererObj.getStringWidth(s));
 			}
 		}
 
-		IChatComponent footer = (IChatComponent) this.footer.get((Object) this);
+		ITextComponent footer = (ITextComponent) this.footer.get((Object) this);
 		if(footer != null) {
-			list2 = this.mc.fontRendererObj.listFormattedStringToWidth(((IChatComponent) footer).getFormattedText(), width - 50);
+			list2 = this.mc.fontRendererObj.listFormattedStringToWidth(((ITextComponent) footer).getFormattedText(), width - 50);
 
 			for(String s2 : list2) {
 				l1 = Math.max(l1, this.mc.fontRendererObj.getStringWidth(s2));
@@ -168,7 +166,6 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 			if(k4 < list.size()) {
 				NetworkPlayerInfo networkPlayerInfo = (NetworkPlayerInfo) list.get(k4);
 				String s1 = this.getPlayerName(networkPlayerInfo);
-
 				if(FlawlessNick.getInstance().isInfo()) {
 					if(FlawlessNick.getInstance().getNickManager().isNick()) {
 						EntityPlayerSP player = Minecraft.getMinecraft().thePlayer;
@@ -176,31 +173,25 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						s1 = s1.replace("&r", "");
 
 						for(String prefix : FlawlessNick.getInstance().getRankList()) {
-							if(s1.contains(prefix + " " + player.getName()) || s1.contains(prefix + " " + FlawlessNick.getInstance().getNickManager().getServerNickName())) {
+							if(s1.contains(prefix + " " + player.getName()) || s1.contains(prefix + " " + FlawlessNick.getInstance().getNickManager().getNickName())) {
 								s1 = s1.replace(prefix + " " + player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
-                                s1 = s1.replace(prefix + " " + FlawlessNick.getInstance().getNickManager().getServerNickName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
+                                s1 = s1.replace(prefix + " " + FlawlessNick.getInstance().getNickManager().getNickName(), FlawlessNick.getInstance().getNickManager().getPrefix() + " " + FlawlessNick.getInstance().getNickManager().getNickName());
 							}
 						}
-						if(s1.startsWith("&b&lA ") || s1.startsWith("&9&lB ") || s1.startsWith("&8&lS ") || s1.startsWith("&a&lG ") || s1.startsWith("&d&lP ") || s1.startsWith("&c&lR ") || s1.startsWith("&f&lW ") || s1.startsWith("&e&lY ")) {
+						if(s1.startsWith("&f[&cR&f]") || s1.startsWith("&f[&eY&f]") || s1.startsWith("&f[&aG&f]") || s1.startsWith("&f[&9B&f]")) {
 							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
-							s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getNickName());
-						} else if(s1.startsWith("&a[C&a]") || s1.startsWith("&a[D&a]") || s1.startsWith("&a[E&a]") || s1.startsWith("&a[F&a]") || s1.startsWith("&a[G&a]") || s1.startsWith("&a[H&a]") || s1.startsWith("&a[I&a]") || s1.startsWith("&a[J&a]") || s1.startsWith("&a[K&a]") || s1.startsWith("&a[L&a]") || s1.startsWith("&a[M&a]") || s1.startsWith("&a[N&a]")) {
-							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
-							s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getNickName());
-						} else if(s1.startsWith("&7[C&7]") || s1.startsWith("&7[D&7]") || s1.startsWith("&7[E&7]") || s1.startsWith("&7[F&7]") || s1.startsWith("&7[G&7]") || s1.startsWith("&7[H&7]") || s1.startsWith("&7[I&7]") || s1.startsWith("&7[J&7]") || s1.startsWith("&7[K&7]") || s1.startsWith("&7[L&7]") || s1.startsWith("&7[M&7]") || s1.startsWith("&7[N&7]")){
-							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
-							s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getNickName());
+							s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getNickName(), FlawlessNick.getInstance().getNickManager().getNickName());
 						} else if(s1.contains("&")) {
-							if(s1.equals("&a" + FlawlessNick.getInstance().getMinecraft().thePlayer.getName()) || s1.equals("&a" + FlawlessNick.getInstance().getNickManager().getServerNickName())) {
+							if(s1.equals("&a" + FlawlessNick.getInstance().getMinecraft().thePlayer.getName()) || s1.equals("&a" + FlawlessNick.getInstance().getNickManager().getNickName())) {
 								s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
-								s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getNickName());
-							} else if(s1.contains(player.getName()) || s1.contains(FlawlessNick.getInstance().getNickManager().getServerNickName())) {
+								s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getNickName(), FlawlessNick.getInstance().getNickManager().getNickName());
+							} else if(s1.contains(player.getName()) || s1.contains(FlawlessNick.getInstance().getNickManager().getNickName())) {
 								s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
-								s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
+								s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getNickName(), FlawlessNick.getInstance().getNickManager().getPrefix().substring(0, 2) + FlawlessNick.getInstance().getNickManager().getNickName());
 							}
 						} else {
 							s1 = s1.replace(player.getName(), FlawlessNick.getInstance().getNickManager().getNickName());
-							s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getServerNickName(),FlawlessNick.getInstance().getNickManager().getNickName());
+							s1 = s1.replace(FlawlessNick.getInstance().getNickManager().getNickName(), FlawlessNick.getInstance().getNickManager().getNickName());
 						}
 
 						s1 = s1.replace("&", "§");
@@ -209,27 +200,11 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 
 				GameProfile gameProfile = networkPlayerInfo.getGameProfile();
 
+				this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
+
 				if(flag) {
 					EntityPlayer entityPlayer = this.mc.theWorld.getPlayerEntityByUUID(gameProfile.getId());
 					boolean flag1 = entityPlayer != null && entityPlayer.isWearing(EnumPlayerModelParts.CAPE) && (gameProfile.getName().equals("Dinnerbone") || gameProfile.getName().equals("Grumm"));
-					if(entityPlayer != null) {
-						if(entityPlayer.getName().equals(FlawlessNick.getInstance().getMinecraft().thePlayer.getName()) || entityPlayer.getName().equals(FlawlessNick.getInstance().getNickManager().getServerNickName())) {
-							if(FlawlessNick.getInstance().getNickManager().isNick()) {
-								if(nickedLocation != null){
-									this.mc.getTextureManager().bindTexture(nickedLocation);
-								}else {
-									nickedLocation = FlawlessNick.getInstance().getSkinManager().getSkin(FlawlessNick.getInstance().getNickManager().getNickName());
-									this.mc.getTextureManager().bindTexture(nickedLocation);
-								}
-							} else {
-								this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
-							}
-						} else {
-							this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
-						}
-					} else {
-						this.mc.getTextureManager().bindTexture(networkPlayerInfo.getLocationSkin());
-					}
 					int l2 = 8 + (flag1 ? 8 : 0);
 					int i3 = 8 * (flag1 ? -1 : 1);
 					drawScaledCustomSizeModalRect(j2, k2, 8.0F, (float) l2, 8, i3, 8, 8, 64.0F, 64.0F);
@@ -244,7 +219,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 				}
 
 				if(networkPlayerInfo.getGameType() == WorldSettings.GameType.SPECTATOR) {
-					s1 = EnumChatFormatting.ITALIC + s1;
+					s1 = TextFormatting.ITALIC + s1;
 					this.mc.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1862270977);
 				} else {
 					this.mc.fontRendererObj.drawStringWithShadow(s1, (float) j2, (float) k2, -1);
@@ -276,34 +251,34 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 	}
 
 	private void drawScoreboardValues(ScoreObjective objective, int p_175247_2_, String string, int p_175247_4_, int p_175247_5_, NetworkPlayerInfo networkPlayerInfo) {
-		int i = objective.getScoreboard().getValueFromObjective(string, objective).getScorePoints();
+		int i = objective.getScoreboard().getOrCreateScore(string, objective).getScorePoints();
 
 		Long lastTimeOpened = (Long) this.lastTimeOpened.get((Object) this);
 
-		if(objective.getRenderType() == IScoreObjectiveCriteria.EnumRenderType.HEARTS) {
-			this.mc.getTextureManager().bindTexture(icons);
+		if(objective.getRenderType() == IScoreCriteria.EnumRenderType.HEARTS) {
+			this.mc.getTextureManager().bindTexture(ICONS);
 
-			if(lastTimeOpened == networkPlayerInfo.func_178855_p()) {
-				if (i < networkPlayerInfo.func_178835_l()) {
-					networkPlayerInfo.func_178846_a(Minecraft.getSystemTime());
-					networkPlayerInfo.func_178844_b((long) (this.mc.ingameGUI.getUpdateCounter() + 20));
-				} else if (i > networkPlayerInfo.func_178835_l()) {
-					networkPlayerInfo.func_178846_a(Minecraft.getSystemTime());
-					networkPlayerInfo.func_178844_b((long) (this.mc.ingameGUI.getUpdateCounter() + 10));
+			if(lastTimeOpened == networkPlayerInfo.getRenderVisibilityId()) {
+				if (i < networkPlayerInfo.getLastHealth()) {
+					networkPlayerInfo.setLastHealthTime(Minecraft.getSystemTime());
+					networkPlayerInfo.setHealthBlinkTime((long) (this.mc.ingameGUI.getUpdateCounter() + 20));
+				} else if (i > networkPlayerInfo.getLastHealth()) {
+					networkPlayerInfo.setLastHealthTime(Minecraft.getSystemTime());
+					networkPlayerInfo.setHealthBlinkTime((long) (this.mc.ingameGUI.getUpdateCounter() + 10));
 				}
 			}
 
-			if(Minecraft.getSystemTime() - networkPlayerInfo.func_178847_n() > 1000L || lastTimeOpened != networkPlayerInfo.func_178855_p()) {
-				networkPlayerInfo.func_178836_b(i);
-				networkPlayerInfo.func_178857_c(i);
-				networkPlayerInfo.func_178846_a(Minecraft.getSystemTime());
+			if(Minecraft.getSystemTime() - networkPlayerInfo.getLastHealthTime() > 1000L || lastTimeOpened != networkPlayerInfo.getRenderVisibilityId()) {
+				networkPlayerInfo.setLastHealth(i);
+				networkPlayerInfo.setDisplayHealth(i);
+				networkPlayerInfo.setLastHealthTime(Minecraft.getSystemTime());
 			}
 
-			networkPlayerInfo.func_178843_c(lastTimeOpened);
-			networkPlayerInfo.func_178836_b(i);
-			int j = MathHelper.ceiling_float_int((float) Math.max(i, networkPlayerInfo.func_178860_m()) / 2.0F);
-			int k = Math.max(MathHelper.ceiling_float_int((float) (i / 2)), Math.max(MathHelper.ceiling_float_int((float) (networkPlayerInfo.func_178860_m() / 2)), 10));
-			boolean flag = networkPlayerInfo.func_178858_o() > (long) this.mc.ingameGUI.getUpdateCounter() && (networkPlayerInfo.func_178858_o() - (long) this.mc.ingameGUI.getUpdateCounter()) / 3L % 2L == 1L;
+			networkPlayerInfo.setRenderVisibilityId(lastTimeOpened);
+			networkPlayerInfo.setLastHealth(i);
+			int j = MathHelper.ceiling_float_int((float) Math.max(i, networkPlayerInfo.getDisplayHealth()) / 2.0F);
+			int k = Math.max(MathHelper.ceiling_float_int((float) (i / 2)), Math.max(MathHelper.ceiling_float_int((float) (networkPlayerInfo.getDisplayHealth() / 2)), 10));
+			boolean flag = networkPlayerInfo.getHealthBlinkTime() > (long) this.mc.ingameGUI.getUpdateCounter() && (networkPlayerInfo.getHealthBlinkTime() - (long) this.mc.ingameGUI.getUpdateCounter()) / 3L % 2L == 1L;
 
 			if(j > 0) {
 				float f = Math.min((float) (p_175247_5_ - p_175247_4_ - 4) / (float)k, 9.0F);
@@ -317,12 +292,12 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 						this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, flag ? 25 : 16, 0, 9, 9);
 
 						if(flag) {
-							if (j1 * 2 + 1 < networkPlayerInfo.func_178860_m())
+							if (j1 * 2 + 1 < networkPlayerInfo.getDisplayHealth())
 							{
 								this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 70, 0, 9, 9);
 							}
 
-							if (j1 * 2 + 1 == networkPlayerInfo.func_178860_m())
+							if (j1 * 2 + 1 == networkPlayerInfo.getDisplayHealth())
 							{
 								this.drawTexturedModalRect((float) p_175247_4_ + (float) j1 * f, (float) p_175247_2_, 79, 0, 9, 9);
 							}
@@ -349,7 +324,7 @@ public class CustomTabOverlay extends GuiPlayerTabOverlay {
 				}
 			}
 		} else {
-			String s1 = EnumChatFormatting.YELLOW + "" + i;
+			String s1 = TextFormatting.YELLOW + "" + i;
 			this.mc.fontRendererObj.drawStringWithShadow(s1, (float) (p_175247_5_ - this.mc.fontRendererObj.getStringWidth(s1)), (float) p_175247_2_, 16777215);
 		}
 	}
