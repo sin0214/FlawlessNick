@@ -25,6 +25,7 @@ import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToSe
 import net.simplyrin.flawlessnick.command.FNick;
 import net.simplyrin.flawlessnick.command.FNickMode;
 import net.simplyrin.flawlessnick.command.FNickRank;
+import net.simplyrin.flawlessnick.command.FUnNick;
 import net.simplyrin.flawlessnick.utils.ChatColor;
 import net.simplyrin.flawlessnick.utils.CustomTabOverlay;
 import net.simplyrin.flawlessnick.utils.JsonLoader;
@@ -34,6 +35,21 @@ import net.simplyrin.flawlessnick.utils.ThreadPool;
 
 /**
  * Powered by SimpleNickMod and PvPParticles.
+ *
+ * Copyright (C) 2018 FlawlessNick
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 @Mod(modid = FlawlessNick.MODID, version = FlawlessNick.VERSION, clientSideOnly = true)
 public class FlawlessNick {
@@ -68,6 +84,7 @@ public class FlawlessNick {
 		ClientCommandHandler.instance.registerCommand(new FNick());
 		ClientCommandHandler.instance.registerCommand(new FNickRank());
 		ClientCommandHandler.instance.registerCommand(new FNickMode());
+		ClientCommandHandler.instance.registerCommand(new FUnNick());
 
 		File folder = new File("mods/FlawlessNick");
 		if(!folder.exists()) {

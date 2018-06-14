@@ -22,16 +22,16 @@ import net.simplyrin.flawlessnick.FlawlessNick;
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-public class FNickRank extends CommandBase {
+public class FUnNick extends CommandBase {
 
 	@Override
 	public String getCommandName() {
-		return "fnickrank";
+		return "funnick";
 	}
 
 	@Override
 	public String getCommandUsage(ICommandSender sender) {
-		return "/fnickrank <prefix>";
+		return "/funnick";
 	}
 
 	@Override
@@ -41,14 +41,9 @@ public class FNickRank extends CommandBase {
 
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-		if(args.length > 0) {
-			FlawlessNick.getInstance().getNickManager().setPrefix(args[0]);
-			FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aSet your nick rank to " + args[0] + "&a!");
-			return;
-		}
-
-		FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&cUsage: /fnickrank <prefix>");
-		return;
+		FlawlessNick.getInstance().getMinecraft().renderGlobal.loadRenderers();
+		FlawlessNick.getInstance().getNickManager().setNick(false);
+		FlawlessNick.getInstance().sendMessage(FlawlessNick.getInstance().getPrefix() + "&aYour nick has been reset!");
 	}
 
 }
