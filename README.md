@@ -1,5 +1,5 @@
 # FlawlessNick
-Hypixel やその他のサーバーでローカル環境 Nick ができる Mod です。
+Shotbow やその他のサーバーで自分の名前を別のニックネームに変更することができる Mod です。
 
 Powered by [SimpleNickMod](https://github.com/SimplyRin/SimpleNickMod), [PvPParticles](https://github.com/SiroQ/PvPParticles)
 
@@ -7,8 +7,3 @@ Powered by [SimpleNickMod](https://github.com/SimplyRin/SimpleNickMod), [PvPPart
 ・[SimplyRin](https://www.simplyrin.net/)
 
 ・[SiroQ](https://siro.work/)
-
-# Special Thanks
-この Mod は [boomboompower](https://github.com/boomboompower) の [SkinChanger](https://github.com/boomboompower/SkinChanger) を使用しています。
-
-この Mod は [HyperiumClient](https://github.com/HyperiumClient/Hyperium) の一部コードを使用しています。
