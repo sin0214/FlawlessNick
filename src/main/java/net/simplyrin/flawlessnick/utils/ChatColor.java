@@ -1,4 +1,4 @@
-package net.simplyrin.chatcolor;
+package net.simplyrin.flawlessnick.utils;
 
 import java.util.Arrays;
 import java.util.List;

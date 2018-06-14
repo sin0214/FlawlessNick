@@ -1,4 +1,4 @@
-package net.simplyrin.httpclient;
+package net.simplyrin.flawlessnick.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

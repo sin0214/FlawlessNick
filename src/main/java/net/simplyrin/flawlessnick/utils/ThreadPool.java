@@ -1,4 +1,4 @@
-package net.simplyrin.threadpool;
+package net.simplyrin.flawlessnick.utils;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

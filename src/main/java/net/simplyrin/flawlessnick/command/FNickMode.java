@@ -5,7 +5,7 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.simplyrin.flawlessnick.FlawlessNick;
-import net.simplyrin.jsonloader.JsonLoader;
+import net.simplyrin.flawlessnick.utils.JsonLoader;
 
 public class FNickMode extends CommandBase {
 

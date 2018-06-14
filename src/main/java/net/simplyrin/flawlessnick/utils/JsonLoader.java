@@ -1,4 +1,4 @@
-package net.simplyrin.jsonloader;
+package net.simplyrin.flawlessnick.utils;
 
 import java.io.File;
 import java.io.FileWriter;

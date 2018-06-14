@@ -22,15 +22,15 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent.ClientConnectedToServerEvent;
-import net.simplyrin.chatcolor.ChatColor;
 import net.simplyrin.flawlessnick.command.FNick;
 import net.simplyrin.flawlessnick.command.FNickMode;
 import net.simplyrin.flawlessnick.command.FNickRank;
+import net.simplyrin.flawlessnick.utils.ChatColor;
 import net.simplyrin.flawlessnick.utils.CustomTabOverlay;
+import net.simplyrin.flawlessnick.utils.JsonLoader;
+import net.simplyrin.flawlessnick.utils.RHttpClient;
 import net.simplyrin.flawlessnick.utils.StringDecrypt;
-import net.simplyrin.httpclient.RHttpClient;
-import net.simplyrin.jsonloader.JsonLoader;
-import net.simplyrin.threadpool.ThreadPool;
+import net.simplyrin.flawlessnick.utils.ThreadPool;
 
 /**
  * Powered by SimpleNickMod and PvPParticles.
