@@ -412,7 +412,7 @@ public class FlawlessNick {
 			if(instance.isHypixel) {
 				return this.prefix;
 			} else {
-				return "";
+				return "§f";
 			}
 		}
 
